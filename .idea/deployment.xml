@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="homestead">
+    <serverData>
+      <paths name="Skladišna Logistika">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath path="/.env" />
+            <excludedPath path="/storage" />
+            <excludedPath path="/cgi-bin" />
+            <excludedPath path="/.well-known" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="skladisna-logistika.dev">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/../../Polleo/projects/report/node_modules" />
+            <excludedPath path="/storage" />
+            <excludedPath path="/.env" />
+            <excludedPath path="/cgi-bin" />
+            <excludedPath path="/.well-known" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

@@ -1,0 +1,9 @@
+POST https://serviceapp.skladisna-logistika.hr/external/getOrderDataForWeb
+Content-Type: application/x-www-form-urlencoded
+
+param1=HR02001010170&param2=wpDNE&country_code=HR
+
+<> 2020-06-09T014359.500.html
+
+###
+

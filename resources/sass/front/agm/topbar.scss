@@ -1,0 +1,32 @@
+
+.primary-btn {
+    background-color: $theme-color;
+    color: white !important;
+
+    &:hover {
+        background-color: #dddddd;
+        color: $body-bg-dark !important;
+    }
+}
+
+.primary-btn-search {
+    color: $theme-color !important;
+    font-weight: bold;
+
+    &:hover {
+        background-color: #dddddd;
+        color: $body-bg-dark !important;
+    }
+}
+
+.primary-nav-search {
+    color: $theme-color !important;
+    font-weight: bold;
+
+    &:hover {
+        color: $body-bg-dark !important;
+    }
+}
+
+
+

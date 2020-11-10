@@ -38,12 +38,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    /*public function index()
     {
-        //$sliders = Slider::home()->get();
+        $sliders = Slider::home()->get();
 
-        return view('front.home'/*, compact('sliders')*/);
-    }
+        return view('front.home', compact('sliders'));
+    }*/
 
 
     /**
@@ -89,7 +89,7 @@ class HomeController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function landing()
+    /*public function landing()
     {
 
         $sliders = Cache::rememberForever('home_sl', function () {
@@ -104,7 +104,7 @@ class HomeController extends Controller
         return view('front.page.landing',
             compact('sliders', 'latest_products', 'top_products', 'popular_products', 'blogs'));
 
-    }
+    }*/
 
 
     /**

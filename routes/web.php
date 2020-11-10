@@ -238,19 +238,19 @@ Route::prefix('api/v1')->group(function () {
 
     Route::get('trazi', 'Api\v1\SearchController@index')->name('api.search');
 });
+
 Route::get('pretraga', 'Api\v1\SearchController@all')->name('search.all');
 
 //
 // FRONT routes
 //
-Route::get('/home', 'Front\HomeController@index')->name('home');
+//Route::get('/home', 'Front\HomeController@index')->name('home');
 Route::get('/', 'Front\HomeController@home')->name('index');
 Route::get('info/{page}', 'Front\HomeController@page')->name('info.page');
-
 Route::get('info/o-nama', 'Front\HomeController@page')->name('o-nama');
 
 Route::get('access/vip/{landing}', 'Front\LandingController@index')->name('landing');
-Route::get('landing/', 'Front\HomeController@landing');
+//Route::get('landing/', 'Front\HomeController@landing');
 
 Route::get('tal/{page?}', 'Front\HomeController@tal')->name('tal');
 

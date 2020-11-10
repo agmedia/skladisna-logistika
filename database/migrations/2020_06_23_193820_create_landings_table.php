@@ -26,6 +26,7 @@ class CreateLandingsTable extends Migration
             $table->text('statement')->nullable();
             $table->timestamp('date_start')->nullable();
             $table->timestamp('date_end')->nullable();
+            $table->boolean('has_map')->default(false);
             $table->boolean('is_published')->default(false);
             $table->integer('viewed')->unsigned()->default(0);
             $table->timestamps();

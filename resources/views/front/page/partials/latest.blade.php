@@ -29,10 +29,4 @@
         </div>
     @endforeach
 
-
-
-
-
-
-
 </div>

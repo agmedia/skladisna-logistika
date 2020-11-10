@@ -7,9 +7,21 @@
                 <div class="col_full nobottommargin">
                     <div class="widget clearfix">
                         <div class="row ">
+                            <div class="col-md-12 col-xs-12  divcenter bottommargin-lg">
+                                <div class="heading-block center bottommargin-sm"><h2>Newsletter</h2>
+                                    <span class="notopmargin">Prijavi se i budi u tijeku sa najboljim akcijama i najnovijom ponudom.</span>
+                                </div>
+                                <div class="input-group divcenter" style="max-width:500px;">
+                                    <input type="email" id="newsletter-input" name="subscribe_email" class="form-control required email" placeholder="Upišite vaš email...">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-danger" type="submit" id="validate_newsletter">Prijavi se</button>
+                                    </div>
+                                </div>
+                                <p class="text-center nobottommargin " style="margin-top:10px"><input type="checkbox" class="chk2" id="newsletter-cb"> Dajem <a href="https://www.skladisna-logistika.hr/info/izjava-o-davanju-suglasnosti-za-obradu-osobnih-podataka" target="_blank">privolu</a> za primanje Newsletter-a.</p>
+                            </div>
                             <div class="col-md-4 col-xs-12  widget_links">
                                 <h3>Odjel prodaje</h3>
-                                <address><strong>Goran Kerečin - direktor postprodaje</strong><br>Tel.: <a href="tel:0038513374143">+385 1 3374 143</a><br>Mob.:&nbsp; <a href="tel:00385992286606">+385 99 2286 606</a><br>E-mail: <a href="mailto:goran.kerecin@skladisna-logistika.hr">goran.kerecin@skladisna-logistika.hr</a></address>
+                                <address><strong>Goran Kerečin - voditelj prodaje</strong><br>Tel.: <a href="tel:0038513374143">+385 1 3374 143</a><br>Mob.:&nbsp; <a href="tel:00385992286606">+385 99 2286 606</a><br>E-mail: <a href="mailto:goran.kerecin@skladisna-logistika.hr">goran.kerecin@skladisna-logistika.hr</a></address>
                             </div>
                             <div class="col-md-4 col-xs-12 widget_links">
                                 <h3>Prijava kvarova - Servis</h3>
@@ -18,14 +30,15 @@
                             <div class="col-md-4 col-xs-12  widget_links">
                                 <h3>Skladišna logistika d.o.o.</h3>
                                 <address>Ventilatorska cesta 5a<br>10251 Hrvatski Leskovac - Zagreb<br>Tel.: <a href="tel:0038516536026">+385 1 6536 026</a> - Fax.: +385 1 6536027<br> E-mail: <a href="mailto:info@skladisna-logistika.hr">info@skladisna-logistika.hr</a></address>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div><!-- .footer-widgets-wrap end -->
         </div>
-    @endif
-    <!-- Copyrights
+@endif
+<!-- Copyrights
     ============================================= -->
     <div id="copyrights">
         <div class="container clearfix">
@@ -51,3 +64,36 @@
         </div>
     </div><!-- #copyrights end -->
 </footer><!-- #footer end -->
+
+@push('js')
+    <script>
+        $("#validate_newsletter").on("click", validate);
+
+        function validate() {
+            let result = $("#newsletter-input");
+            let email = result.val();
+
+            let cb = document.getElementById('newsletter-cb').checked
+
+            if(validateEmail(email) && cb) {
+                result.removeClass('bg-danger');
+                axios.get('{{ route('newsletter.subscribe') }}?email=' + email)
+                    .then((res) => {
+                        return window.ToastSuccess.fire('Korisnik je upisan..!');
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        window.ToastWarning.fire('Nešto je pošlo krivo! Molimo pokušajte kasnije.');
+                    })
+            } else {
+                result.addClass('bg-danger');
+            }
+            return false;
+        }
+
+        function validateEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+    </script>
+@endpush

@@ -81,7 +81,7 @@ class LandingController extends Controller
                 $landing->saveDocument($stored, $request->file('file'));
             }
 
-            return redirect()->route('landings')->with(['success' => 'Landing je uspješno snimljen.!']);
+            return redirect()->back()->with(['success' => 'Landing je uspješno snimljen.!']);
         }
 
         return redirect()->back()->with(['error' => 'Whoops..! Došlo je do greške sa snimanjem landing stranice.']);
@@ -138,7 +138,7 @@ class LandingController extends Controller
                 $landing->saveDocument($landing, $request->file('file'));
             }
 
-            return redirect()->route('landings')->with(['success' => 'Landing je uspješno snimljen.!']);
+            return redirect()->back()->with(['success' => 'Landing je uspješno snimljen.!']);
         }
 
         return redirect()->back()->with(['error' => 'Whoops..! Došlo je do greške sa snimanjem landing stranice.']);

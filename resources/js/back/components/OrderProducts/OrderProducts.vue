@@ -108,6 +108,7 @@
                 this.Sort()
             }
 
+            console.log(this.products)
             console.log(this.totals)
         },
         //

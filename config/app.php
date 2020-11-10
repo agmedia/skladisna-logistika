@@ -170,6 +170,8 @@ return [
          * Package Service Providers...
          */
         \Maatwebsite\Excel\ExcelServiceProvider::class,
+        Darryldecode\Cart\CartServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -230,6 +232,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => \Maatwebsite\Excel\Facades\Excel::class,
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

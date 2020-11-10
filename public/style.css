@@ -149,7 +149,15 @@ fieldset,
 form { margin-bottom: 30px; }
 
 small { font-family: 'Lato', sans-serif; }
+.spad h3{margin-bottom:10px!important}
 
+span.pret{
+	color: #8a8a8a;
+	font-weight: 400;
+	font-family: Titillium-Semibold,sans-serif;
+	font-size: 16px;
+	line-height: 1.5em
+	}
 
 /* ----------------------------------------------------------------
 	Helper Classes
@@ -318,7 +326,7 @@ span.middot {
 .bgcolor,
 .bgcolor #header-wrap { background-color: #bb001e !important; }
 
-.color { color: #bb001e !important; }
+.color { color: #bb001e !important;font-style: normal }
 
 .border-color { border-color: #bb001e !important; }
 
@@ -1201,6 +1209,15 @@ body.no-superfish #primary-menu li:hover > .mega-menu-content { display: block; 
 	margin: 0 15px;
 	width: 1140px;
 	max-width: none;
+
+}
+
+.sticky-header > #primary-menu ul li.mega-menu .mega-menu-content {
+    margin: 0 15px;
+    width: 1140px;
+    max-width: none;
+    top:60px;
+
 }
 
 .floating-header #primary-menu ul li.mega-menu .mega-menu-content {
@@ -1289,12 +1306,14 @@ body.stretched #header.full-header #primary-menu ul li.mega-menu .mega-menu-cont
 	margin: 8px -10px 0 0 !important;
 	border: none !important;
 	padding: 0 !important;
+    font-style:normal
 }
 
 .mega-menu-column .entry-meta li {
 	float: left !important;
 	border: none !important;
 	margin: 0 10px 0 0 !important;
+    font-style:normal!important;
 }
 
 
@@ -1748,7 +1767,7 @@ body.top-search-open #top-search form {
 	color: #333;
 	width:260px;
 	float:right;
-	
+
 	margin-top: 10px !important;
 	/*! font-family: 'Titillium-Regular'; */
 
@@ -1791,7 +1810,7 @@ body:not(.device-md):not(.device-sm):not(.device-xs) #header.transparent-header:
 
 #top-cart > a > span {
 	margin-right:5px;
-	
+
 }
 
 #top-cart .top-cart-content {
@@ -4856,8 +4875,8 @@ body.device-touch.device-xs .portfolio-notitle .portfolio-overlay { display: non
 	line-height: 14px;
 	margin: 0 10px 15px 0;
 	color: #999;
-	font-family: 'Crete Round', serif;
-	font-style: italic;
+
+	font-style: normal!important;
 }
 
 .entry-meta li:before {
@@ -4927,7 +4946,7 @@ body:not(.device-touch) .entry-link {
 	display: block;
 	margin-top: 5px;
 	font-family: 'Crete Round', serif;
-	font-style: italic;
+	font-style: normal;
 	font-weight: normal;
 	text-transform: none;
 	letter-spacing: 0;
@@ -4940,7 +4959,7 @@ body:not(.device-touch) .entry-link {
 .entry blockquote p {
 	font-weight: 400;
 	font-family: 'Crete Round', serif;
-	font-style: italic;
+	font-style: normal;
 }
 
 
@@ -5281,7 +5300,7 @@ body:not(.device-touch) .entry-link {
 	border-bottom: 1px solid #bb001e;
 	padding: 0 2px;
 	font-family: 'Crete Round', serif;
-	font-style: italic;
+	font-style: normal;
 }
 
 .more-link:hover { border-bottom-color: #555; }
@@ -5374,6 +5393,7 @@ body:not(.device-touch) .entry-link {
 .mpost .entry-meta li {
 	font-size: 13px;
 	margin: 0 10px 0 0;
+    font-style: normal;
 }
 
 
@@ -5556,7 +5576,7 @@ body:not(.device-touch) .entry-link {
 	font-size: 12px;
 	font-weight: normal;
 	font-family: 'Crete Round', serif;
-	font-style: italic;
+	font-style: normal;
 	color: #AAA;
 }
 
@@ -5669,7 +5689,7 @@ div.alignright {
 	text-align: center;
 	margin: 10px 20px 13px 20px;
 	font-family: 'Lato', Georgia, "Times New Roman", Times, serif;
-	font-style: italic;
+	font-style: normal;
 }
 
 .wp-caption img,
@@ -6595,7 +6615,7 @@ body:not(.device-touch) .button {
 	font-weight: 400;
 	letter-spacing: 1px;
 	font-family: 'Crete Round', serif;
-	font-style: italic;
+	font-style: normal;
 	text-transform: none;
 }
 
@@ -7766,8 +7786,8 @@ body:not(.device-touch) .button.button-full strong {
 .feature-box.fbox-center.noborder:not(.fbox-bg) h3:after,
 .feature-box.fbox-center.nobottomborder:not(.fbox-bg) h3:after { display: none; }
 
-.feature-box.fbox-center.fbox-italic p {
-	font-style: italic;
+.feature-box.fbox-center.fbox-normal p {
+	font-style: normal;
 	font-family: 'Lato', sans-serif;
 }
 
@@ -9602,7 +9622,7 @@ body:not(.device-touch) .clients-grid li a {
 .testi-content p {
 	margin-bottom: 0;
 	font-family: 'Crete Round', serif;
-	font-style: italic;
+	font-style: normal;
 }
 
 .testi-content p:before,
@@ -9792,7 +9812,7 @@ body:not(.device-touch) .clients-grid li a {
 	color: #bb001e;
 	font-weight: 400;
 	font-family: 'Crete Round', serif;
-	font-style: italic;
+	font-style: normal;
 	font-size: 15px;
 	margin-top: 5px;
 }
@@ -11424,7 +11444,7 @@ input[type=checkbox]:not(:checked) + label.error { display: block !important; }
 	margin: 0 0 5px;
 	font-size: 16px;
 	font-family: 'Crete Round', serif;
-	font-style: italic;
+	font-style: normal;
 	font-weight: 400;
 	color: #999;
 }
@@ -12512,7 +12532,7 @@ body:not(.device-touch) .tagcloud a {
 	margin-top: 10px;
 	font-size: 56px;
 	font-weight: 400;
-	font-style: italic;
+	font-style: normal;
 	font-family: 'Crete Round', serif;
 	text-transform: none;
 }

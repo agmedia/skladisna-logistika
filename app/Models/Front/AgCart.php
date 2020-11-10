@@ -2,10 +2,10 @@
 
 namespace App\Models\Front;
 
-use Cart;
+
+use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 
 class AgCart extends Model
 {
@@ -53,6 +53,10 @@ class AgCart extends Model
      */
     public function add($request, $id = null)
     {
+        Log::debug('AgCart::add');
+        Log::debug($request);
+        Log::debug($id);
+
         if ($id) {
             foreach ($this->cart->getContent() as $item) {
                 if ($item->id == $request['item']['id']) {
@@ -128,6 +132,8 @@ class AgCart extends Model
     private function structureCart($request)
     {
         $product = Product::where('id', $request['item']['id'])->first();
+        $cat = isset($product->category()->slug) ? $product->category()->slug : '';
+        $subcat = isset($product->subcategory()->slug) ? $product->subcategory()->slug : '';
 
         return [
             'id'              => $product->id,
@@ -136,7 +142,7 @@ class AgCart extends Model
             'quantity'        => $request['item']['quantity'],
             'associatedModel' => $product,
             'attributes' => [
-                'url' => Str::slug($product->clientAsArray()->name) . '/' . $product->category()->slug . '/' . $product->subcategory()->slug . '/',
+                'url' => 'toyota-vilicari/' . $cat . '/' . $subcat . '/',
                 'client' => $product->client
             ]
         ];
@@ -151,7 +157,11 @@ class AgCart extends Model
      */
     private function getActionPrice($price, $action)
     {
-        return number_format(($price - ($price * ($action->discount / 100))), 2);
+        if (isset($action->price) && ! empty($action->price)) {
+            return number_format($action->price, 2, '.', '');
+        }
+
+        return number_format(($price - ($price * ($action->discount / 100))), 2, '.', '');
     }
 
 }

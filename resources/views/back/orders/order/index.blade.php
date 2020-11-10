@@ -85,10 +85,10 @@
                                 <strong>{{ number_format($order->total, 2, ',', '.') }}</strong> <span class="text-muted">kn</span>
                             </td>
                             <td class="d-none d-sm-table-cell text-right">
-                                <a href="{{ route('order.edit', ['id' => $order->id]) }}" class="btn btn-sm btn-outline-secondary js-tooltip-enabled" data-toggle="tooltip" data-title="Uredi">
-                                    <i class="fa fa-pencil"></i> Uredi
+                                <a href="{{ route('order.edit', ['id' => $order->id]) }}" class="btn btn-sm btn-circle btn-alt-info js-tooltip-enabled" data-toggle="tooltip" data-title="Uredi">
+                                    <i class="fa fa-pencil"></i>
                                 </a>
-                                <button type="button" class="btn btn-sm btn-circle btn-alt-danger" onclick="event.preventDefault(); shouldDelete({{ $order }});">
+                                <button type="button" class="btn btn-sm btn-circle btn-alt-danger js-tooltip-enabled" data-toggle="tooltip" data-title="Obriši" onclick="event.preventDefault(); shouldDelete({{ $order }});">
                                     <i class="fa fa-times"></i>
                                 </button>
                             </td>

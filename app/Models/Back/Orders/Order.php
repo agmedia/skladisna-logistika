@@ -100,6 +100,13 @@ class Order extends Model
             'lname'           => 'required',
             'address'         => 'required',
             'city'            => 'required',
+            'zip'             => 'required',
+            'email'           => 'required',
+            'ship_fname'      => 'required',
+            'ship_lname'      => 'required',
+            'ship_address'    => 'required',
+            'ship_city'       => 'required',
+            'ship_zip'        => 'required',
             'email'           => 'required',
             'items'           => 'required',
             'sums'            => 'required',
@@ -126,15 +133,15 @@ class Order extends Model
             'address'      => 'required',
             'zip'          => 'required',
             'city'         => 'required',
-            'phone'        => 'required',
             'email'        => 'required',
+            'phone'        => 'required',
             'ship_fname'   => 'required',
             'ship_lname'   => 'required',
             'ship_address' => 'required',
             'ship_zip'     => 'required',
             'ship_city'    => 'required',
-            'ship_phone'   => 'required',
             'ship_email'   => 'required',
+            'ship_phone'   => 'required',
         ]);
 
         $this->setRequest($request);
@@ -144,58 +151,12 @@ class Order extends Model
 
 
     /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function resolveClients()
-    {
-        $response = [];
-        $order = json_decode($this->request->order_data);
-        $items = $order->items;
-
-        foreach ($items as $item) {
-            $response[$item->associatedModel->client_id][] = $item;
-        }
-
-        return collect($response);
-    }
-
-
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function resolveClientShipping()
-    {
-        $response = [];
-        $order = json_decode($this->request->order_data);
-        $items = $order->shipping;
-
-        foreach ($items as $item) {
-            $response[$item->client_id] = $item;
-        }
-
-        return collect($response);
-    }
-
-
-    /**
-     * @return string
-     */
-    public function pay()
-    {
-        return 'Payment proccess implementation needed..!';
-    }
-
-
-    /**
-     * @param $client_id
-     * @param $items
      *
      * @return bool
      */
-    public function make($client_id, $items, $shipping)
+    public function make()
     {
         $id = $this->insertGetId([
-            'client_id'        => $client_id,
             'user_id'          => auth()->user() ? auth()->user()->id : 0,
             'order_status_id'  => 1,
             'payment_fname'    => $this->request->fname,
@@ -216,18 +177,29 @@ class Order extends Model
             'shipping_email'   => $this->request->ship_email,
             'shipping_method'  => $this->request->shipping,
             'shipping_code'    => '',
+            'company'          => isset($this->request->company) ? $this->request->company : null,
+            'oib'              => isset($this->request->oib) ? $this->request->oib : null,
             'created_at'       => Carbon::now(),
             'updated_at'       => Carbon::now()
         ]);
 
         if ($id) {
-            OrderProduct::make($items, $id);
-            OrderTotal::make($items, $id, $shipping);
+            (new OrderProduct())->make($this->request, $id);
+            (new OrderTotal())->make($this->request, $id);
 
             return $this->find($id);
         }
 
         return false;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function pay()
+    {
+        return 'Payment proccess implementation needed..!';
     }
 
 
@@ -257,7 +229,6 @@ class Order extends Model
     private function storeData()
     {
         $id = $this->insertGetId([
-            'client_id'        => auth()->user()->clientId() ? auth()->user()->clientId() : 0,
             'order_status_id'  => $this->request->order_status,
             'payment_fname'    => $this->request->fname,
             'payment_lname'    => $this->request->lname,
@@ -268,15 +239,17 @@ class Order extends Model
             'payment_email'    => $this->request->email,
             'payment_method'   => $this->request->payment_method,
             'payment_code'     => null,
-            'shipping_fname'   => $this->request->fname,
-            'shipping_lname'   => $this->request->lname,
-            'shipping_address' => $this->request->address,
-            'shipping_zip'     => $this->request->zip,
-            'shipping_city'    => $this->request->city,
-            'shipping_phone'   => $this->request->phone ? $this->request->phone : null,
-            'shipping_email'   => $this->request->email,
+            'shipping_fname'   => $this->request->ship_fname,
+            'shipping_lname'   => $this->request->ship_lname,
+            'shipping_address' => $this->request->ship_address,
+            'shipping_zip'     => $this->request->ship_zip,
+            'shipping_city'    => $this->request->ship_city,
+            'shipping_phone'   => $this->request->ship_phone ? $this->request->ship_phone : null,
+            'shipping_email'   => $this->request->ship_email,
             'shipping_method'  => $this->request->shipping_method,
             'shipping_code'    => '',
+            'company'          => isset($this->request->company) ? $this->request->company : null,
+            'oib'              => isset($this->request->oib) ? $this->request->oib : null,
             'created_at'       => Carbon::now(),
             'updated_at'       => Carbon::now()
         ]);
@@ -306,14 +279,16 @@ class Order extends Model
             'payment_phone'    => $this->request->phone ? $this->request->phone : null,
             'payment_email'    => $this->request->email,
             'payment_method'   => $this->request->payment_method,
-            'shipping_fname'   => $this->request->fname,
-            'shipping_lname'   => $this->request->lname,
-            'shipping_address' => $this->request->address,
-            'shipping_zip'     => $this->request->zip,
-            'shipping_city'    => $this->request->city,
-            'shipping_phone'   => $this->request->phone ? $this->request->phone : null,
-            'shipping_email'   => $this->request->email,
+            'shipping_fname'   => $this->request->ship_fname,
+            'shipping_lname'   => $this->request->ship_lname,
+            'shipping_address' => $this->request->ship_address,
+            'shipping_zip'     => $this->request->ship_zip,
+            'shipping_city'    => $this->request->ship_city,
+            'shipping_phone'   => $this->request->ship_phone ? $this->request->ship_phone : null,
+            'shipping_email'   => $this->request->ship_email,
             'shipping_method'  => $this->request->shipping_method,
+            'company'          => isset($this->request->company) ? $this->request->company : null,
+            'oib'              => isset($this->request->oib) ? $this->request->oib : null,
             'updated_at'       => Carbon::now()
         ]);
 
@@ -343,11 +318,7 @@ class Order extends Model
     {
         $query = (new Order())->newQuery();
 
-        if (Bouncer::is(auth()->user())->an('editor')) {
-            $query->where('client_id', auth()->user()->clientId());
-        }
-
-        return $query->with('status', 'client')->orderBy('id', 'desc')->limit($count)->get();
+        return $query->with('status')->orderBy('id', 'desc')->limit($count)->get();
     }
 
 

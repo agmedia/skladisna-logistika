@@ -225,7 +225,8 @@
         }
 
     </style>
-    <!-- Progressive Enhancements : END -->
+
+    @stack('css')
 
 </head>
 <!--

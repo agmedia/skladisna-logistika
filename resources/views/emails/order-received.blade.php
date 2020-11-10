@@ -18,11 +18,11 @@
         <tr>
             <td class="ag-mail-tableset">
                 {{ __('mail.selected_payment') }}:
-                @if ($order->payment == 'ponuda')
-                    <b>{{ __('mail.ponuda') }}</b>
-                @elseif ($order->payment == 'cash')
+                @if ($order->payment_method == 'bank')
+                    <b>{{ __('mail.bank') }}</b>
+                @elseif ($order->payment_method == 'cash')
                     <b>{{ __('mail.cash') }}</b>
-                @elseif ($order->payment == 'card')
+                @elseif ($order->payment_method == 'card')
                     <b>{{ __('mail.card') }}</b>
                 @else
                     <b>{{ __('mail.paypal') }}</b>
@@ -33,14 +33,14 @@
         </tr>
         <tr>
             <td style="padding: 0 20px 20px 18px;">
-                <a href="{{ route('home') }}" style="display: block; display: inline-block;">
-                    <img src="http://optimatransfer.selectpo.lin48.host25.com/media/mailsignaturelogo.png" width="180" alt="alt_text" border="0" style="height: auto;">
+                <a href="{{ route('index') }}" style="display: block; display: inline-block;">
+                    <img src="https://www.skladisna-logistika.hr/media/images/sllogo.svg" width="180" alt="alt_text" border="0" style="height: auto;">
                 </a>
             </td>
         </tr>
         <tr>
             <td class="ag-mail-tableset" style="text-align: center;">
-                <a href="{{ route('orders.show', ['order' => $order->id]) }}" class="ag-btn">
+                <a href="{{ route('order.edit', ['id' => $order->id]) }}" class="ag-btn">
                     {{ __('mail.btn_admin') }}
                 </a>
             </td>

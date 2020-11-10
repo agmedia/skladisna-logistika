@@ -134,6 +134,9 @@ class Product extends Model
         if ($product) {
             if ($id) {
                 ProductAttributes::updateData($this->request, $id);
+                // Delete, if any action on the product
+                ProductAction::where('product_id', $id)->delete();
+
             } else {
                 ProductAttributes::storeData($this->request, $product->id);
             }
@@ -240,9 +243,6 @@ class Product extends Model
      */
     public function storeAction($id)
     {
-        // Delete, if any action on the product
-        ProductAction::where('product_id', $id)->delete();
-
         // Insert new action
         $_id = ProductAction::insertGetId([
             'product_id' => $id,
@@ -274,7 +274,7 @@ class Product extends Model
      */
     public function hasAction()
     {
-        if ($this->request->date_start != '' or $this->request->date_end != '' or $this->request->discount != '') {
+        if ($this->request->date_start != '' or $this->request->date_end != '' or $this->request->discount != '' or $this->request->action_price != '') {
             return true;
         }
 

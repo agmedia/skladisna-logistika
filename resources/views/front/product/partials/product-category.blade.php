@@ -1,8 +1,7 @@
 <div class="product clearfix" >
     <div class="product-inner" >
-        <div class="product-image loading">
-            <a href="{{ $link }}"><img class="b-lazy" src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
-                                       data-src="{{ asset($product->image) ?? 'media/images/sl-logo.png' }}"
+        <div class="product-image ">
+            <a href="{{ $link }}"><img loading="lazy" src="{{ asset($product->image) ?? 'media/images/sl-logo.png' }}"
                                        data-src-small="{{ asset($product->image) ?? 'media/images/sl-logo.png' }}"
                                        alt="{{ $product->sku }}"></a>
             @if ($product->topponuda)

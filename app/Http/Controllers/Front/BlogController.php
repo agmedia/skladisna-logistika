@@ -44,7 +44,7 @@ class BlogController extends Controller
         // Ako je subcategory i blog.
         if ($subcat && $blog) {
             $subcat = $subcategory;
-            
+
 
             return view('front.blog.index', compact('cat', 'subcat', 'blog'));
         }
@@ -54,7 +54,7 @@ class BlogController extends Controller
             // Ako subcategory nije kategorija.
             // Provjeri je li blog.
             if ( ! $subcategory) {
-                $blog = Blog::where('slug', $subcat)->first();
+                $blog = Blog::published()->where('slug', $subcat)->first();
 
                 if ($blog) {
                     return view('front.blog.index', compact('cat', 'blog'));

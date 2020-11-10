@@ -15,8 +15,8 @@ return [
     */
 
     'mailgun' => [
-        'domain' => env('MAILGUN_DOMAIN'),
-        'secret' => env('MAILGUN_SECRET'),
+        'domain'   => env('MAILGUN_DOMAIN'),
+        'secret'   => env('MAILGUN_SECRET'),
         'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
     ],
 
@@ -25,7 +25,7 @@ return [
     ],
 
     'ses' => [
-        'key' => env('AWS_ACCESS_KEY_ID'),
+        'key'    => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
@@ -35,18 +35,23 @@ return [
     ],
 
     /*******************************************************************************
-    *                                Copyright : AGmedia                           *
-    *                              email: filip@agmedia.hr                         *
-    *******************************************************************************/
+     *                                Copyright : AGmedia                           *
+     *                              email: filip@agmedia.hr                         *
+     *******************************************************************************/
 
     'recaptcha' => [
-        'sitekey' => env('GOOGLE_RECAPTCHA_SITE_KEY'),
-        'secret' => env('GOOGLE_RECAPTCHA_SECRET_KEY'),
+        'sitekey'    => env('GOOGLE_RECAPTCHA_SITE_KEY'),
+        'secret'     => env('GOOGLE_RECAPTCHA_SECRET_KEY'),
         'verify_url' => 'https://www.google.com/recaptcha/api/siteverify',
     ],
 
+    'mailchimp' => [
+        'api_key'       => env('MAILCHIMP_API_KEY'),
+        'server_prefix' => env('MAILCHIMP_SERVER_PREFIX'),
+    ],
+
     /*******************************************************************************
-    *                              END Copyright : AGmedia                         *
-    *******************************************************************************/
+     *                              END Copyright : AGmedia                         *
+     *******************************************************************************/
 
 ];

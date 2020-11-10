@@ -114,7 +114,7 @@ mix
 
     /* JS */
     /* MAIN CUSTOM SCRIPT COPY */
-    //.js('resources/front/js/vue/app.js', 'public/js/cart.js')
+    .js('resources/js/front/vue/app.js', 'public/js/cart.js')
     //.scripts(['resources/front/js/custom.js'], 'public/js/base.js')
     /**/
     /* Base vendors */

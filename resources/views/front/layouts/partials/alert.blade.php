@@ -1,7 +1,8 @@
 @if ($errors->any())
-    <div class="alert alert-danger">
-        <i class="fa fa-exclamation-circle"></i> Molimo vas da provjerite formu za unos podataka..! Možda nedostaju koji podaci?
-        <button type="button" class="close" data-dismiss="alert">×</button>
+    <div class="col-lg-12">
+        <div class="style-msg errormsg">
+            <div class="sb-msg"><i class="icon-remove"></i><strong>Whoops..!</strong> Molimo vas da provjerite formu za unos podataka..! Možda nedostaju koji podaci?</div>
+        </div>
     </div>
 @endif
 

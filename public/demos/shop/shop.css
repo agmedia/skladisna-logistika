@@ -38,7 +38,7 @@
 	#top-cart,
 	#side-panel-trigger,
 	#top-account {
-		margin-top: 0px;
+		margin-top: 19px;
 		margin-bottom: 0px;
 		padding: 0 5px;
 	}
@@ -76,7 +76,7 @@
 	#header.sticky-header:not(.static-sticky) #side-panel-trigger,
 	#header.sticky-header:not(.static-sticky) #top-account {
 		margin-top: 5px !important;
-		margin-bottom: 10px !important;
+		margin-bottom: 5px !important;
 	}
 
 	#header.sticky-header:not(.static-sticky) #top-account { padding: 0 15px; }
@@ -118,7 +118,7 @@ h2.main-headline{
 	text-transform: none;
 	color: #333;
 	font-weight: 400;
-	
+
 }
 
 .heading-block h2.main-headline + span {

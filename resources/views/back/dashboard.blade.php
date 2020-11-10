@@ -55,9 +55,6 @@
                                         <span class="badge badge-pill badge-light">{{ $order->status->name }}</span>
                                     </td>
                                     <td class="font-w600 pl-3">{{ $order->shipping_fname }} {{ $order->shipping_lname }}</td>
-                                    @if (Bouncer::is(auth()->user())->an('admin'))
-                                        <td class="text-center font-size-sm">{!! isset($order->client) ? $order->client->name : '<span class="badge badge-pill badge-info">Mix</span>' !!}</td>
-                                    @endif
                                     <td class="text-right font-size-sm" style="width: 120px;">
                                         <strong>{{ number_format($order->total, 2, ',', '.') }}</strong> <span class="text-muted">kn</span>
                                     </td>

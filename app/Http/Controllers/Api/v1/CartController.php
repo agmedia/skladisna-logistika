@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Models\Front\AgCart;
 use App\Models\Front\Product;
-use Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 
 class CartController extends Controller
 {
@@ -100,9 +98,16 @@ class CartController extends Controller
     }
 
 
+    /**
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getProduct($id)
     {
-        $product = Product::where('id', $id)->with('action', 'client')->first();
+        $product = Product::where('id', $id)->with('action')->first();
+        $cat = isset($product->category()->slug) ? $product->category()->slug : '';
+        $subcat = isset($product->subcategory()->slug) ? $product->subcategory()->slug : '';
 
         return response()->json([
             'id'              => $product->id,
@@ -111,15 +116,25 @@ class CartController extends Controller
             'quantity'        => 1,
             'associatedModel' => $product,
             'attributes' => [
-                'url' => Str::slug($product->clientAsArray()->name) . '/' . $product->category()->slug . '/' . $product->subcategory()->slug . '/',
+                'url' => 'toyota-vilicari/' . $cat . '/' . $subcat . '/',
                 'client' => $product->client
             ]
         ]);
     }
 
 
+    /**
+     * @param $price
+     * @param $action
+     *
+     * @return string
+     */
     private function getActionPrice($price, $action)
     {
+        if (isset($action->price) && ! empty($action->price)) {
+            return number_format($action->price, 2);
+        }
+
         return number_format(($price - ($price * ($action->discount / 100))), 2);
     }
 }

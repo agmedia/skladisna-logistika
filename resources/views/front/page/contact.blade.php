@@ -24,7 +24,7 @@
                     <div class="card col_half">
                         <div class="card-body">
                             <h3>Odjel prodaje</h3>
-                            <p><strong>Goran Kerečin - direktor postprodaje</strong>
+                            <p><strong>Goran Kerečin - voditelj prodaje</strong>
                                 <br>Tel.: <a href="tel:+38513374143">+385 1 3374 143</a>
                                 <br>Mob.:&nbsp; <a href="tel:+385992286 606">+ 385 99 2286 606</a>
                                 <br>e-mail: <a href="mailto:goran.kerecin@skladisna-logistika.hr">goran.kerecin@skladisna-logistika.hr</a></p>
@@ -43,8 +43,9 @@
                             <p>Ventilatorska cesta 5a<br> 10251 Hrvatski Leskovac, Zagreb, Hrvatska<br>Tel.: <a href="tel:+38516536026">+385 1 6536 026</a><br> Fax.: +385 1 6536 027<br> e-mail: <a href="mailto:info@skladisna-logistika.hr">info@skladisna-logistika.hr</a><br>OIB: 81060143905<br> Žiro račun: HR2824840081103360295 - RBA d.d. Zagreb </p>
                             <p>Temeljni kapital društva iznosi 920.000,00 kn i uplaćen je u cjelosti. Direktor i član uprave je Davor Pranić, zastupa društvo pojedinačno i samostalno.</p>
                             <h3 >Postprodaja i rezervni dijelovi</h3>
-                            <p>Marijan Jandrić&nbsp;-&nbsp;voditelj rezervnih dijelova<br> Mob.: <a href="tel:+ 385954841520">+ 385 95 4841 520</a><br> e-mail: <a href="mailto:marijan.jandric@skladisna-logistika.hr">marijan.jandric@skladisna-logistika.hr</a></p>
-                            <p>Goran Ivančan - direktor postprodaje<br> Tel.: <a href="tel:+38513374144">+385 1 3374 144</a><br> Mob.: <a href="tel:+385992409962">+385 99 2409 962</a><br> e-mail: <a href="mailto:goran.ivancan@skladisna-logistika.hr">goran.ivancan@skladisna-logistika.hr</a></p>
+                              <p><strong>Goran Ivančan - direktor postprodaje</strong><br> Tel.: <a href="tel:+38513374144">+385 1 3374 144</a><br> Mob.: <a href="tel:+385992409962">+385 99 2409 962</a><br> e-mail: <a href="mailto:goran.ivancan@skladisna-logistika.hr">goran.ivancan@skladisna-logistika.hr</a></p>
+                            <p><strong>Marijan Jandrić&nbsp;-&nbsp;voditelj rezervnih dijelova</strong><br> Mob.: <a href="tel:+ 385954841520">+ 385 95 4841 520</a><br> e-mail: <a href="mailto:marijan.jandric@skladisna-logistika.hr">marijan.jandric@skladisna-logistika.hr</a></p>
+                          
                         </div>
                     </div>
                 </div>

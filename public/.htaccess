@@ -18,4 +18,28 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+
+
+   Redirect 301 /kontakt.html https://www.skladisna-logistika.hr/kontakt
+
+   Redirect 301 /najam-vilicara.html https://www.skladisna-logistika.hr/kontakt
+   Redirect 301 /o-nama https://www.skladisna-logistika.hr/info/o-nama
+   Redirect 301 /servis-vilicara https://www.skladisna-logistika.hr/info/servis-vilicara
+
+    <IfModule mod_headers.c>
+     <FilesMatch "\.(ico|jpe?g|png|gif|swf|css|gz)$">
+     Header set Cache-Control "max-age=2592000, public"
+     </FilesMatch>
+     <FilesMatch "\.(js)$">
+     Header set Cache-Control "max-age=2592000, private"
+     </FilesMatch>
+    <filesMatch "\.(html|htm)$">
+    Header set Cache-Control "max-age=7200, public"
+    </filesMatch>
+    # Disable caching for scripts and other dynamic files
+    <FilesMatch "\.(pl|php|cgi|spl|scgi|fcgi)$">
+    Header unset Cache-Control
+    </FilesMatch>
+    </IfModule>
 </IfModule>

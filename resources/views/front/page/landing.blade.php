@@ -55,78 +55,58 @@
                 @endforeach
                 <div class="clearfix"></div>
             </div>
-            <div class="container clearfix bottommargin">
-                <div class="heading-block center nomargin">
-                    <h2>Prikazi mogućih rješenja automatizacije</h2>
-                </div>
-            </div>
-            <div class="container clearfix" id="st">
-                <div class="tabs side-tabs nobottommargin clearfix" id="tab-6">
-                    <ul class="tab-nav tab-nav2 clearfix">
-                        @foreach ($sections[3] as $key => $section)
-                            @if ($section->title != '' && $section->content_1 != '')
-                                <li><a href="#tabs-2{{ $key }}" class="ag-tabs">{{ $section->title }}</a></li>
-                            @endif
-                        @endforeach
-                    </ul>
-                    <div class="tab-container">
-                        @foreach ($sections[3] as $key => $section)
-                            @if ($section->title != '' && $section->content_1 != '')
-                                <div class="tab-content clearfix" id="tabs-2{{ $key }}">
-                                    <h3 class="slred">{{ $section->title }}</h3>
-                                    @if ($section->video == '')
-                                        <div class="row" style="padding-left: 15px">
-                                            <div class="col_half">
-                                                <img alt="{{ $section->title }}" src="{{ asset($section->image) }}" class="img-thumbnail" style="height: 230px; width: 100%; display: block;">
-                                            </div>
-                                            <div class="col_half col_last"><div></div></div>
-                                        </div>
-                                    @else
-                                        <div class="row" style="padding-left: 15px">
-                                            <div class="col_half">
-                                                <iframe width="560" height="315" src="{{ $section->video }}" frameborder="0" allowfullscreen></iframe>
-                                            </div>
-                                            @if ($section->image == '')
-                                                <div class="col_half col_last"><div></div></div>
-                                            @else
-                                                <div class="col_half col_last">
-                                                    <img alt="{{ $section->title }}" src="{{ asset($section->image) }}" class="img-thumbnail" style="height: 230px; width: 100%; display: block;">
-                                                </div>
-                                            @endif
-                                        </div>
-                                    @endif
-                                    {!! $section->content_1 !!}
-                                </div>
-                            @endif
-                        @endforeach
+
+            @if($landing->has_tab_section)
+                <div class="container clearfix bottommargin">
+                    <div class="heading-block center nomargin">
+                        <h2>Prikazi mogućih rješenja automatizacije</h2>
                     </div>
                 </div>
-                <div class="divider"></div>
-            </div>
-            {{--@if ($products->count() > 1)
-                <div class="section nomargin noborder " style="padding: 60px 0;background-color:#eee">
-                    <div class="container clear-bottommargin clearfix">
-                        <div class="container clearfix bottommargin">
-                            <div class="heading-block center nomargin">
-                                <h2>IZDVOJENO IZ PONUDE</h2>
-                            </div>
-                        </div>
-                        <div id="shop" class="owl-carousel products-carousel carousel-widget shop" style="padding-bottom:30px" data-margin="20" data-nav="true" data-pagi="false" data-items-xs="1" data-items-sm="2" data-items-md="2" data-items-lg="3" data-items-xl="3">
-                        @foreach($products[0] as $product)
-                            @include('front.product.partials.product-category', [
-                                      'product' => $product,
-                                      'link' => route('proizvod', [
-                                          'cat' => isset($product->category()->slug) ? $product->category()->slug : '',
-                                          'subcat' => $product->subcategory() ? $product->subcategory()->slug : 'ikoi',
-                                          'prod' => $product->slug
-                                      ])
-                                  ])
-                            <!-- .single-product ends -->
+                <div class="container clearfix" id="st">
+                    <div class="tabs side-tabs nobottommargin clearfix" id="tab-6">
+                        <ul class="tab-nav tab-nav2 clearfix">
+                            @foreach ($sections[3] as $key => $section)
+                                @if ($section->title != '' && $section->content_1 != '')
+                                    <li><a href="#tabs-2{{ $key }}" class="ag-tabs">{{ $section->title }}</a></li>
+                                @endif
+                            @endforeach
+                        </ul>
+                        <div class="tab-container">
+                            @foreach ($sections[3] as $key => $section)
+                                @if ($section->title != '' && $section->content_1 != '')
+                                    <div class="tab-content clearfix" id="tabs-2{{ $key }}">
+                                        <h3 class="slred">{{ $section->title }}</h3>
+                                        @if ($section->video == '')
+                                            <div class="row" style="padding-left: 15px">
+                                                <div class="col_half">
+                                                    <img alt="{{ $section->title }}" src="{{ asset($section->image) }}" class="img-thumbnail" style="height: 230px; width: 100%; display: block;">
+                                                </div>
+                                                <div class="col_half col_last"><div></div></div>
+                                            </div>
+                                        @else
+                                            <div class="row" style="padding-left: 15px">
+                                                <div class="col_half">
+                                                    <iframe width="560" height="315" src="{{ $section->video }}" frameborder="0" allowfullscreen></iframe>
+                                                </div>
+                                                @if ($section->image == '')
+                                                    <div class="col_half col_last"><div></div></div>
+                                                @else
+                                                    <div class="col_half col_last">
+                                                        <img alt="{{ $section->title }}" src="{{ asset($section->image) }}" class="img-thumbnail" style="height: 230px; width: 100%; display: block;">
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        @endif
+                                        {!! $section->content_1 !!}
+                                    </div>
+                                @endif
                             @endforeach
                         </div>
                     </div>
+                    <div class="divider"></div>
                 </div>
-            @endif--}}
+            @endif
+
             @if ($landing->statement != '')
                 <div class="section nomargin noborder bgcolor dark" style="padding: 40px 0;">
                     <div class="container clearfix">
@@ -141,26 +121,7 @@
                     </div>
                 </div>
             @endif
-            {{--<div class="container clear-bottommargin topmargin nobottommargin clearfix">
-                <div class="container clearfix bottommargin">
-                    <div class="heading-block center nomargin">
-                        <h2>{{ $products->count() > 1 ? 'Još par izdvojenih proizvoda' : 'IZDVOJENO IZ PONUDE' }}</h2>
-                    </div>
-                </div>
-                <div id="shop2" class="owl-carousel products-carousel carousel-widget shop" style="padding-bottom:30px" data-margin="20" data-nav="true" data-pagi="false" data-items-xs="1" data-items-sm="2" data-items-md="2" data-items-lg="3" data-items-xl="3">
-                @foreach($products[$products->count() > 1 ? 1 : 0] as $product)
-                    @include('front.product.partials.product-category', [
-                              'product' => $product,
-                              'link' => route('proizvod', [
-                                  'cat' => isset($product->category()->slug) ? $product->category()->slug : '',
-                                  'subcat' => $product->subcategory() ? $product->subcategory()->slug : 'ikoi',
-                                  'prod' => $product->slug
-                              ])
-                          ])
-                    <!-- .single-product ends -->
-                    @endforeach
-                </div>
-            </div>--}}
+
             <div class="container clearfix topmargin">
                 <ul class="clients-grid grid-3 nobottommargin clearfix noborder">
                     <li><a href="https://www.youtube.com/watch?v=Cij91tKWVs0" target="_blank" ><img src="{{ asset('media/images/Vanderlande.jpg') }}" alt="Clients"></a></li>
@@ -169,7 +130,21 @@
                 </ul>
             </div>
 
-            <div class="section topmargin nobottommargin">
+            @if ($landing->has_map)
+                <div class="section topmargin nobottommargin">
+                    <div class="container clearfix notopmargin">
+                        <div class="col_full nobottommargin notopmargin">
+                            <div class="row">
+                                <div class="col-12">
+                                    <img src="{{ asset('media/images/hrvatska-servisi.svg') }}" style="background-color:#fff;padding:20px" alt="Servisna lista">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            <div class="section notopmargin nobottommargin">
                 <div class="container clearfix topmargin">
                     <div class="col_full nobottommargin">
                         <div class="widget clearfix">

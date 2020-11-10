@@ -1,5 +1,7 @@
 @extends('errors.container')
 
+@section ( 'title', '404 Error')
+
 @section('content')
     <section id="page-title">
         <div class="container clearfix">
@@ -19,11 +21,11 @@
                 </div>
                 <div class="col_half nobottommargin col_last">
                     <div class="heading-block nobottomborder">
-                        <h4>Ooopps.! Stranica koju ste tražili nije pronađena.</h4>
-                        <span>Probajte potražiti stranicu ili kliknite ne linkove dolje.</span>
+                        <h4>Ooopps! Stranica koju ste tražili nije pronađena.</h4>
+                        <span>Probajte pretražiti viličare ili kliknite ne linkove ispod.</span>
                     </div>
                     <form action="{{ route('search.all') }}" method="get" class="nobottommargin">
-                        <div class="input-group input-group-lg">
+                        <div class="input-group ">
                             <input type="text" class="form-control" name="q" placeholder="Pretraži stranice">
                             <div class="input-group-append">
                                 <button class="btn btn-danger" type="submit">Pretraži</button>

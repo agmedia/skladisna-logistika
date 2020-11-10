@@ -9,7 +9,9 @@ use App\Models\Back\Orders\Order;
 use App\Models\Front\AgCart;
 use App\Models\Front\Category\Category;
 use App\Models\Front\Client;
+use PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
@@ -23,36 +25,38 @@ class CheckoutController extends Controller
     public function proccessOrder(Request $request)
     {
         $order = new Order();
-        $clients = $order->validateMakeRequest($request)->resolveClients();
-        $shipping = $order->resolveClientShipping();
+        $response = $order->validateMakeRequest($request)->make();
 
-        $order->pay();
+        $pdf = PDF::loadView('pdfs.offer', ['order' => $response])->output();
 
-        foreach ($clients as $client_id => $items) {
-            $response[$client_id] = $order->make($client_id, $items, $shipping[$client_id]);
+        if ($response) {
+            Mail::to(config('mail.admin'))->send(new OrderReceived($response));
+            Mail::to($request->input('email'))->send(new OrderSent($response, $pdf));
 
-            /*$client = Client::find($client_id);
-            Mail::to($client->email)->send(new OrderReceived($response[$client_id]));*/
+            if (auth()->user()) {
+                $cart = new AgCart(auth()->user()->id);
+                $cart->flush();
+            }
+
+            return redirect()->route('narudzba.ok');
         }
 
-        /*$customer = auth()->user() ? auth()->user() : $request->input('email');
-        Mail::to($customer->email)->send(new OrderSent($response));*/
-
-        if (auth()->user()) {
-            $cart = new AgCart(auth()->user()->id);
-            $cart->flush();
-        }
-
-        return redirect()->route('narudzba.ok');
+        return redirect()->route('narudzba.error');
     }
 
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function success()
     {
         return view('front.checkout.success');
     }
 
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function error()
     {
         return view('front.checkout.error');

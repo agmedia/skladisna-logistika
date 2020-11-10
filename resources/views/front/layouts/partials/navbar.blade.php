@@ -112,7 +112,11 @@
                     <li ><a  href="{{ route('o-nama') }}" ><div>O nama</div></a></li>
                     <li class="last"><a  href="{{ route('kontakt') }}" ><div>Kontakt</div></a></li>
                 </ul>
-                <ul class=" align-self-end"></ul>
+                <ul class="align-self-end"></ul>
+
+                <!-- cart -->
+                <cart-nav-icon carturl="{{ route('kosarica') }}" checkouturl="{{ route('naplata') }}"></cart-nav-icon>
+
                 <!-- Top Search
                 ============================================= -->
                 <div id="top-search">

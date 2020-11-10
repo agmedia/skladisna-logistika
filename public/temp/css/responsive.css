@@ -1,14 +1,36 @@
 /* ----------------------------------------------------------------
 	Responsive CSS
 -----------------------------------------------------------------*/
+@media (min-width: 1200px) {
 
+.product-image {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height:255px;
+    overflow: hidden;
+    background: #fff;
+}
 
+}
 @media (max-width: 1199.98px) {
 
 	canvas {
 		max-width: 100%;
 		height: auto !important;
 	}
+
+	#top-search form input {
+		/*! box-shadow: none !important; */
+
+		width:760px;
+
+	}
+
+    .shop:not(.product-1) .product {
+        padding: 0 12px 12px 0;
+        width: 33.333333%;
+    }
 
 	.promo h3 { font-size: 20px; }
 
@@ -28,6 +50,19 @@
 @media (min-width: 992px) and (max-width: 1199.98px) {
 
 	#wrapper { width: 1000px; }
+
+	#top-cart {
+    margin-right: 0px;
+}
+
+    .product-image {
+        position: relative;
+        width: 100%;
+        height: auto;
+        min-height:252.333px;
+        overflow: hidden;
+        background: #fff;
+    }
 
 	#header.transparent-header.floating-header .container {
 		width: 1030px;
@@ -170,6 +205,8 @@
 
 @media (max-width: 991.98px) {
 
+	#top-cart .top-cart-content{display:none;}
+
 	body.side-panel-open #wrapper #header {
 
 		overflow: hidden!important;
@@ -180,6 +217,16 @@
 z-index: 1000;
 
 	}
+
+    portfolio-1 .portfolio-item {
+
+        padding-bottom: 20px !important;
+    }
+
+    .shop:not(.product-1) .product {
+        padding: 0 12px 12px 0;
+        width: 50%;
+    }
 
 	body.side-panel-open #wrapper #page-title {
 
@@ -651,13 +698,24 @@ border-bottom: 1px solid #dfdfe1;
 	#top-search { margin: 0 !important; }
 
 	#top-search a,
-	#top-cart,
 	#side-panel-trigger,
 	#top-account {
 		position: absolute;
 		top: 0;
 		left: auto;
 		right: 10px;
+		margin: 10px 0;
+		width:50px;
+		-webkit-transition: margin .4s ease;
+		-o-transition: margin .4s ease;
+		transition: margin .4s ease;
+	}
+
+	#top-cart {
+		position: absolute;
+		top: 0;
+		left: auto;
+		right: 40px;
 		margin: 10px 0;
 		width:50px;
 		-webkit-transition: margin .4s ease;
@@ -733,7 +791,7 @@ border: none;
 
 	#header.sticky-style-3 #top-cart .top-cart-content { top: 40px; }
 
-	#top-search a { right: 43px; }
+	#top-search a { right: 20px; }
 
 	#top-search form {
 height: 80px !important;
@@ -774,16 +832,16 @@ left: 0px; }
 
 #top-search form button.srch{
 	position: absolute;
-right: 20px;
+right: 5px;
 font-size: 24px;
 border: none;
 background:transparent;
 
-top: 15px;
+top: 16px;
 
 color:#bb001e;
 
-border-left: 1px solid#bb001e;
+border-left: 0px solid#bb001e;
 
 height: 44px;
 padding-left: 10px;
@@ -1008,19 +1066,25 @@ padding-left: 10px;
 		margin-bottom: 20px !important;
 	}
 
+	p.leading {
+    font-size: 1rem!important;
+		}
+
 	.portfolio-1 .portfolio-item .portfolio-image,
 	.portfolio-1 .portfolio-item .portfolio-image a,
 	.portfolio-1 .portfolio-item .portfolio-image img,
 	.portfolio-1.portfolio-fullwidth .portfolio-item .portfolio-image,
 	.portfolio-1.portfolio-fullwidth .portfolio-item .portfolio-image a,
 	.portfolio-1.portfolio-fullwidth .portfolio-item .portfolio-image img {
-		width: 100%;
+		width: 99%;
 		height: auto;
 	}
 
 	.portfolio-1 .portfolio-desc {
-		width: 100% !important;
+		width: 99% !important;
 		padding: 0 !important;
+		margin-left:5px;
+
 	}
 
 	/* Portfolio - Items - 1 Column - Full Width
@@ -1225,9 +1289,9 @@ padding-left: 10px;
 	.cat .product {
 		float: left;
 		border: 0;
-		margin-bottom: 15px;
+		margin-bottom: 0px;
 		background: #fff;
-		padding: 0 30px 10px 0;
+		padding: 0 10px 10px 0;
 
 
 		position: relative;
@@ -1283,10 +1347,36 @@ padding-left: 10px;
 
 	#wrapper { width: 100% !important; }
 
+    .accordion.accordion-bg .acctitle, .accordion.accordion-bg .acctitlec {
+        background-color: #EEE;
+        line-height: 26px;
+        padding: 10px 0 10px 36px;
+        margin-bottom: 10px;
+        border-top: 0;
+    }
+
+    #copyrights {
+    padding: 20px 0 20px 0;
+    background-color: #1c1c1c;
+    font-size: 12px;
+    line-height: 1.8;
+    color: #fff;
+}
+h1.hbwhite {
+    font-size: 2rem;
+}
+
 	.container-fullwidth {
 		margin: 0 auto;
 		padding: 0 15px !important;
 	}
+    .pad1{
+        padding: 80px 0;
+    }
+    .pad2{
+        padding: 60px 0;
+    }
+
 
 
 
@@ -1602,7 +1692,7 @@ padding-left: 10px;
 
 	.heading-block h2 { font-size: 26px; }
 
-	.heading-block h3 { font-size: 22px; }
+	.heading-block h3 { font-size: 21px; }
 
 	.heading-block h4 { font-size: 19px; }
 
@@ -1777,6 +1867,22 @@ padding-left: 10px;
 
 @media (max-width: 575.98px) {
 
+    .side-tabs ul.tab-nav {
+        float: none;
+        width: 100%;
+        padding: 20px 0;
+        border-bottom: 0;
+        border-right: 1px solid #DDD;
+    }
+
+    h1.lh1{font-size:1.8rem!important;margin-top:30px}
+    span.lhspan {
+        font-size: 1.1rem!important;
+        font-weight: 300 !important;
+        margin-bottom: 15px;
+        padding:0 20px;
+    }
+
 	.container,
 	#header.full-header .container,
 	.container-fullwidth {
@@ -1792,7 +1898,7 @@ padding-left: 10px;
 
 	#primary-menu-trigger { left: 20px; }
 
-	#top-cart { display: none; }
+/*	#top-cart { display: none; }*/
 
 	#top-search a { right: 20px; }
 
@@ -1827,8 +1933,13 @@ padding-left: 10px;
 
 	.portfolio .portfolio-item {
 		width: 100%;
-		padding: 0;
+        padding-bottom: 35px !important;
 	}
+    portfolio-1 .portfolio-item {
+
+        padding-bottom: 30px !important;
+    }
+
 
 	.post-grid:not(.post-masonry) .entry-image iframe { height: 157px; }
 

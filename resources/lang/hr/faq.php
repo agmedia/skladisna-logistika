@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'title' => 'FAQ',
+    'subtitle' => 'Često postavljana pitanja',
+    'new' => 'Novi FAQ',
+    'edit' => 'Editiraj',
+    'category' => 'Kategorija',
+    'action' => 'Akcija',
+    'question' => 'Pitanje',
+    'answer' => 'Odgovor',
+    'reservation_proccess' => 'PROCES REZERVACIJE',
+    'reservation_confirmation' => 'POTVRDA REZERVACIJE',
+    'additional_requests' => 'DODATNI ZAHTJEVI',
+    'transfer_payment' => 'PLAĆANJE TRANSFERA',
+    'update_cancel_reservation' => 'IZMJENA / OTKAZ REZERVACIJE',
+    'longtitle'=> 'FAQ - OptimaTransfer',
+    'q1' =>'Kako mogu rezervirati svoj prijevoz?',
+    'a1'=>'Rezervaciju možete napraviti putem rezervacijskog formulara koji se nalazi na našoj web stranici optimatransfer.com, pozivom na broj +385 98 414 959, ili na mail info@optimatransfer.com',
+    'q2' =>'Moraju li sve rezervacije biti unaprijed?',
+    'a2'=>'Preporučujemo Vam rezervaciju unaprijed jer jednom kada rezervirate vozilo, mi garantiramo njegovu raspoloživost. Last-minute rezervacije se također uzimaju u obzir, pod uvjetom da je određeno vozilo na raspolaganju.',
+    'q3' =>'Koji tip vozila mogu izabrati?',
+    'a3'=>'Možete izabrati Standardno vozilo (3 putnika), Premium vozilo (3 putnika), Standardni minibus (8 putnika) i Premium minibus (7 putnika).',
+    'q4' =>'Kako ću pronaći vozača?',
+    'a4'=>'Vozač će doći po Vas na dogovorenu destinaciju. Ukoliko transfer uključuje polazak iz zračne luke, vozač će Vas čekati s natpisom na kojem je prikazano Vaše ime.',
+    'svapitanja'=>'Sva pitanja',
+];

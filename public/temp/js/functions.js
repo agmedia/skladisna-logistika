@@ -2078,7 +2078,7 @@ var SEMICOLON = SEMICOLON || {};
 			SEMICOLON.widget.textRotater();
 			SEMICOLON.widget.carousel();
 			SEMICOLON.widget.linkScroll();
-			SEMICOLON.widget.ajaxForm();
+			//SEMICOLON.widget.ajaxForm();
 			SEMICOLON.widget.subscription();
 			SEMICOLON.widget.stickySidebar();
 			SEMICOLON.widget.cookieNotify();
@@ -3408,7 +3408,7 @@ var SEMICOLON = SEMICOLON || {};
 
 		cartQuantity: function(){
 
-			$(".plus").off( 'click' ).on( 'click', function(){
+			/*$(".plus").off( 'click' ).on( 'click', function(){
 				var productQuantity = $(this).parents('.quantity').find('.qty').val(),
 					quantityStep = $(this).parents('.quantity').find('.qty').attr('step'),
 					intRegex = /^\d+$/;
@@ -3442,7 +3442,7 @@ var SEMICOLON = SEMICOLON || {};
 				}
 
 				return false;
-			});
+			});*/
 
 		},
 

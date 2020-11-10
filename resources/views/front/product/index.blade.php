@@ -105,28 +105,34 @@
                             <p class="lead spec nobottommargin one-page-menu"><a href="#" data-offset="70" data-href="#specifikacija">Tehnička specifikacija</a></p>
                             <!-- Product Single - Price
                             ============================================= -->
-                            @if ($prod->price!=0)
+                            @if ($prod->price != 0)
                                 <div class="line"></div>
                                 @if ( ! empty($prod->action))
-                                    <div class="product-price">
-                                        <del>{{ number_format($prod->price, 2) }}kn</del> <ins> {{ number_format(($prod->price - ($prod->price * ($prod->action->discount / 100))), 2) }}kn</ins>
-                                    </div><!-- .price -->
+                                    @if ( ! empty($prod->action->price))
+                                        <div class="product-price">
+                                            <del>{{ number_format($prod->price, 2) }}kn</del> <ins> {{ number_format($prod->action->price, 2) }}kn</ins>
+                                        </div><!-- .price -->
+                                    @else
+                                        <div class="product-price">
+                                            <del>{{ number_format($prod->price, 2) }}kn</del> <ins> {{ number_format(($prod->price - ($prod->price * ($prod->action->discount / 100))), 2) }}kn</ins>
+                                        </div><!-- .price -->
+                                    @endif
                                 @else
                                     <div class="product-price">
                                         <ins>{{ number_format($prod->price, 2) }}kn</ins>
                                     </div><!-- .price -->
                                 @endif
                                 <div class="clear"></div>
-                                <!-- Product Single - Quantity & Cart Button
-                                ============================================= -->
-                                <form class="cart nobottommargin clearfix" method="post" enctype='multipart/form-data'>
+                                <!-- Product Single - Quantity & Cart Button -->
+                            @include('front.product.partials.add-to-cart-btn', ['product' => $prod])
+                                {{--<form class="cart nobottommargin clearfix" method="post" enctype='multipart/form-data'>
                                     <div class="quantity clearfix">
                                         <input type="button" value="-" class="minus">
                                         <input type="text" step="1" min="1"  name="quantity" value="1" title="Količina" class="qty" size="4" />
                                         <input type="button" value="+" class="plus">
                                     </div>
                                     <button type="submit" class="btn btn-green nomargin">U košaricu</button>
-                                </form><!-- Product Single - Quantity & Cart Button End -->
+                                </form>--}}
                                 <div class="clear"></div>
                                 <div class="line"></div>
                             @else

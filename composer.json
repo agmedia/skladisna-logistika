@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.1.3",
+        "barryvdh/laravel-dompdf": "^0.8.7",
         "darryldecode/cart": "^4.1",
         "fideloper/proxy": "^4.0",
         "intervention/image": "2.5.1",
@@ -17,6 +18,7 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "v5.8.1",
         "maatwebsite/excel": "3.1.18",
+        "mailchimp/marketing": "*",
         "mcamara/laravel-localization": "^1.3",
         "phpoffice/phpspreadsheet": "1.11.0",
         "renatomarinho/laravel-page-speed": "^1.8",

@@ -2,6 +2,18 @@
 @push('css')
 @endpush
 @section ( 'title', 'Toyota viličari - Prodaja i najam')
+
+@push('css_before')
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="Skladišna logistika - Toyota viličari - Prodaja i najam"/>
+    <meta property="og:image" content="https://www.skladisna-logistika.hr/images/banners/banner_i_site-01.jpg"/>
+    <meta property="og:site_name" content="Skladišna logistika - Toyota viličari"/>
+    <meta property="og:url" content="https://www.skladisna-logistika.hr/"/>
+    <meta property="og:description" content="Prodaja Toyotinih viličara u Hrvatskoj. Servis za 24 sata. Ručni viličari, niskopodizni, visokopodizni, regalni, električni viličari za Vas. Novi viličari. Rabljeni viličari. Najam viličara. Modeli: Ručni paletni viličari, Regalni viličari, Električni niskopodizni, Plinski i diesel viličari."/>
+
+@endpush
+
+
 @section('content')
     <section id="content">
         <div class="content-wrap">
@@ -43,7 +55,7 @@
                 </div>
                 <div class="row ">
 
-                    <div class="col-lg-4 mb-4">
+                    <div class="col-lg-6 mb-4">
                         <a href="info/servis-vilicara">
                             <div class=" text-center ">
                                 <div class="flip-card-front dark" style="background-image: url({{ asset('images/banners/servis-index.jpg') }}">
@@ -59,7 +71,7 @@
                         </a>
                     </div>
 
-                    <div class="col-lg-4 mb-4 ">
+              <!--      <div class="col-lg-4 mb-4 ">
                         <a href="info/informacije-o-isporukama-vilicara">
                         <div class=" text-center t">
                             <div class="flip-card-front dark" style="background-image: url({{ asset('images/banners/akcija.jpg') }}">
@@ -74,17 +86,21 @@
                             </div>
                         </div>
                         </a>
-                    </div>
+                    </div> -->
 
-                    <div class="col-lg-4 mb-4">
-                        <a href="blogs/novosti/zaposljavamo-novog-servisera-toyota-vilicara">
+                    <div class="col-lg-6 mb-4">
+                        @if (isset($latest->first()->subcat))
+                            <a href="{{ route('blogovi', ['cat' => $latest->first()->cat->slug, 'cat' => $latest->first()->subcat->slug, 'page' => $latest->first()->slug]) }}">
+                        @else
+                            <a href="{{ route('blogovi', ['cat' => $latest->first()->cat->slug, 'subcat' => $latest->first()->slug]) }}">
+                        @endif
                             <div class=" text-center ">
-                                <div class="flip-card-front dark" style="background-image: url({{ asset('images/banners/novost.jpg') }}">
+                                <div class="flip-card-front dark" style="background-image: url('{{ asset(isset($latest->first()->image) ? $latest->first()->image : 'images/banners/novost.jpg') }}')">
                                     <div class="sale-flash">Novosti</div>
                                     <div class="flip-card-inner">
                                         <div class="card nobg noborder text-center">
                                             <div class="card-body">
-                                                <h2 class="card-title"> Zapošljavamo novog servisera</h2>
+                                                <h2 class="card-title">{{ $latest->first()->title }}</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -145,7 +161,7 @@
                     </div>
                     <div id="shop" class="owl-carousel products-carousel carousel-widget shop bottommargin" data-margin="20" data-nav="true" data-pagi="false" data-items-xs="1" data-items-sm="2" data-items-md="3" data-items-lg="4" data-items-xl="4">
                     @foreach($top_products as $product)
-                        @include('front.product.partials.product-category', [
+                        @include('front.product.partials.product-category-front', [
                                   'product' => $product,
                                   'link' => route('proizvod', [
                                       'cat' => isset($product->category()->slug) ? $product->category()->slug : '',

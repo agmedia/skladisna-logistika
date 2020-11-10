@@ -83,45 +83,109 @@
 
                                 <!-- Step 2 -->
                                 <div class="tab-pane" id="user" role="tabpanel">
-                                    <h5 class="text-black mb-0 mt-20">Informacije o Kupcu</h5>
+                                    <h5 class="text-black mb-0 mt-20">Informacije o Kupcu - Tvrtka</h5>
                                     <hr class="mb-30">
                                     <div class="row items-push">
                                         <div class="col-lg-3">
-                                            <p class="text-muted">Osnovne informacije o kupcu ili korisniku...</p>
+                                            <p class="text-muted">...</p>
+                                        </div>
+                                        <div class="col-lg-7 offset-lg-1">
+                                            <div class="form-group row mb-50">
+                                                <div class="col-md-6">
+                                                    <label for="fname">Tvrtka</label>
+                                                    <input type="text" class="form-control form-control-lg" name="company" value="{{ isset($order) ? $order->company : '' }}">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="lname">OIB</label>
+                                                    <input type="text" class="form-control form-control-lg" name="oib" value="{{ isset($order) ? $order->oib : '' }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h5 class="text-black mb-0 mt-20">Informacije o Kupcu - Naplata</h5>
+                                    <hr class="mb-30">
+                                    <div class="row items-push">
+                                        <div class="col-lg-3">
+                                            <p class="text-muted">...</p>
                                         </div>
                                         <div class="col-lg-7 offset-lg-1">
                                             <div class="form-group row mb-50">
                                                 <div class="col-md-6">
                                                     <label for="fname">Ime @include('back.layouts.partials.required-star')</label>
-                                                    <input type="text" class="form-control form-control-lg" name="fname" value="{{ isset($order) ? $order->shipping_fname : '' }}">
+                                                    <input type="text" class="form-control form-control-lg" name="fname" value="{{ isset($order) ? $order->payment_fname : '' }}">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="lname">Prezime @include('back.layouts.partials.required-star')</label>
-                                                    <input type="text" class="form-control form-control-lg" name="lname" value="{{ isset($order) ? $order->shipping_lname : '' }}">
+                                                    <input type="text" class="form-control form-control-lg" name="lname" value="{{ isset($order) ? $order->payment_lname : '' }}">
                                                 </div>
                                             </div>
                                             <div class="form-group mb-50">
                                                 <label for="address">Adresa @include('back.layouts.partials.required-star')</label>
-                                                <input type="text" class="form-control form-control-lg" name="address" value="{{ isset($order) ? $order->shipping_address : '' }}">
+                                                <input type="text" class="form-control form-control-lg" name="address" value="{{ isset($order) ? $order->payment_address : '' }}">
                                             </div>
                                             <div class="form-group row mb-50">
                                                 <div class="col-md-6">
                                                     <label for="zip">Poštanski broj @include('back.layouts.partials.required-star')</label>
-                                                    <input type="text" class="form-control form-control-lg" name="zip" value="{{ isset($order) ? $order->shipping_zip : '' }}">
+                                                    <input type="text" class="form-control form-control-lg" name="zip" value="{{ isset($order) ? $order->payment_zip : '' }}">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="city">Grad @include('back.layouts.partials.required-star')</label>
-                                                    <input type="text" class="form-control form-control-lg" name="city" value="{{ isset($order) ? $order->shipping_city : '' }}">
+                                                    <input type="text" class="form-control form-control-lg" name="city" value="{{ isset($order) ? $order->payment_city : '' }}">
                                                 </div>
                                             </div>
                                             <div class="form-group row mb-50">
                                                 <div class="col-md-6">
                                                     <label for="phone">Telefon</label>
-                                                    <input type="text" class="form-control form-control-lg" name="phone" value="{{ isset($order) ? $order->shipping_phone : '' }}">
+                                                    <input type="text" class="form-control form-control-lg" name="phone" value="{{ isset($order) ? $order->payment_phone : '' }}">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="email">Email @include('back.layouts.partials.required-star')</label>
-                                                    <input type="text" class="form-control form-control-lg" name="email" value="{{ isset($order) ? $order->shipping_email : '' }}">
+                                                    <input type="text" class="form-control form-control-lg" name="email" value="{{ isset($order) ? $order->payment_email : '' }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h5 class="text-black mb-0 mt-20">Informacije o Kupcu - Dostava</h5>
+                                    <hr class="mb-30">
+                                    <div class="row items-push">
+                                        <div class="col-lg-3">
+                                            <p class="text-muted">...</p>
+                                        </div>
+                                        <div class="col-lg-7 offset-lg-1">
+                                            <div class="form-group row mb-50">
+                                                <div class="col-md-6">
+                                                    <label for="fname">Ime @include('back.layouts.partials.required-star')</label>
+                                                    <input type="text" class="form-control form-control-lg" name="ship_fname" value="{{ isset($order) ? $order->shipping_fname : '' }}">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="lname">Prezime @include('back.layouts.partials.required-star')</label>
+                                                    <input type="text" class="form-control form-control-lg" name="ship_lname" value="{{ isset($order) ? $order->shipping_lname : '' }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group mb-50">
+                                                <label for="address">Adresa @include('back.layouts.partials.required-star')</label>
+                                                <input type="text" class="form-control form-control-lg" name="ship_address" value="{{ isset($order) ? $order->shipping_address : '' }}">
+                                            </div>
+                                            <div class="form-group row mb-50">
+                                                <div class="col-md-6">
+                                                    <label for="zip">Poštanski broj @include('back.layouts.partials.required-star')</label>
+                                                    <input type="text" class="form-control form-control-lg" name="ship_zip" value="{{ isset($order) ? $order->shipping_zip : '' }}">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="city">Grad @include('back.layouts.partials.required-star')</label>
+                                                    <input type="text" class="form-control form-control-lg" name="ship_city" value="{{ isset($order) ? $order->shipping_city : '' }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-50">
+                                                <div class="col-md-6">
+                                                    <label for="phone">Telefon</label>
+                                                    <input type="text" class="form-control form-control-lg" name="ship_phone" value="{{ isset($order) ? $order->shipping_phone : '' }}">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="email">Email @include('back.layouts.partials.required-star')</label>
+                                                    <input type="text" class="form-control form-control-lg" name="ship_email" value="{{ isset($order) ? $order->shipping_email : '' }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -133,10 +197,7 @@
                                     <h5 class="text-black mb-0 mt-20">Proizvodi i Total narudžbe</h5>
                                     <hr class="mb-30">
                                     <div class="row items-push" id="ag-order-products-app">
-                                        <div class="col-lg-3">
-                                            <p class="text-muted">Informacije o proizvodima u narudžbi i ukupnom iznosu. Uz Akcije ili dodatne stavke...</p>
-                                        </div>
-                                        <div class="col-lg-7 offset-lg-1">
+                                        <div class="col-lg-10 offset-lg-1">
 
                                             <ag-order-products
                                                 products="{{ isset($order) ? json_encode($order->products) : '' }}"

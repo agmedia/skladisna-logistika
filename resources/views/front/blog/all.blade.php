@@ -20,7 +20,7 @@
     </section>
 
 
-    <section  class="page-title-dark" style="position:relative;background-image: url('http://sl.selectpo.lin48.host25.com/media/images/gallery/page/54/onama.jpg'); background-size: cover; padding: 160px 0;background-position:center" >
+    <section  class="page-title-dark" style="position:relative;background-image: url('https://www.skladisna-logistika.hr/media/images/gallery/page/54/onama.jpg'); background-size: cover; padding: 160px 0;background-position:center" >
 
         <div class="bckd" >
             <div class="container clearfix">

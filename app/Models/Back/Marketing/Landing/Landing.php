@@ -85,21 +85,23 @@ class Landing extends Model
         $description = preg_replace('/ face=("|\')(.*?)("|\')/', '', $description);
 
         $id = $this->insertGetId([
-            'client'       => $this->request->client,
-            'title'        => isset($this->request->title) ? $this->request->title : $this->request->client,
-            'content_1'    => $description,
-            'image'        => '',
-            'video'        => '',
-            'pin'          => Str::slug($pin),
-            'slug'         => Str::slug($this->request->client . '-' . $pin),
-            'download_url' => '',
-            'statement'    => isset($this->request->statement) ? $this->request->statement : '',
-            'date_start'   => isset($this->request->date_start) ? new Carbon($this->request->date_start) : null,
-            'date_end'     => isset($this->request->date_end) ? new Carbon($this->request->date_end) : null,
-            'is_published' => (isset($this->request->is_published) and $this->request->is_published == 'on') ? 1 : 0,
-            'viewed'       => 0,
-            'created_at'   => Carbon::now(),
-            'updated_at'   => Carbon::now()
+            'client'          => $this->request->client,
+            'title'           => isset($this->request->title) ? $this->request->title : $this->request->client,
+            'content_1'       => $description,
+            'image'           => '',
+            'video'           => '',
+            'pin'             => Str::slug($pin),
+            'slug'            => Str::slug($this->request->client . '-' . $pin),
+            'download_url'    => '',
+            'statement'       => isset($this->request->statement) ? $this->request->statement : '',
+            'date_start'      => isset($this->request->date_start) ? new Carbon($this->request->date_start) : null,
+            'date_end'        => isset($this->request->date_end) ? new Carbon($this->request->date_end) : null,
+            'has_tab_section' => (isset($this->request->has_tab_section) and $this->request->has_tab_section == 'on') ? 1 : 0,
+            'has_map'         => (isset($this->request->has_map) and $this->request->has_map == 'on') ? 1 : 0,
+            'is_published'    => (isset($this->request->is_published) and $this->request->is_published == 'on') ? 1 : 0,
+            'viewed'          => 0,
+            'created_at'      => Carbon::now(),
+            'updated_at'      => Carbon::now()
         ]);
 
         if ($id) {
@@ -118,21 +120,21 @@ class Landing extends Model
     {
         $pin = $this->select('pin')->where('id', $id)->first();
 
-        Log::debug($pin);
-
         $description = preg_replace('/ style=("|\')(.*?)("|\')/', '', isset($this->request->content_1) ? $this->request->content_1 : '');
         $description = preg_replace('/ face=("|\')(.*?)("|\')/', '', $description);
 
         return $this->where('id', $id)->update([
-            'client'       => $this->request->client,
-            'title'        => isset($this->request->title) ? $this->request->title : $this->request->client,
-            'content_1'    => $description,
-            'slug'         => Str::slug($this->request->client . '-' . $pin->pin),
-            'statement'    => isset($this->request->statement) ? $this->request->statement : '',
-            'date_start'   => isset($this->request->date_start) ? new Carbon($this->request->date_start) : null,
-            'date_end'     => isset($this->request->date_end) ? new Carbon($this->request->date_end) : null,
-            'is_published' => (isset($this->request->is_published) and $this->request->is_published == 'on') ? 1 : 0,
-            'updated_at'   => Carbon::now()
+            'client'          => $this->request->client,
+            'title'           => isset($this->request->title) ? $this->request->title : $this->request->client,
+            'content_1'       => $description,
+            'slug'            => Str::slug($this->request->client . '-' . $pin->pin),
+            'statement'       => isset($this->request->statement) ? $this->request->statement : '',
+            'date_start'      => isset($this->request->date_start) ? new Carbon($this->request->date_start) : null,
+            'date_end'        => isset($this->request->date_end) ? new Carbon($this->request->date_end) : null,
+            'has_tab_section' => (isset($this->request->has_tab_section) and $this->request->has_tab_section == 'on') ? 1 : 0,
+            'has_map'         => (isset($this->request->has_map) and $this->request->has_map == 'on') ? 1 : 0,
+            'is_published'    => (isset($this->request->is_published) and $this->request->is_published == 'on') ? 1 : 0,
+            'updated_at'      => Carbon::now()
         ]);
     }
 

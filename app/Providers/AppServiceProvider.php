@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use MailchimpMarketing\ApiClient;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,15 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         Schema::defaultStringLength(191);
+
+        $this->app->singleton(ApiClient::class, function ($app) {
+            $mailchimp = new ApiClient();
+            $mailchimp->setConfig([
+                'apiKey' => config('services.mailchimp.api_key'),
+                'server' => config('services.mailchimp.server_prefix')
+            ]);
+            return $mailchimp;
+        });
     }
 
     /**

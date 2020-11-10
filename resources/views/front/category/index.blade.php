@@ -1,7 +1,7 @@
 @extends('front.layouts.core')
 @push('css')
 @endpush
-@section ( 'title', ( ! $cat && ! $subcat) ? $group : $subcat ? $subcat->name : $cat->name )
+@section ( 'title', (( ! $cat && ! $subcat) ? $group : $subcat) ? $subcat->name : $cat->name )
 @section('content')
     <section id="page-title" class="page-title-mini page-title-right">
         <div class="container clearfix">
@@ -23,7 +23,7 @@
         <div class="content-wrap">
             <div class="container clearfix">
                 <div class="heading-block center ">
-                    <h2 class="main-headline">{{ ( ! $cat && ! $subcat) ? $group : $subcat ? $subcat->name : $cat->name }}</h2>
+                    <h2 class="main-headline">{{ (( ! $cat && ! $subcat) ? $group : $subcat) ? $subcat->name : $cat->name }}</h2>
                     <!--   <span>Viličari proizvođača Toyota svojom kvalitetom pružaju siguran i produktivan rad. Viličari su proizvedeni u tvornicama u Europi i Japanu u koje su ugrađene komponente visoke kvalitete.</span>-->
                 </div>
                 <div id="shop" class="shop cat product-3 clearfix" data-layout="fitRows">

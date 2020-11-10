@@ -1,185 +1,245 @@
 @extends('front.layouts.core')
-
+@section ( 'title', 'Naplata')
 @push('css_before')
+    <style>
+        .bcont {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 0 10px 10px 10px;
+            background-color: #f7f7f7;
+        }
+    </style>
 @endpush
-
 @section('content')
-    <div class="container">
-        <ul class="breadcrumb">
-            <li><a href="{{ route('index') }}"><i class="fa fa-home"></i></a></li>
-            <li><a href="{{ route('kosarica') }}">Košarica</a></li>
-        </ul>
-        <div class="row">
-            <div id="content" class="col-sm-12 ">
-                <h1 id="page-title">Naplata</h1>
-                <form action="{{ route('napravi.narudzbu') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                        <div class="row">
-                            <!-- Shipping address -->
-                            <div class="col-md-6 col-xs-12">
-                                <div class="panel panel-default ">
-                                    <div class="panel-heading"> <i class="fa fa-user"></i> Adresa Naplate</div>
-                                    <div class="panel-body">
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                <h4>Korisničke informacije o naplati</h4>
-                                            </div>
-                                        </div>
-                                        <div class="form-group clearfix  ">
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <label>Ime:</label>
-                                                <input type="text" name="fname" class="form-control" value="{{ isset($user->details) ? $user->details->fname : '' }}">
-                                            </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <label>Prezime:</label>
-                                                <input type="text" name="lname" class="form-control" value="{{ isset($user->details) ? $user->details->lname : '' }}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group clearfix ">
-                                            <div class="col-md-12">
-                                                <label>Adresa:</label>
-                                                <input type="text" name="address" class="form-control" value="{{ isset($user->details) ? $user->details->address : '' }}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group clearfix">
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                <label>Poštanski broj:</label>
-                                                <input type="text" name="zip" class="form-control" value="{{ isset($user->details) ? $user->details->zip : '' }}">
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                <label>Grad:</label>
-                                                <input type="text" name="city" class="form-control" value="{{ isset($user->details) ? $user->details->city : '' }}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group clearfix  ">
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                <label>Broj telefona:</label>
-                                                <input type="text" name="phone" class="form-control" value="{{ isset($user->details) ? $user->details->phone : '' }}">
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                <label>Email Adresa:</label>
-                                                <input type="text" name="email" class="form-control" value="{{ isset($user->details) ? $user->email : '' }}">
-                                            </div>
-                                        </div>
-                                    </div>
+    <section id="page-title" class="page-title-mini page-title-right">
+        <div class="container clearfix">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('index') }}">Naslovnica</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('kosarica') }}">Košarica</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Naplata</li>
+            </ol>
+        </div>
+    </section>
+    <section id="content">
+        <div class="content-wrap">
+            <div class="container clearfix">
+                <div class="row col-mb-50 gutter-50">
+                    @include('front.layouts.partials.alert')
+                    <form id="billing-form" name="billing-form" class="row mb-0" action="{{ route('napravi.narudzbu') }}" method="post">
+                        @csrf
+                        <div class="col-lg-6">
+                            <div class="bcont">
+                                <div class="col-md-12">
+                                    <h3>Korisničke informacije o naplati</h3>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="billing-form-name">Ime: @include('back.layouts.partials.required-star')</label>
+                                    <input type="text" id="fname" name="fname" value="{{ isset($user->details) ? $user->details->fname : '' }}" class="sm-form-control" />
+                                    @error('fname')
+                                    <div class="text-danger">Ime je obvezno...</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="billing-form-lname">Prezime: @include('back.layouts.partials.required-star')</label>
+                                    <input type="text" id="lname" name="lname" value="{{ isset($user->details) ? $user->details->lname : '' }}" class="sm-form-control" />
+                                    @error('lname')
+                                    <div class="text-danger">Prezime je obvezno...</div>
+                                    @enderror
+                                </div>
+                                <div class="col-12 form-group">
+                                    <label for="billing-form-address">Adresa: @include('back.layouts.partials.required-star')</label>
+                                    <input type="text" id="address" name="address" value="{{ isset($user->details) ? $user->details->address : '' }}" class="sm-form-control" />
+                                    @error('address')
+                                    <div class="text-danger">Adresa je obvezno...</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="billing-form-zip">Poštanski broj: @include('back.layouts.partials.required-star')</label>
+                                    <input type="text" id="zip" name="zip" value="{{ isset($user->details) ? $user->details->zip : '' }}" class="sm-form-control" />
+                                    @error('zip')
+                                    <div class="text-danger">Poštanski broj je obvezan...</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="billing-form-city">Grad: @include('back.layouts.partials.required-star')</label>
+                                    <input type="text" id="city" name="city" value="{{ isset($user->details) ? $user->details->city : '' }}" class="sm-form-control" />
+                                    @error('city')
+                                    <div class="text-danger">Grad je obvezan...</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="billing-form-email">Email Adresa: @include('back.layouts.partials.required-star')</label>
+                                    <input type="email" id="email" name="email" value="{{ isset($user->details) ? $user->email : '' }}" class="sm-form-control" />
+                                    @error('email')
+                                    <div class="text-danger">Email je obvezan...</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="billing-form-phone">Telefon: @include('back.layouts.partials.required-star')</label>
+                                    <input type="text" id="phone" name="phone" value="{{ isset($user->details) ? $user->details->phone : '' }}" class="sm-form-control" />
                                 </div>
                             </div>
-                            <!-- Payment address -->
-                            <div class="col-md-6 col-xs-12">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"><i class="fa fa-truck"></i> Adresa Isporuke</div>
-                                    <div class="panel-body">
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                <h4>Korisničke informacije za isporuku</h4>
-                                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="bcont">
+                                <div class="col-md-12">
+                                    <h3 class="nobottommargin">Korisničke informacije za isporuku</h3>
+                                    <label class="pull-right fr"><input type="checkbox" id="same-as-pay-cb" value=""> Ista kao adresa naplate</label>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="shipping-form-name">Ime: @include('back.layouts.partials.required-star')</label>
+                                    <input type="text" id="ship-fname" name="ship_fname" value="{{ isset($user->details) ? $user->details->fname : '' }}" class="sm-form-control" />
+                                    @error('ship_fname')
+                                    <div class="text-danger">Ime je obvezno...</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="shipping-form-lname">Prezime: @include('back.layouts.partials.required-star')</label>
+                                    <input type="text" id="ship-lname" name="ship_lname" value="{{ isset($user->details) ? $user->details->lname : '' }}" class="sm-form-control" />
+                                    @error('ship_lname')
+                                    <div class="text-danger">Prezime je obvezno...</div>
+                                    @enderror
+                                </div>
+                                <div class="w-100"></div>
+                                <div class="col-12 form-group">
+                                    <label for="shipping-form-address">Adresa: @include('back.layouts.partials.required-star')</label>
+                                    <input type="text" id="ship-address" name="ship_address" value="{{ isset($user->details) ? $user->details->address : '' }}" class="sm-form-control" />
+                                    @error('ship_address')
+                                    <div class="text-danger">Adresa je obvezno...</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="shipping-form-zip">Poštanski broj: @include('back.layouts.partials.required-star')</label>
+                                    <input type="text" id="ship-zip" name="ship_zip" value="{{ isset($user->details) ? $user->details->zip : '' }}" class="sm-form-control" />
+                                    @error('ship_zip')
+                                    <div class="text-danger">Poštanski broj je obvezan...</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="shipping-form-city">Grad: @include('back.layouts.partials.required-star')</label>
+                                    <input type="text" id="ship-city" name="ship_city" value="{{ isset($user->details) ? $user->details->city : '' }}" class="sm-form-control" />
+                                    @error('ship_city')
+                                    <div class="text-danger">Grad je obvezan...</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="shipping-form-email">Email Adresa: @include('back.layouts.partials.required-star')</label>
+                                    <input type="email" id="ship-email" name="ship_email" value="{{ isset($user->details) ? $user->email : '' }}" class="sm-form-control" />
+                                    @error('ship_email')
+                                    <div class="text-danger">Email je obvezan...</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <label for="shipping-form-phone">Telefon: @include('back.layouts.partials.required-star')</label>
+                                    <input type="text" id="ship-phone" name="ship_phone" value="{{ isset($user->details) ? $user->details->phone : '' }}" class="sm-form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-md-12">
+                            <div class="bcont " style="margin-top:20px">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3 class="leftmargin-xs">Podaci o tvrtci</h3>
+                                    </div>
+                                    <div class="w-100"></div>
+                                    <div class="col-md-6 form-group">
+                                        <div class="col-md-12">
+                                            <label for="billing-form-companyname">Naziv tvrtke:</label>
+                                            <input type="text" id="billing-form-companyname" name="company" value="{{ isset($user->details) ? $user->details->company : '' }}" class="sm-form-control" />
                                         </div>
-                                        <div class="form-group clearfix ">
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                <label>Ime:</label>
-                                                <input type="text" name="ship_fname" class="form-control" value="{{ isset($user->details) ? $user->details->fname : '' }}">
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                <label>Prezime:</label>
-                                                <input type="text" name="ship_lname" class="form-control" value="{{ isset($user->details) ? $user->details->lname : '' }}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group clearfix ">
-                                            <div class="col-md-12">
-                                                <label>Adresa:</label>
-                                                <input type="text" name="ship_address" class="form-control" value="{{ isset($user->details) ? $user->details->address : '' }}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group clearfix ">
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                <label>Poštanski broj:</label>
-                                                <input type="text" name="ship_zip" class="form-control" value="{{ isset($user->details) ? $user->details->zip : '' }}">
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                <label>Grad:</label>
-                                                <input type="text" name="ship_city" class="form-control" value="{{ isset($user->details) ? $user->details->city : '' }}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group clearfix ">
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                <label>Broj telefona:</label>
-                                                <input type="text" name="ship_phone" class="form-control" value="{{ isset($user->details) ? $user->details->phone : '' }}">
-                                            </div>
-                                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                <label>Email Adresa:</label>
-                                                <input type="text" name="ship_email" class="form-control" value="{{ isset($user->details) ? $user->email : '' }}">
-                                            </div>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <div class="col-md-12">
+                                            <label for="oib">OIB:</label>
+                                            <input type="text" id="billing-form-oib" name="oib" value="{{ isset($user->details) ? $user->details->oib : '' }}" class="sm-form-control" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <!-- Payment info -->
-                            <div class="col-md-6">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"><i class="fa fa-lock"></i> Način plaćanja</div>
-                                    <div class="panel-body">
+                        <div class="w-100"></div>
+                        <div class="col-md-12">
+                            <div class="bcont " style="margin-top:20px">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h3 class="leftmargin-xs">Plaćanje i isporuka</h3>
+                                    </div>
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <div class="col-md-12"><label>Način plaćanja:</label></div>
                                             <div class="col-md-12">
-                                                <select id="CreditCardType" name="payment" class="form-control">
+                                                <select id="payment-type" name="payment" class="form-control">
                                                     @foreach ($payments as $payment)
                                                         <option value="{{ $payment->code }}">{{ $payment->title }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
-                                        {{--<div class="form-group clearfix ">
-                                            <div class="col-md-12">
-                                                <label>Ovdje još neki info nakon odabira plaćanja...</label>
-                                            </div>
-                                        </div>--}}
                                     </div>
-                                </div>
-                            </div>
-                            <!-- Shipping info -->
-                            <div class="col-md-6">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"><i class="fa fa-lock"></i> Način dostave</div>
-                                    <div class="panel-body">
+                                    <div class="col-lg-6">
                                         <div class="form-group">
                                             <div class="col-md-12"><label>Način dostave:</label></div>
                                             <div class="col-md-12">
-                                                <select id="CreditCardType" name="shipping" class="form-control">
-                                                    <option value="shipping">Dostava</option>
-                                                    {{--<option value="pickup">Osobno preuzimanje</option>--}}
+                                                <select id="shipping-type" name="shipping" class="form-control">
+                                                    <option value="shipping">Besplatna dostava</option>
+                                                    <option value="pickup">Osobno preuzimanje</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        {{--<div class="form-group clearfix ">
-                                            <div class="col-md-12">
-                                                <label>Ovdje još neki info o načinu dostave...</label>
+                                    </div>
+                                    <div class="col-lg-12 topmargin-sm">
+                                        <div class="col-lg-12">
+                                            <div class="style-msg infomsg ">
+                                                <div class="sb-msg "><i class="icon-info-sign"></i>Plaćanje možete izvršiti direktnom uplatom na žiro račun: <strong>HR2824840081103360295</strong> - RBA d.d. Zagreb </div>
                                             </div>
-                                        </div>--}}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- REVIEW ORDER -->
-                            <div class="col-md-12">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <i class="fa fa-shopping-cart"></i> Pregled Narudžbe <div class="pull-right">{{--<small><a class="afix-1" href="#">Edit Cart</a></small>--}}</div>
-                                    </div>
-                                    <div class="panel-body">
-                                        <cart-view continueurl="{{ route('index') }}" checkouturl="{{ route('naplata') }}" :buttons="false"></cart-view>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <button type="submit" class="text-uppercase  btn btn-primary" style="display: block; width: 100%;">Napravi narudžbu</button>
                             </div>
                         </div>
-                </form>
+                        <div class="w-100"></div>
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <h3 class="nobottommargin topmargin-sm">Pregled narudžbe</h3>
+                            </div>
+                            <cart-view continueurl="{{ route('index') }}" checkouturl="{{ route('naplata') }}" :buttons="false"></cart-view>
+                            <div class="col-md-6 fright">
+                                <button type="submit" class="btn btn-green float-right" style=" width: 100%;">Napravi narudžbu</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 @endsection
-
-@push('js_before')
+@push('js')
+    <script>
+        $(() => {
+            const checkbox = document.getElementById('same-as-pay-cb')
+            checkbox.addEventListener('change', (e) => {
+                console.log(e.target.checked)
+                if (e.target.checked) {
+                    console.log($('#fname').val())
+                    $('#ship-fname').val($('#fname').val())
+                    $('#ship-lname').val($('#lname').val())
+                    $('#ship-address').val($('#address').val())
+                    $('#ship-zip').val($('#zip').val())
+                    $('#ship-city').val($('#city').val())
+                    $('#ship-phone').val($('#phone').val())
+                    $('#ship-email').val($('#email').val())
+                } else {
+                    $('#ship-fname').val('')
+                    $('#ship-lname').val('')
+                    $('#ship-address').val('')
+                    $('#ship-zip').val('')
+                    $('#ship-city').val('')
+                    $('#ship-phone').val('')
+                    $('#ship-email').val('')
+                }
+            })
+        })
+    </script>
 @endpush

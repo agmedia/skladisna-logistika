@@ -56,41 +56,138 @@ class OrderTotal extends Model
 
 
     /**
-     * @param $totals
+     * @param $request
      * @param $order_id
      *
      * @return bool
      */
-    public static function make($products, $order_id, $shipping)
+    public function make($request, $order_id)
     {
-        $total = 0;
-        $ship = 0;
+        $totals = collect(config('settings.totals'))->where('status', 1)->sortBy('sort_order');
+        $sum = 0;
 
-        foreach ($products as $product) {
-            $total += $product->quantity * $product->price;
-        }
+        foreach ($totals as $code => $total) {
+            $value = $this->returnTotalValue($request, $code);
 
-        if ($shipping->sum < $shipping->min) {
-            $ship = intval($shipping->shipping_price);
-        }
+            if ($value) {
+                $sum += $value;
+            }
 
-        foreach (self::getTotals() as $code => $dbtotal) {
-            self::insertGetId([
+            if ($code == 'tax') {
+                $value = $this->getTax($sum);
+                $sum += $value;
+            }
+
+            if ($code == 'total') {
+                $value = $sum;
+            }
+
+            $this->insertGetId([
                 'order_id'   => $order_id,
                 'code'       => $code,
-                'title'      => $dbtotal['title'],
-                'value'      => $code == 'shipping' ? $ship : ($code == 'subtotal' ? $total : $total + $ship),
-                'sort_order' => $dbtotal['sort'],
+                'title'      => $total['title'],
+                'value'      => $value,
+                'sort_order' => $total['sort_order'],
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
         }
 
         Order::where('id', $order_id)->update([
-            'total' => $total + $ship
+            'total' => $sum
         ]);
 
         return true;
+    }
+
+
+    /**
+     * @param        $request
+     * @param string $code
+     *
+     * @return false|float|int
+     */
+    public function returnTotalValue($request, string $code)
+    {
+        $data = json_decode($request->order_data);
+
+        if ($code == 'subtotal') {
+            return $this->getSubtotal($data->items);
+        }
+
+        if ($code == 'discount') {
+            return $this->getDiscount($data->items);
+        }
+
+        if ($code == 'shipping') {
+            return $this->getShipping($data->shipping);
+        }
+
+        return false;
+    }
+
+
+    /**
+     * @param $products
+     *
+     * @return int
+     */
+    public function getSubtotal($products)
+    {
+        $subtotal = 0;
+
+        foreach ($products as $product) {
+            $subtotal += intval($product->associatedModel->price);
+        }
+
+        return $subtotal;
+    }
+
+
+    /**
+     * @param $products
+     *
+     * @return float|int
+     */
+    public function getDiscount($products)
+    {
+        $discount = 0;
+
+        foreach ($products as $product) {
+            $mod = $product->associatedModel;
+
+            if (isset($mod->action) && ! empty($mod->action)) {
+                if ($mod->action->price) {
+                    $discount += intval($mod->price) - intval($mod->action->price);
+                } else {
+                    $discount += intval($mod->price) * ($mod->action->discount / 100);
+                }
+            }
+        }
+
+        return -$discount;
+    }
+
+
+    /**
+     * @param $shipping
+     *
+     * @return int
+     */
+    public function getShipping($shipping)
+    {
+        return ($shipping == 'shipping') ? 0 : $shipping;
+    }
+
+
+    /**
+     * @param $products
+     *
+     * @return float|int
+     */
+    public function getTax($amount)
+    {
+        return $amount * (config('settings.tax') / 100);
     }
 
 
@@ -133,22 +230,4 @@ class OrderTotal extends Model
         return false;
     }
 
-
-    public static function getTotals()
-    {
-        return [
-            'subtotal' => [
-                'title' => 'Ukupno',
-                'sort' => 0
-            ],
-            'shipping' => [
-                'title' => 'Poštarina',
-                'sort' => 1
-            ],
-            'total' => [
-                'title' => 'Sveukupno',
-                'sort' => 2
-            ]
-        ];
-    }
 }

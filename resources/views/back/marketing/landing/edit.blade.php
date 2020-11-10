@@ -81,7 +81,7 @@
                                          {{--data-service="async.php"
                                          data-fetcher="fetch.php"--}}
                                          data-ratio="16:9"
-                                         data-size="600,360"
+                                         data-size="1200,640"
                                          data-max-file-size="2">
                                         <img src="{{ isset($landing) && isset($landing->image) ? asset($landing->image) : asset('media/images/bcllanding.jpg') }}" alt=""/>
                                         <input type="file" name="main_image"/>
@@ -146,7 +146,28 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <h5 class="text-black mb-0 mt-30">Detalji Landing Stranice</h5>
+                            <hr class="mb-20">
+
+                            <div class="block">
+                                <div class="block-content" style="background-color: #f8f9f9; border: 1px solid #e9e9e9; padding: 30px;">
+                                    <div class="form-group mb-30">
+                                        <label class="css-control css-control css-control-success css-switch">
+                                            <input type="checkbox" class="css-control-input" name="has_tab_section" @if (isset($landing) and $landing->has_tab_section) checked @endif>
+                                            <span class="css-control-indicator"></span> Objavi Sekciju 3 <span class="text-gray font-size-sm">( Moguća rješenja )</span>
+                                        </label>
+                                    </div>
+                                    <div class="form-group mb-0">
+                                        <label class="css-control css-control css-control-success css-switch">
+                                            <input type="checkbox" class="css-control-input" name="has_map" @if (isset($landing) and $landing->has_map) checked @endif>
+                                            <span class="css-control-indicator"></span> Objavi Servisnu Mapu
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>

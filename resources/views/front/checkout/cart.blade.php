@@ -1,18 +1,20 @@
 @extends('front.layouts.core')
-
+@section ( 'title', 'Košarica')
 @push('css_before')
 @endpush
 
 @section('content')
-    <div class="container">
-        <ul class="breadcrumb">
-            <li><a href="{{ route('index') }}"><i class="fa fa-home"></i></a></li>
-            <li>Košarica</li>
-        </ul>
-        <h1 id="page-title">Košarica</h1>
 
-        <cart-view continueurl="{{ route('index') }}" checkouturl="{{ route('naplata') }}"></cart-view>
-    </div>
+    <section id="page-title" class="page-title-mini page-title-right">
+        <div class="container clearfix">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('index') }}">Naslovnica</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Košarica</li>
+            </ol>
+        </div>
+    </section>
+
+    <cart-view continueurl="{{ route('index') }}" checkouturl="{{ route('naplata') }}"></cart-view>
 @endsection
 
 @push('js_before')

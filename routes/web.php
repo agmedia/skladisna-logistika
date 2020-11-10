@@ -55,6 +55,7 @@ Route::middleware('auth', 'noCustomers')->group(function () {
             Route::get('/', 'Back\Orders\OrderController@index')->name('orders');
             Route::get('create', 'Back\Orders\OrderController@create')->name('order.create');
             Route::post('/', 'Back\Orders\OrderController@store')->name('order.store');
+            Route::get('show/{id}', 'Back\Orders\OrderController@show')->name('order.show');
             Route::get('{id}/edit', 'Back\Orders\OrderController@edit')->name('order.edit');
             Route::patch('{order}', 'Back\Orders\OrderController@update')->name('order.update');
             // Actions
@@ -232,6 +233,8 @@ Route::prefix('api/v1')->group(function () {
         Route::post('/sync', 'Api\v1\CartController@sync')->name('api.cart.sync');
         Route::get('clients/data', 'Api\v1\CartController@clientData')->name('api.cart.client.data');
     });
+
+    Route::get('/newsletter-subscribe', 'Api\v1\NewsletterController@subscribe')->name('newsletter.subscribe');
 
     Route::get('trazi', 'Api\v1\SearchController@index')->name('api.search');
 });

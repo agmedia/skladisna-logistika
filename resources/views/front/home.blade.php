@@ -51,10 +51,8 @@
                             </div>
                         </a>
                     </div>
-
                 </div>
                 <div class="row ">
-
                     <div class="col-lg-6 mb-4">
                         <a href="info/servis-vilicara">
                             <div class=" text-center ">
@@ -71,7 +69,7 @@
                         </a>
                     </div>
 
-              <!--      <div class="col-lg-4 mb-4 ">
+                <!--      <div class="col-lg-4 mb-4 ">
                         <a href="info/informacije-o-isporukama-vilicara">
                         <div class=" text-center t">
                             <div class="flip-card-front dark" style="background-image: url({{ asset('images/banners/akcija.jpg') }}">
@@ -91,16 +89,34 @@
                     <div class="col-lg-6 mb-4">
                         @if (isset($latest->first()->subcat))
                             <a href="{{ route('blogovi', ['cat' => $latest->first()->cat->slug, 'cat' => $latest->first()->subcat->slug, 'page' => $latest->first()->slug]) }}">
-                        @else
-                            <a href="{{ route('blogovi', ['cat' => $latest->first()->cat->slug, 'subcat' => $latest->first()->slug]) }}">
-                        @endif
+                                @else
+                                    <a href="{{ route('blogovi', ['cat' => $latest->first()->cat->slug, 'subcat' => $latest->first()->slug]) }}">
+                                        @endif
+                                        <div class=" text-center ">
+                                            <div class="flip-card-front dark" style="background-image: url('{{ asset(isset($latest->first()->image) ? $latest->first()->image : 'images/banners/novost.jpg') }}')">
+                                                <div class="sale-flash">Novosti</div>
+                                                <div class="flip-card-inner">
+                                                    <div class="card nobg noborder text-center">
+                                                        <div class="card-body">
+                                                            <h2 class="card-title">{{ $latest->first()->title }}</h2>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-lg-12 mb-4">
+                        <a href="https://www.kalmarglobal.com">
                             <div class=" text-center ">
-                                <div class="flip-card-front dark" style="background-image: url('{{ asset(isset($latest->first()->image) ? $latest->first()->image : 'images/banners/novost.jpg') }}')">
-                                    <div class="sale-flash">Novosti</div>
-                                    <div class="flip-card-inner">
+                                <div class="flip-card-front dark" style="background-image: url({{ asset('images/banners/kalmar-add.jpg') }};background-position: top left;">
+                                    <div class="flip-card-inner" >
                                         <div class="card nobg noborder text-center">
                                             <div class="card-body">
-                                                <h2 class="card-title">{{ $latest->first()->title }}</h2>
+                                                <h2 class="card-title nobottommargin"> Predvodnik u rukovanju kontejnerima i industrijskim materijalima</h2>
+                                                <p style="color:#fff;font-size:1rem" class="d-none d-lg-block">Kalmar nudi najširi raspon rješenja i usluga za rukovanje teretom u lukama, terminalima, distribucijskim centrima i teškoj industriji</p>
                                             </div>
                                         </div>
                                     </div>
@@ -118,7 +134,7 @@
                 <div class="col_one_third ">
                     <div class="feature-box media-box">
                         <div class="fbox-media">
-                            	<img src="{{ asset('images/banners/rabljeni-vilicari-bw.jpg') }}" title="Rabljeni viličari" alt="Rabljeni viličari">
+                            <img src="{{ asset('images/banners/rabljeni-vilicari-bw.jpg') }}" title="Rabljeni viličari" alt="Rabljeni viličari">
                         </div>
                         <div class="fbox-desc">
                             <h3 class="color">Rabljeni viličari<span class="subtitle">Velika ponuda rabljenih viličara.</span></h3>
@@ -129,8 +145,8 @@
                 <div class="col_one_third ">
                     <div class="feature-box media-box">
                         <div class="fbox-media">
-                           	<img src="{{ asset('images/banners/najam-vilicara-bw.jpg') }}" alt="Najam viličara" title="Najam viličara">
-                           </div>
+                            <img src="{{ asset('images/banners/najam-vilicara-bw.jpg') }}" alt="Najam viličara" title="Najam viličara">
+                        </div>
                         <div class="fbox-desc">
                             <h3 class="color">Najam viličara<span class="subtitle">Najam viličara svih tipova. </span></h3>
                             <p>Kod najma viličara možete računati na kvalitetu, pouzdanost i izvrsne performanse stroja unajmljivali ga na samo jedan dan ili nekoliko godina.

@@ -38,17 +38,17 @@
 
         <div class="form-group mb-50">
             <label for="discount">Kupon Kod</label>
-            <input type="text" class="form-control" name="action_code" placeholder="Kupon kod..." value="{{ isset($product->actions) ? $product->actions->code : '' }}">
+            <input type="text" class="form-control" name="action_code" placeholder="Kupon kod..." value="{{ isset($product->actions) ? $product->actions->coupon : '' }}">
         </div>
 
         <div class="form-group row mb-50">
             <div class="col-md-6">
                 <label for="date_start">Početak</label>
-                <input type="text" name="date_start" id="start-date-picker" class="form-control form-control-lg" value="{{ isset($product->actions) ? date_format(date_create($product->actions->date_start), 'd.m.Y. H:i') : '' }}">
+                <input type="text" name="date_start" id="start-date-picker" class="form-control form-control-lg" value="{{ isset($product->actions->date_start) ? date_format(date_create($product->actions->date_start), 'd.m.Y. H:i') : '' }}">
             </div>
             <div class="col-md-6">
                 <label for="date_end">Kraj</label>
-                <input type="text" class="form-control form-control-lg" name="date_end" id="end-date-picker" value="{{ isset($product->actions) ? date_format(date_create($product->actions->date_end), 'd.m.Y. H:i') : '' }}">
+                <input type="text" class="form-control form-control-lg" name="date_end" id="end-date-picker" value="{{ isset($product->actions->date_end) ? date_format(date_create($product->actions->date_end), 'd.m.Y. H:i') : '' }}">
             </div>
         </div>
 

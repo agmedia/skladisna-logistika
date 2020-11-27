@@ -35,8 +35,8 @@
                             <td class="font-w600">
                                 <a href="{{ route('action.edit', ['id' => $action->id]) }}" class="js-tooltip-enabled" data-toggle="tooltip" data-title="Uredi">{{ $action->product ? $action->product->name : '' }}</a>
                             </td>
-                            <td class="text-center font-size-sm">{{ date_format(date_create($action->date_start), 'd.m.Y. H:m') }}</td>
-                            <td class="text-center font-size-sm">{{ date_format(date_create($action->date_end), 'd.m.Y. H:m') }}</td>
+                            <td class="text-center font-size-sm">{{ $action->date_start ? date_format(date_create($action->date_start), 'd.m.Y. H:m') : '' }}</td>
+                            <td class="text-center font-size-sm">{{ $action->date_end ? date_format(date_create($action->date_end), 'd.m.Y. H:m') : '' }}</td>
                             <td class="text-center"><strong>{{ $action->discount }}</strong>%</td>
                             <td class="d-none d-sm-table-cell text-right">
                                 <button type="button" class="btn btn-sm btn-circle btn-alt-danger" onclick="event.preventDefault(); shouldDeleteAction({{ json_encode($action) }});">

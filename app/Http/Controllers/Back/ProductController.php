@@ -90,7 +90,7 @@ class ProductController extends Controller
                 Product::updateFilePath($product_created, $filepath);
             }
 
-            return redirect()->route('products')->with(['success' => 'Product was succesfully saved!']);
+            return redirect()->back()->with(['success' => 'Product was succesfully saved!']);
         }
 
         return redirect()->back()->with(['error' => 'Whoops..! There was an error saving the product.']);
@@ -150,7 +150,7 @@ class ProductController extends Controller
                 Product::updateFilePath($product_updated, $filepath);
             }
 
-            return redirect()->route('products')->with(['success' => 'Proizvod je uspješno snimljen.!']);
+            return redirect()->back()->with(['success' => 'Proizvod je uspješno snimljen.!']);
         }
 
         return redirect()->back()->with(['error' => 'Whoops..! Došlo je do greške sa snimanjem proizvoda.']);

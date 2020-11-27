@@ -45,18 +45,18 @@
                             <div class="form-group row mb-50">
                                 <div class="col-md-6">
                                     <label for="date_start">Početak akcije</label>
-                                    <input type="text" name="date_start" id="start-date-picker" class="form-control form-control-lg" value="{{ isset($action) ? date_format(date_create($action->date_start), 'd.m.Y. H:m') : '' }}" style="height: 34px; background-color: white;">
+                                    <input type="text" name="date_start" id="start-date-picker" class="form-control form-control-lg" value="{{ isset($action->date_start) ? date_format(date_create($action->date_start), 'd.m.Y. H:m') : '' }}" style="height: 34px; background-color: white;">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="date_end">Kraj akcije</label>
-                                    <input type="text" class="form-control form-control-lg" name="date_end" id="end-date-picker" value="{{ isset($action) ? date_format(date_create($action->date_end), 'd.m.Y. H:m') : '' }}" style="height: 34px; background-color: white;">
+                                    <input type="text" class="form-control form-control-lg" name="date_end" id="end-date-picker" value="{{ isset($action->date_end) ? date_format(date_create($action->date_end), 'd.m.Y. H:m') : '' }}" style="height: 34px; background-color: white;">
                                 </div>
                             </div>
 
                             <div class="form-group row mb-50">
                                 <div class="col-md-12">
                                     <label for="discount">Popust</label>
-                                    <input type="text" class="form-control" name="discount" placeholder="Type discount percent..." value="{{ isset($action) ? $action->discount : '' }}">
+                                    <input type="text" class="form-control" name="discount" placeholder="Type discount percent..." value="{{ isset($action->discount) ? $action->discount : '' }}">
                                 </div>
                                 {{--<div class="col-md-6">
                                     <label for="price">Cijena sa popustom</label>

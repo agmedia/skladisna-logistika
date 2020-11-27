@@ -56,11 +56,11 @@ class Product extends Model
      */
     public function action()
     {
-        return $this->hasOne(Action::class, 'product_id')
-            ->where('date_start', '<', Carbon::now())
-            ->orWhere('date_start', null)
+        return $this->hasOne(Action::class, 'product_id')->active();
+            /*->where('date_start', '<', Carbon::now())
             ->where('date_end', '>', Carbon::now())
-            ->orWhere('date_end', null);
+            ->orWhere('date_start', null)
+            ->orWhere('date_end', null);*/
     }
 
 

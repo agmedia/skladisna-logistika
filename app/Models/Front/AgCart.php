@@ -2,7 +2,8 @@
 
 namespace App\Models\Front;
 
-
+use App\Models\Front\Product\Action;
+use Darryldecode\Cart\CartCondition;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
@@ -10,6 +11,9 @@ use Illuminate\Support\Facades\Log;
 class AgCart extends Model
 {
 
+    /**
+     * @var string
+     */
     private $cart_id;
 
     /**
@@ -21,12 +25,12 @@ class AgCart extends Model
     /**
      * AgCart constructor.
      *
-     * @param $id
+     * @param string $id
      */
-    public function __construct($id)
+    public function __construct(string $id)
     {
         $this->cart_id = $id;
-        $this->cart = Cart::session($id);
+        $this->cart    = Cart::session($id);
     }
 
 
@@ -35,13 +39,18 @@ class AgCart extends Model
      */
     public function get()
     {
-        return [
+        $response = [
+            'id'         => $this->cart_id,
+            'coupon'     => session()->has('sl_cart_coupon') ? session('sl_cart_coupon') : '',
             'items'      => $this->cart->getContent(),
             'count'      => $this->cart->getTotalQuantity(),
             'subtotal'   => $this->cart->getSubTotal(),
             'conditions' => $this->cart->getConditions(),
-            'total'      => $this->cart->getTotal(),
+            'total'      => $this->cart->getTotal()
         ];
+        $response['tax'] = $this->getTax($response);
+
+        return $response;
     }
 
 
@@ -53,10 +62,6 @@ class AgCart extends Model
      */
     public function add($request, $id = null)
     {
-        Log::debug('AgCart::add');
-        Log::debug($request);
-        Log::debug($id);
-
         if ($id) {
             foreach ($this->cart->getContent() as $item) {
                 if ($item->id == $request['item']['id']) {
@@ -83,6 +88,35 @@ class AgCart extends Model
 
 
     /**
+     * @param $coupon
+     *
+     * @return array
+     */
+    public function coupon($coupon)
+    {
+        $items = $this->cart->getContent();
+
+        foreach ($items as $item) {
+            $this->remove($item->id);
+            $this->addToCart([
+                'item' => [
+                    'id'       => $item->id,
+                    'quantity' => $item->quantity
+                ]
+            ]);
+        }
+
+        $has_coupon = Action::active()->where('coupon', $coupon)->get();
+
+        if ($has_coupon->count()) {
+            return 1;
+        }
+
+        return 0;
+    }
+
+
+    /**
      *
      * @return array
      */
@@ -99,7 +133,7 @@ class AgCart extends Model
      */
     private function addToCart($request): array
     {
-        $this->cart->add($this->structureCart($request));
+        $this->cart->add($this->structureCartItem($request));
 
         return $this->get();
     }
@@ -129,23 +163,77 @@ class AgCart extends Model
      *
      * @return array
      */
-    private function structureCart($request)
+    private function structureCartItem($request)
     {
         $product = Product::where('id', $request['item']['id'])->first();
-        $cat = isset($product->category()->slug) ? $product->category()->slug : '';
-        $subcat = isset($product->subcategory()->slug) ? $product->subcategory()->slug : '';
 
-        return [
+        $response = [
             'id'              => $product->id,
             'name'            => $product->name,
-            'price'           => $product->action ? $this->getActionPrice($product->price, $product->action) : $product->price,
+            'price'           => $product->price,
             'quantity'        => $request['item']['quantity'],
             'associatedModel' => $product,
-            'attributes' => [
-                'url' => 'toyota-vilicari/' . $cat . '/' . $subcat . '/',
-                'client' => $product->client
-            ]
+            'attributes'      => $this->structureCartItemAttributes($product)
         ];
+
+        $conditions = $this->structureCartItemConditions($product);
+
+        if ($conditions) {
+            $response['conditions'] = $conditions;
+        }
+
+        return $response;
+    }
+
+
+    /**
+     * @param $product
+     *
+     * @return string[]
+     */
+    private function structureCartItemAttributes($product)
+    {
+        $cat    = isset($product->category()->slug) ? $product->category()->slug : null;
+        $subcat = isset($product->subcategory()->slug) ? $product->subcategory()->slug : null;
+
+        return [
+            'path' => 'toyota-vilicari/' . ($cat ? $cat . '/' : '') . ($subcat ? $subcat . '/' : '') . $product->slug
+        ];
+    }
+
+
+    /**
+     * @param $product
+     *
+     * @return CartCondition|bool
+     * @throws \Darryldecode\Cart\Exceptions\InvalidConditionException
+     */
+    private function structureCartItemConditions($product)
+    {
+        $active_action = Action::where('product_id', $product->id)->active()->first();
+
+        // Ako artikl ima akciju.
+        if ($product->action && $active_action) {
+            // Ako je kupon nepotreban za akciju.
+            if ($product->action->coupon == '') {
+                return new CartCondition([
+                    'name'  => ( ! empty($product->action->name)) ? $product->action->name : 'Akcija',
+                    'type'  => 'promo',
+                    'value' => $this->getActionPrice($product->price, $product->action)
+                ]);
+            }
+            // Ako je kupon potreban za akciju
+            // i ima odgovarajući u session-u.
+            if (session()->has('sl_cart_coupon') && session('sl_cart_coupon') == $product->action->coupon) {
+                return new CartCondition([
+                    'name'  => ( ! empty($product->action->name)) ? $product->action->name : 'Akcija',
+                    'type'  => 'promo',
+                    'value' => $this->getActionPrice($product->price, $product->action)
+                ]);
+            }
+        }
+
+        return false;
     }
 
 
@@ -158,10 +246,32 @@ class AgCart extends Model
     private function getActionPrice($price, $action)
     {
         if (isset($action->price) && ! empty($action->price)) {
-            return number_format($action->price, 2, '.', '');
+            return -($price - $action->price);
         }
 
-        return number_format(($price - ($price * ($action->discount / 100))), 2, '.', '');
+        return -$action->discount . "%";
+    }
+
+
+    /**
+     * @param $cart
+     *
+     * @return array[]
+     */
+    private function getTax($cart)
+    {
+        $without = $cart['subtotal'] / 1.25;
+
+        return [
+            0 => [
+                'title' => 'Iznos bez PDV-a',
+                'value' => $without
+            ],
+            1 => [
+                'title' => 'PDV (25%)',
+                'value' => $without * 0.25
+            ]
+        ];
     }
 
 }

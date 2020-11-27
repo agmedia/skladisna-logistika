@@ -54,7 +54,7 @@
 
         <form action="{{ isset($product) ? route('product.update', ['product' => $product]) : route('product.store') }}" method="post" enctype="multipart/form-data">
             @csrf
-            <h2 class="content-heading"> <a href="{{ route('users') }}" class="mr-10 text-gray font-size-h4"><i class="si si-action-undo"></i></a>
+            <h2 class="content-heading"> <a href="{{ route('products') }}" class="mr-10 text-gray font-size-h4"><i class="si si-action-undo"></i></a>
                 @if (isset($product))
                     {{ method_field('PATCH') }}
                     Uredi Proizvod <small class="text-primary pl-4">{{ $product->name }}</small>

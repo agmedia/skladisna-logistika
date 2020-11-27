@@ -239,6 +239,16 @@ Route::prefix('api/v1')->group(function () {
     Route::get('trazi', 'Api\v1\SearchController@index')->name('api.search');
 });
 
+Route::prefix('api/v2')->group(function () {
+    Route::prefix('cart')->group(function () {
+        Route::get('/get', 'Api\v2\CartController@get');
+        Route::post('/add', 'Api\v2\CartController@add');
+        Route::post('/update/{id}', 'Api\v2\CartController@update');
+        Route::get('/remove/{id}', 'Api\v2\CartController@remove');
+        Route::get('/coupon/{coupon}', 'Api\v2\CartController@coupon');;
+    });
+});
+
 Route::get('pretraga', 'Api\v1\SearchController@all')->name('search.all');
 
 //

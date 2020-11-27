@@ -124,7 +124,7 @@
                                 @endif
                                 <div class="clear"></div>
                                 <!-- Product Single - Quantity & Cart Button -->
-                            @include('front.product.partials.add-to-cart-btn', ['product' => $prod])
+                                @include('front.product.partials.add-to-cart-btn', ['product' => $prod])
                                 {{--<form class="cart nobottommargin clearfix" method="post" enctype='multipart/form-data'>
                                     <div class="quantity clearfix">
                                         <input type="button" value="-" class="minus">

@@ -65,10 +65,10 @@ class Product extends Model
     public function actions()
     {
         return $this->hasOne(ProductAction::class, 'product_id')
-            ->where('date_start', '<', Carbon::now())
-            ->orWhere('date_start', null)
+            /*->where('date_start', '<', Carbon::now())
             ->where('date_end', '>', Carbon::now())
-            ->orWhere('date_end', null);
+            ->orWhere('date_start', null)
+            ->orWhere('date_end', null)*/;
     }
 
 
@@ -250,8 +250,8 @@ class Product extends Model
             'coupon'     => $this->request->action_code,
             'price'      => $this->request->action_price,
             'discount'   => $this->request->discount,
-            'date_start' => new Carbon($this->request->date_start),
-            'date_end'   => new Carbon($this->request->date_end),
+            'date_start' => $this->request->date_start ? new Carbon($this->request->date_start) : null,
+            'date_end'   => $this->request->date_end ? new Carbon($this->request->date_end) : null,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
@@ -274,7 +274,7 @@ class Product extends Model
      */
     public function hasAction()
     {
-        if ($this->request->date_start != '' or $this->request->date_end != '' or $this->request->discount != '' or $this->request->action_price != '') {
+        if ($this->request->discount != '' or $this->request->action_price != '') {
             return true;
         }
 

@@ -15,13 +15,13 @@
                     </div>
                     <div class="top-cart-item-desc">
                         <a :href="base_path + item.attributes.path">{{ item.name }}</a>
-                        <span class="top-cart-item-price">{{ Number(item.price).toLocaleString('hr-HR', currency_options) }}kn</span>
+                        <span class="top-cart-item-price">{{ Object.keys(item.conditions).length ? $store.state.service.formatPrice(item.price - item.conditions.parsedRawValue) : $store.state.service.formatPrice(item.price) }}</span>
                         <span class="top-cart-item-quantity">x {{ item.quantity }}</span>
                     </div>
                 </div>
             </div>
             <div class="top-cart-action clearfix">
-                <span class="fleft top-checkout-price">{{ Number($store.state.cart.subtotal).toLocaleString('hr-HR', currency_options) }}</span>
+                <span class="fleft top-checkout-price">{{ $store.state.service.formatPrice($store.state.cart.total) }}</span>
                 <a :href="carturl" class="btn btn-green float-right">Košarica</a>
             </div>
         </div>
@@ -45,11 +45,7 @@
             return {
                 base_path: window.location.origin + '/',
                 success_path: window.location.origin + '/kosarica/success',
-                mobile: false,
-                currency_options: {
-                    style: 'currency',
-                    currency: 'HRK'
-                }
+                mobile: false
             }
         },
         //

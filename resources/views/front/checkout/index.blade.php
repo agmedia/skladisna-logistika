@@ -182,8 +182,8 @@
                                             <div class="col-md-12"><label>Način dostave:</label></div>
                                             <div class="col-md-12">
                                                 <select id="shipping-type" name="shipping" class="form-control">
-                                                    <option value="shipping">Besplatna dostava</option>
-                                                    <option value="pickup">Osobno preuzimanje</option>
+                                                    <option value="shipping">Dostava</option>
+                                                    {{--<option value="pickup">Osobno preuzimanje</option>--}}
                                                 </select>
                                             </div>
                                         </div>
@@ -220,24 +220,22 @@
         $(() => {
             const checkbox = document.getElementById('same-as-pay-cb')
             checkbox.addEventListener('change', (e) => {
-                console.log(e.target.checked)
                 if (e.target.checked) {
-                    console.log($('#fname').val())
-                    $('#ship-fname').val($('#fname').val())
-                    $('#ship-lname').val($('#lname').val())
-                    $('#ship-address').val($('#address').val())
-                    $('#ship-zip').val($('#zip').val())
-                    $('#ship-city').val($('#city').val())
-                    $('#ship-phone').val($('#phone').val())
-                    $('#ship-email').val($('#email').val())
+                    $('#ship-fname').val($('#fname').val());
+                    $('#ship-lname').val($('#lname').val());
+                    $('#ship-address').val($('#address').val());
+                    $('#ship-zip').val($('#zip').val());
+                    $('#ship-city').val($('#city').val());
+                    $('#ship-phone').val($('#phone').val());
+                    $('#ship-email').val($('#email').val());
                 } else {
-                    $('#ship-fname').val('')
-                    $('#ship-lname').val('')
-                    $('#ship-address').val('')
-                    $('#ship-zip').val('')
-                    $('#ship-city').val('')
-                    $('#ship-phone').val('')
-                    $('#ship-email').val('')
+                    $('#ship-fname').val('');
+                    $('#ship-lname').val('');
+                    $('#ship-address').val('');
+                    $('#ship-zip').val('');
+                    $('#ship-city').val('');
+                    $('#ship-phone').val('');
+                    $('#ship-email').val('');
                 }
             })
         })

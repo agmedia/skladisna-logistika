@@ -21,8 +21,8 @@ class AgService {
      */
     getCart() {
         return axios.get('cart/get')
-            .then(response => { return response.data })
-            .catch(error => { return this.returnError(messages.error) })
+        .then(response => { return response.data })
+        .catch(error => { return this.returnError(messages.error) })
     }
 
     /**
@@ -32,11 +32,11 @@ class AgService {
      */
     addToCart(item) {
         return axios.post('cart/add', {item: item})
-            .then(response => {
-                this.returnSuccess(messages.cartAdd);
-                return response.data
-            })
-            .catch(error => { return this.returnError(messages.error) })
+        .then(response => {
+            this.returnSuccess(messages.cartAdd);
+            return response.data
+        })
+        .catch(error => { return this.returnError(messages.error) })
     }
 
     /**
@@ -46,11 +46,11 @@ class AgService {
      */
     updateCart(item) {
         return axios.post('cart/update/' + item.id, {item: item})
-            .then(response => {
-                this.returnSuccess(messages.cartUpdate);
-                return response.data
-            })
-            .catch(error => { return this.returnError(messages.error) })
+        .then(response => {
+            this.returnSuccess(messages.cartUpdate);
+            return response.data
+        })
+        .catch(error => { return this.returnError(messages.error) })
     }
 
     /**
@@ -60,11 +60,11 @@ class AgService {
      */
     removeItem(item) {
         return axios.get('cart/remove/' + item.id)
-            .then(response => {
-                this.returnSuccess(messages.cartRemove);
-                return response.data
-            })
-            .catch(error => { return this.returnError(messages.error) })
+        .then(response => {
+            this.returnSuccess(messages.cartRemove);
+            return response.data
+        })
+        .catch(error => { return this.returnError(messages.error) })
     }
 
     /**
@@ -73,12 +73,15 @@ class AgService {
      * @returns {*}
      */
     checkCoupon(coupon) {
+        if ( ! coupon) {
+            coupon = null;
+        }
         return axios.get('cart/coupon/' + coupon)
-            .then(response => {
-                this.returnSuccess(messages.couponSuccess);
-                return response.data
-            })
-            .catch(error => { return this.returnError(messages.error) })
+        .then(response => {
+            this.returnSuccess(messages.couponSuccess);
+            return response.data
+        })
+        .catch(error => { return this.returnError(messages.error) })
     }
 
     /**
@@ -97,6 +100,19 @@ class AgService {
      */
     returnSuccess(msg) {
         window.ToastSuccess.fire(msg);
+    }
+
+    /**
+     * Returns HR formated price string.
+     *
+     * @param price
+     * @returns {string}
+     */
+    formatPrice(price) {
+        return Number(price).toLocaleString('hr-HR', {
+            style: 'currency',
+            currency: 'HRK'
+        });
     }
 }
 

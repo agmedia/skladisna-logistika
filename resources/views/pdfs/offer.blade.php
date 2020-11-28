@@ -213,14 +213,13 @@
     <table>
         <tr>
             <td class="col-md-12">
-                @if(isset($order->company))
+                @if( ! empty($order->company))
                     <p class="text-left background-th text-left-20"><span class="h4">{{ $order->company }}</span></p>
-                @else
-                    <p class="text-left background-th text-left-20"><span class="h4">{{ $order->payment_fname . ' ' . $order->payment_lname }}</span></p>
                 @endif
+                <p class="text-left background-th text-left-20"><span class="h4">{{ $order->payment_fname . ' ' . $order->payment_lname }}</span></p>
                 <p class="details text-left-20">{{ $order->payment_address }}</p>
                 <p class="details text-left-20">{{ $order->payment_zip }} {{ $order->payment_city}}</p>
-                @if(isset($order->oib))
+                @if( ! empty($order->oib))
                     <p class="details text-left-20"><b>OIB: </b> {{ $order->oib }}</p>
                 @endif
             </td>
@@ -230,7 +229,7 @@
     <table>
         <tr>
             <td class="col-md-12">
-                <p class="text-center"><span class="h2">PREDRAČUN br. </span><span class="h3"><small>ONL-{{ $order->id }}/{{ date("yy",strtotime($order->created_at)) }}</small></span></p>
+                <p class="text-center"><span class="h2">PREDRAČUN br. </span><span class="h3"><small>WEB-{{ $order->id }}/{{ date("yy",strtotime($order->created_at)) }}</small></span></p>
             </td>
         </tr>
     </table>
@@ -240,30 +239,22 @@
             <th style="width: 15px">Rbr.</th>
             <th>Naziv dobra/usluge</th>
             <th style="width: 34px">Kol.</th>
-            <th style="width: 80px">Cijena</th>
-            <th style="width: 80px">Rabat</th>
+            <th style="width: 80px">Jed.Cijena</th>
             <th style="width: 80px">Iznos</th>
+            <th style="width: 80px">Rabat</th>
             <th style="width: 80px">Ukupno</th>
         </tr>
 
         @foreach ($order->products as $key => $product)
-
-            <?php
-            $price = number_format($product->product->price, 2, ',', '.');
-            $sub = number_format($product->price, 2, ',', '.');
-            $total = number_format($product->total, 2, ',', '.');
-            ?>
-
             <tr>
                 <td class="text-center">{{ $key + 1 }}</td>
                 <td>{{ $product->name }}</td>
                 <td class="text-center">{{ $product->quantity }}</td>
                 <td class="text-right">{{ number_format($product->product->price, 2, ',', '.') }}</td>
-                <td class="text-right">-{{ number_format($product->product->price - $product->price, 2, ',', '.') }}</td>
-                <td class="text-right">{{ number_format($product->price, 2, ',', '.') }}</td>
+                <td class="text-right">{{ number_format(($product->product->price * $product->quantity), 2, ',', '.') }}</td>
+                <td class="text-right">-{{ number_format(($product->product->price - $product->price) * $product->quantity, 2, ',', '.') }}</td>
                 <td class="text-right">{{ number_format($product->total, 2, ',', '.') }}</td>
             </tr>
-
         @endforeach
 
         @foreach($order->totals as $i => $total)
@@ -281,7 +272,7 @@
                 <p class="details text-left-20">{{ 'Način plaćanja' }}: </p>
             </td>
             <td class="col-md-9">
-                <p class="details text-left-20">{{ 'Transakcijski račun' }}</p>
+                <p class="details text-left-20">{{ 'Bankovna transakcija' }}</p>
             </td>
         </tr>
     </table>

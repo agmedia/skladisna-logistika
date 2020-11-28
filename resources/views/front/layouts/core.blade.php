@@ -115,7 +115,6 @@
 <script>
     window.addEventListener('DOMContentLoaded', function() {
 
-
         $(window).on('scroll', function () {
             let scrollAmount = window.scrollY;
             if (scrollAmount == 0) {
@@ -123,10 +122,8 @@
                }
         });
 
-        $('#top-cart').hover((in_e) => {
-            $('#top-cart').addClass('top-cart-open')
-        }, (out_e) => {
-            $('#top-cart').removeClass('top-cart-open')
+        $('#top-cart').click(() => {
+            $('#top-cart').toggleClass('top-cart-open');
         })
 
     });

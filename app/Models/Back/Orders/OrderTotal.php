@@ -7,18 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderTotal extends Model
 {
-
+    
     /**
      * @var string
      */
     protected $table = 'order_total';
-
+    
     /**
      * @var array
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
-
-
+    
+    
     /**
      * @param $totals
      * @param $order_id
@@ -28,12 +28,12 @@ class OrderTotal extends Model
     public static function store($totals, $order_id)
     {
         self::where('order_id', $order_id)->delete();
-
+        
         $has_action = self::hasAction($totals);
-
+        
         foreach ($totals as $total) {
             $sort_order = self::resolveSortOrder($total, $has_action);
-
+            
             self::insertGetId([
                 'order_id'   => $order_id,
                 'code'       => $total->code,
@@ -43,18 +43,18 @@ class OrderTotal extends Model
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
-
+            
             if ($total->code == 'total') {
                 Order::where('id', $order_id)->update([
                     'total' => $total->value
                 ]);
             }
         }
-
+        
         return true;
     }
-
-
+    
+    
     /**
      * @param $request
      * @param $order_id
@@ -63,25 +63,12 @@ class OrderTotal extends Model
      */
     public function make($request, $order_id)
     {
-        $totals = collect(config('settings.totals'))->where('status', 1)->sortBy('sort_order');
-        $sum = 0;
-
+        $totals     = collect(config('settings.totals'))->where('status', 1)->sortBy('sort_order');
+        $order_data = json_decode($request->order_data);
+        
         foreach ($totals as $code => $total) {
-            $value = $this->returnTotalValue($request, $code);
-
-            if ($value) {
-                $sum += $value;
-            }
-
-            if ($code == 'tax') {
-                $value = $this->getTax($sum);
-                $sum += $value;
-            }
-
-            if ($code == 'total') {
-                $value = $sum;
-            }
-
+            $value = $this->resolveTotalValue($order_data, $code);
+            
             $this->insertGetId([
                 'order_id'   => $order_id,
                 'code'       => $code,
@@ -92,105 +79,40 @@ class OrderTotal extends Model
                 'updated_at' => Carbon::now()
             ]);
         }
-
+        
         Order::where('id', $order_id)->update([
-            'total' => $sum
+            'total' => $order_data->total
         ]);
-
+        
         return true;
     }
-
-
+    
+    
     /**
      * @param        $request
      * @param string $code
      *
      * @return false|float|int
      */
-    public function returnTotalValue($request, string $code)
+    public function resolveTotalValue($obj, string $code)
     {
-        $data = json_decode($request->order_data);
-
         if ($code == 'subtotal') {
-            return $this->getSubtotal($data->items);
+            return intval($obj->subtotal);
         }
-
-        if ($code == 'discount') {
-            return $this->getDiscount($data->items);
+        if ($code == 'nett') {
+            return intval($obj->tax[0]->value);
         }
-
-        if ($code == 'shipping') {
-            return $this->getShipping($data->shipping);
+        if ($code == 'tax') {
+            return intval($obj->tax[1]->value);
         }
-
+        if ($code == 'total') {
+            return intval($obj->total);
+        }
+        
         return false;
     }
-
-
-    /**
-     * @param $products
-     *
-     * @return int
-     */
-    public function getSubtotal($products)
-    {
-        $subtotal = 0;
-
-        foreach ($products as $product) {
-            $subtotal += intval($product->associatedModel->price);
-        }
-
-        return $subtotal;
-    }
-
-
-    /**
-     * @param $products
-     *
-     * @return float|int
-     */
-    public function getDiscount($products)
-    {
-        $discount = 0;
-
-        foreach ($products as $product) {
-            $mod = $product->associatedModel;
-
-            if (isset($mod->action) && ! empty($mod->action)) {
-                if ($mod->action->price) {
-                    $discount += intval($mod->price) - intval($mod->action->price);
-                } else {
-                    $discount += intval($mod->price) * ($mod->action->discount / 100);
-                }
-            }
-        }
-
-        return -$discount;
-    }
-
-
-    /**
-     * @param $shipping
-     *
-     * @return int
-     */
-    public function getShipping($shipping)
-    {
-        return ($shipping == 'shipping') ? 0 : $shipping;
-    }
-
-
-    /**
-     * @param $products
-     *
-     * @return float|int
-     */
-    public function getTax($amount)
-    {
-        return $amount * (config('settings.tax') / 100);
-    }
-
-
+    
+    
     /**
      * @param $total
      * @param $action
@@ -212,8 +134,8 @@ class OrderTotal extends Model
             return $action ? 3 : 2;
         }
     }
-
-
+    
+    
     /**
      * @param $totals
      *
@@ -226,8 +148,8 @@ class OrderTotal extends Model
                 return true;
             }
         }
-
+        
         return false;
     }
-
+    
 }

@@ -27,14 +27,17 @@ class CheckoutController extends Controller
         $order = new Order();
         $response = $order->validateMakeRequest($request)->make();
 
-        $pdf = PDF::loadView('pdfs.offer', ['order' => $response])->output();
-
         if ($response) {
-            Mail::to(config('mail.admin'))->send(new OrderReceived($response));
-            Mail::to($request->input('email'))->send(new OrderSent($response, $pdf));
-
-            if (auth()->user()) {
-                $cart = new AgCart(auth()->user()->id);
+            // Queue the creation of PDF and sending of mails.
+            dispatch(function () use ($response) {
+                $pdf = PDF::loadView('pdfs.offer', ['order' => $response])->output();
+    
+                Mail::to(config('mail.admin'))->send(new OrderReceived($response));
+                Mail::to($response->payment_email)->send(new OrderSent($response, $pdf));
+            });
+    
+            if (session()->has('sl_cart_id')) {
+                $cart = new AgCart(session('sl_cart_id'));
                 $cart->flush();
             }
 

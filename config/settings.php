@@ -49,12 +49,12 @@ return [
      */
     'totals' => [
         'subtotal' => [
-            'title' => 'Iznos bez rabata',
+            'title' => 'Iznos',
             'status' => 1,
             'sort_order' => 0,
         ],
-        'discount' => [
-            'title' => 'Rabat',
+        'nett' => [
+            'title' => 'Iznos bez PDV-a',
             'status' => 1,
             'sort_order' => 1,
         ],
@@ -64,7 +64,7 @@ return [
             'sort_order' => 2
         ],
         'tax' => [
-            'title' => 'PDV',
+            'title' => 'PDV (25%)',
             'status' => 1,
             'sort_order' => 3
         ],

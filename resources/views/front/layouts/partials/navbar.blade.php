@@ -19,7 +19,7 @@
             <!-- Primary Navigation
             ============================================= -->
             <nav id="primary-menu" class="d-lg-flex d-xl-flex justify-content-xl-between justify-content-lg-between fnone style-2 with-arrows">
-                <ul class=" align-self-start"></ul>
+                <ul class="align-self-start"></ul>
                 <ul class="align-self-center">
                     <li class="mega-menu"><a href="{{ route('toyota-vilicari') }}"><div>Toyota viličari</div></a>
                         <div class="mega-menu-content style-2 clearfix" >

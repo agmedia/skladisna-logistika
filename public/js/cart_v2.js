@@ -2029,11 +2029,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       base_path: window.location.origin + '/',
       success_path: window.location.origin + '/kosarica/success',
-      mobile: false,
-      currency_options: {
-        style: 'currency',
-        currency: 'HRK'
-      }
+      mobile: false
     };
   },
   //
@@ -2232,6 +2228,72 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     continueurl: String,
@@ -2246,19 +2308,13 @@ __webpack_require__.r(__webpack_exports__);
       base_path: window.location.origin + '/',
       mobile: false,
       show_delete_btn: true,
-      currency_options: {
-        style: 'currency',
-        currency: 'HRK'
-      },
       coupon: ''
     };
   },
   mounted: function mounted() {
-    if (window.innerWidth < 800
-    /* && window.location.pathname == '/kosarica/naplata'*/
-    ) {
-        this.mobile = true;
-      }
+    if (window.innerWidth < 800) {
+      this.mobile = true;
+    }
 
     this.checkIfEmpty();
     this.setCoupon();
@@ -2268,12 +2324,28 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    /**
+     *
+     * @param item
+     */
     updateCart: function updateCart(item) {
       this.$store.dispatch('updateCart', item);
     },
+
+    /**
+     *
+     * @param item
+     */
     removeFromCart: function removeFromCart(item) {
       this.$store.dispatch('removeFromCart', item);
     },
+
+    /**
+     *
+     * @param qty
+     * @returns {number|*}
+     * @constructor
+     */
     CheckQuantity: function CheckQuantity(qty) {
       if (qty < 1) {
         return 1;
@@ -2281,17 +2353,29 @@ __webpack_require__.r(__webpack_exports__);
 
       return qty;
     },
+
+    /**
+     *
+     */
     checkIfEmpty: function checkIfEmpty() {
       var cart = this.$store.state.storage.getCart();
 
-      if (!cart.count && window.location.pathname != '/kosarica') {
+      if (cart && !cart.count && window.location.pathname != '/kosarica') {
         window.location.href = '/kosarica';
       }
     },
+
+    /**
+     *
+     */
     setCoupon: function setCoupon() {
       var cart = this.$store.state.storage.getCart();
       this.coupon = cart.coupon;
     },
+
+    /**
+     *
+     */
     checkCoupon: function checkCoupon() {
       this.$store.dispatch('checkCoupon', this.coupon);
     }
@@ -2312,7 +2396,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "\n.table th, .table td {\n    padding: 0.75rem 0.45rem !important;\n    vertical-align: top;\n    border-top: 1px solid #dee2e6;\n}\n.empty th, .empty td {\n    padding: 1rem !important;\n    vertical-align: top;\n    border-top: 1px solid #dee2e6;\n}\n", ""]);
+exports.push([module.i, "\n.table th, .table td {\n    padding: 0.75rem 0.45rem !important;\n    vertical-align: top;\n    border-top: 1px solid #dee2e6;\n}\n.empty th, .empty td {\n    padding: 1rem !important;\n    vertical-align: top;\n    border-top: 1px solid #dee2e6;\n}\n.mobile-prices {\n    font-size: .66rem;\n    color: #999999;\n}\n", ""]);
 
 // exports
 
@@ -6639,11 +6723,12 @@ var render = function() {
                   _c("span", { staticClass: "top-cart-item-price" }, [
                     _vm._v(
                       _vm._s(
-                        Number(item.price).toLocaleString(
-                          "hr-HR",
-                          _vm.currency_options
-                        )
-                      ) + "kn"
+                        Object.keys(item.conditions).length
+                          ? _vm.$store.state.service.formatPrice(
+                              item.price - item.conditions.parsedRawValue
+                            )
+                          : _vm.$store.state.service.formatPrice(item.price)
+                      )
                     )
                   ]),
                   _vm._v(" "),
@@ -6660,9 +6745,8 @@ var render = function() {
             _c("span", { staticClass: "fleft top-checkout-price" }, [
               _vm._v(
                 _vm._s(
-                  Number(_vm.$store.state.cart.subtotal).toLocaleString(
-                    "hr-HR",
-                    _vm.currency_options
+                  _vm.$store.state.service.formatPrice(
+                    _vm.$store.state.cart.total
                   )
                 )
               )
@@ -6734,136 +6818,48 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("section", { attrs: { id: "content" } }, [
     _c("div", { staticClass: "content-wrap" }, [
-      _vm.$store.state.cart.count
+      (_vm.$store.state.cart
+      ? _vm.$store.state.cart.count
+      : 0)
         ? _c("div", { staticClass: "container" }, [
-            _c("div", { staticClass: "table-responsive mb-5" }, [
-              _c("table", { staticClass: "table cart" }, [
-                _c("thead", [
-                  _c("tr", [
-                    !_vm.mobile
-                      ? _c(
-                          "th",
-                          {
-                            staticClass: "cart-product-remove",
-                            staticStyle: { width: "50px" }
-                          },
-                          [_vm._v(" ")]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    !_vm.mobile
-                      ? _c(
-                          "th",
-                          {
-                            staticClass: "cart-product-thumbnail",
-                            staticStyle: { width: "5%" }
-                          },
-                          [_vm._v(" ")]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("th", { staticClass: "cart-product-name" }, [
-                      _vm._v("Naziv artikla")
-                    ]),
+            !_vm.mobile
+              ? _c("div", { staticClass: "table-responsive mb-5" }, [
+                  _c("table", { staticClass: "table cart" }, [
+                    _vm._m(0),
                     _vm._v(" "),
                     _c(
-                      "th",
-                      {
-                        staticClass: "cart-product-quantity",
-                        staticStyle: { width: "100px" }
-                      },
-                      [_vm._v("Količina")]
-                    ),
-                    _vm._v(" "),
-                    !_vm.mobile
-                      ? _c(
-                          "th",
-                          {
-                            staticClass: "cart-product-remove",
-                            staticStyle: { width: "30px" }
-                          },
-                          [_vm._v(" ")]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    !_vm.mobile
-                      ? _c(
-                          "th",
-                          {
-                            staticClass: "cart-product-price",
-                            staticStyle: { width: "12%" }
-                          },
-                          [_vm._v("Jed. Cijena")]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    !_vm.mobile
-                      ? _c(
-                          "th",
-                          {
-                            staticClass: "cart-product-price",
-                            staticStyle: { width: "12%" }
-                          },
-                          [_vm._v("Iznos")]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    !_vm.mobile
-                      ? _c(
-                          "th",
-                          {
-                            staticClass: "cart-product-price",
-                            staticStyle: { width: "12%" }
-                          },
-                          [_vm._v("Rabat")]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c(
-                      "th",
-                      {
-                        staticClass: "cart-product-subtotal",
-                        staticStyle: { width: "12%" }
-                      },
-                      [_vm._v("Ukupno")]
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  [
-                    _vm._l(_vm.$store.state.cart.items, function(item) {
-                      return _c("tr", { staticClass: "cart_item" }, [
-                        !_vm.mobile
-                          ? _c(
+                      "tbody",
+                      [
+                        _vm._l(_vm.$store.state.cart.items, function(item) {
+                          return _c("tr", { staticClass: "cart_item" }, [
+                            _c(
                               "td",
                               {
                                 staticClass: "cart-product-remove text-center"
                               },
                               [
-                                _vm.show_delete_btn
-                                  ? _c(
-                                      "a",
-                                      {
-                                        staticClass: "remove",
-                                        attrs: { title: "Ukloni" },
-                                        on: {
-                                          click: function($event) {
-                                            $event.preventDefault()
-                                            return _vm.removeFromCart(item)
-                                          }
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "icon-trash2" })]
-                                    )
-                                  : _vm._e()
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "remove",
+                                    attrs: { title: "Ukloni" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.removeFromCart(item)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "icon-trash2 text-danger"
+                                    })
+                                  ]
+                                )
                               ]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.mobile
-                          ? _c(
+                            ),
+                            _vm._v(" "),
+                            _c(
                               "td",
                               { staticClass: "cart-product-thumbnail" },
                               [
@@ -6889,57 +6885,69 @@ var render = function() {
                                   ]
                                 )
                               ]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "cart-product-name" }, [
-                          _c(
-                            "a",
-                            {
-                              attrs: {
-                                href: _vm.base_path + item.attributes.path
-                              }
-                            },
-                            [_vm._v(_vm._s(item.name))]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          { staticClass: "cart-product-quantity text-right" },
-                          [
-                            _c("input", {
-                              directives: [
+                            ),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "cart-product-name" }, [
+                              _c(
+                                "a",
                                 {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: item.quantity,
-                                  expression: "item.quantity"
-                                }
-                              ],
-                              staticClass: "form-control qty-form",
-                              attrs: { type: "number", min: "1", step: "1" },
-                              domProps: { value: item.quantity },
-                              on: {
-                                input: function($event) {
-                                  if ($event.target.composing) {
-                                    return
+                                  attrs: {
+                                    href: _vm.base_path + item.attributes.path
                                   }
-                                  _vm.$set(
-                                    item,
-                                    "quantity",
-                                    $event.target.value
-                                  )
-                                }
-                              }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        !_vm.mobile
-                          ? _c(
+                                },
+                                [_vm._v(_vm._s(item.name))]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c(
                               "td",
-                              { staticClass: "cart-product-remove text-left" },
+                              {
+                                staticClass: "cart-product-quantity text-right",
+                                staticStyle: {
+                                  "padding-right": ".1rem !important"
+                                }
+                              },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: item.quantity,
+                                      expression: "item.quantity"
+                                    }
+                                  ],
+                                  staticClass: "form-control qty-form",
+                                  attrs: {
+                                    type: "number",
+                                    min: "1",
+                                    step: "1"
+                                  },
+                                  domProps: { value: item.quantity },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        item,
+                                        "quantity",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass: "cart-product-remove text-left",
+                                staticStyle: {
+                                  "padding-left": ".1rem !important"
+                                }
+                              },
                               [
                                 _c(
                                   "a",
@@ -6955,240 +6963,71 @@ var render = function() {
                                   },
                                   [
                                     _c("i", {
-                                      staticClass: "icon-refresh2",
+                                      staticClass: "icon-refresh2 text-info",
                                       staticStyle: { "margin-left": "10px" }
                                     })
                                   ]
                                 )
                               ]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.mobile
-                          ? _c(
+                            ),
+                            _vm._v(" "),
+                            _c(
                               "td",
                               { staticClass: "cart-product-price text-right" },
                               [
                                 _c("span", { staticClass: "amount" }, [
                                   _vm._v(
                                     _vm._s(
-                                      Number(item.price).toLocaleString(
-                                        "hr-HR",
-                                        _vm.currency_options
+                                      _vm.$store.state.service.formatPrice(
+                                        item.price
                                       )
                                     )
                                   )
                                 ])
                               ]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.mobile
-                          ? _c("td", { staticClass: "cart-product-price" }, [
+                            ),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "cart-product-price" }, [
                               _c("span", { staticClass: "amount" }, [
                                 _vm._v(
                                   _vm._s(
-                                    Number(
+                                    _vm.$store.state.service.formatPrice(
                                       item.price * item.quantity
-                                    ).toLocaleString(
-                                      "hr-HR",
-                                      _vm.currency_options
                                     )
                                   )
                                 )
                               ])
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        !_vm.mobile
-                          ? _c("td", { staticClass: "cart-product-price" }, [
+                            ]),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "cart-product-price" }, [
                               _c("span", { staticClass: "amount" }, [
                                 _vm._v(
                                   _vm._s(
                                     Object.keys(item.conditions).length
                                       ? "-" +
-                                          Number(
+                                          _vm.$store.state.service.formatPrice(
                                             item.conditions.parsedRawValue *
                                               item.quantity
-                                          ).toLocaleString(
-                                            "hr-HR",
-                                            _vm.currency_options
                                           )
                                       : ""
                                   )
                                 )
                               ])
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "cart-product-subtotal" }, [
-                          _c("span", { staticClass: "amount" }, [
-                            _vm._v(
-                              _vm._s(
-                                Object.keys(item.conditions).length
-                                  ? Number(
-                                      (item.price -
-                                        item.conditions.parsedRawValue) *
-                                        item.quantity
-                                    ).toLocaleString(
-                                      "hr-HR",
-                                      _vm.currency_options
-                                    )
-                                  : Number(
-                                      item.price * item.quantity
-                                    ).toLocaleString(
-                                      "hr-HR",
-                                      _vm.currency_options
-                                    )
-                              )
-                            )
-                          ])
-                        ])
-                      ])
-                    }),
-                    _vm._v(" "),
-                    _c("tr", { staticClass: "cart_item" }, [
-                      _c("td", { attrs: { colspan: "5" } }, [
-                        _c("div", { staticClass: "row" }, [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "col-md-6",
-                              staticStyle: { "padding-right": "0" }
-                            },
-                            [
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.coupon,
-                                    expression: "coupon"
-                                  }
-                                ],
-                                staticClass: "sm-form-control",
-                                attrs: {
-                                  type: "text",
-                                  placeholder: "Upišite kupon"
-                                },
-                                domProps: { value: _vm.coupon },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.coupon = $event.target.value
-                                  }
-                                }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass: "col-md-6",
-                              staticStyle: { "padding-left": "0" }
-                            },
-                            [
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "btn button-border",
-                                  staticStyle: { "margin-left": "10px" },
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.checkCoupon()
-                                    }
-                                  }
-                                },
-                                [_vm._v("Koristi Kupon")]
-                              )
-                            ]
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { attrs: { colspan: "4" } }, [
-                        _c("div", { staticClass: "row" }, [
-                          _c("div", { staticClass: "col-lg-12 p-0" }, [
-                            _vm.buttons
-                              ? _c(
-                                  "a",
-                                  {
-                                    staticClass: "btn btn-green float-right",
-                                    attrs: { href: _vm.checkouturl }
-                                  },
-                                  [_vm._v("Plaćanje")]
-                                )
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _vm.buttons
-                              ? _c(
-                                  "a",
-                                  {
-                                    staticClass:
-                                      "btn button-border noleftmargin float-right",
-                                    attrs: { href: _vm.continueurl }
-                                  },
-                                  [_vm._v("Nazad na trgovinu")]
-                                )
-                              : _vm._e()
-                          ])
-                        ])
-                      ])
-                    ])
-                  ],
-                  2
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row col-mb-30" }, [
-              _c("div", { staticClass: "col-lg-6" }),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-lg-6" }, [
-                _c("h4", [_vm._v("Iznos košarice")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "table-responsive" }, [
-                  _c("table", { staticClass: "table cart" }, [
-                    _c(
-                      "tbody",
-                      [
-                        _c("tr", { staticClass: "cart_item" }, [
-                          _vm._m(0),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "cart-product-name" }, [
-                            _c("span", { staticClass: "amount" }, [
-                              _vm._v(
-                                _vm._s(
-                                  Number(
-                                    _vm.$store.state.cart.subtotal
-                                  ).toLocaleString(
-                                    "hr-HR",
-                                    _vm.currency_options
-                                  )
-                                )
-                              )
-                            ])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.$store.state.cart.tax, function(tax) {
-                          return _c("tr", { staticClass: "cart_item" }, [
-                            _c("td", { staticClass: "cart-product-name" }, [
-                              _c("strong", [_vm._v(_vm._s(tax.title))])
                             ]),
                             _vm._v(" "),
-                            _c("td", { staticClass: "cart-product-name" }, [
+                            _c("td", { staticClass: "cart-product-subtotal" }, [
                               _c("span", { staticClass: "amount" }, [
                                 _vm._v(
                                   _vm._s(
-                                    Number(tax.value).toLocaleString(
-                                      "hr-HR",
-                                      _vm.currency_options
-                                    )
+                                    Object.keys(item.conditions).length
+                                      ? _vm.$store.state.service.formatPrice(
+                                          (item.price -
+                                            item.conditions.parsedRawValue) *
+                                            item.quantity
+                                        )
+                                      : _vm.$store.state.service.formatPrice(
+                                          item.price * item.quantity
+                                        )
                                   )
                                 )
                               ])
@@ -7197,21 +7036,94 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("tr", { staticClass: "cart_item" }, [
-                          _vm._m(1),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "cart-product-name" }, [
-                            _c("span", { staticClass: "amount color lead" }, [
-                              _c("strong", [
-                                _vm._v(
-                                  _vm._s(
-                                    Number(
-                                      _vm.$store.state.cart.total
-                                    ).toLocaleString(
-                                      "hr-HR",
-                                      _vm.currency_options
-                                    )
+                          _c("td", { attrs: { colspan: "5" } }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "col-md-6",
+                                  staticStyle: { "padding-right": "0" }
+                                },
+                                [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.coupon,
+                                        expression: "coupon"
+                                      }
+                                    ],
+                                    staticClass: "sm-form-control",
+                                    attrs: {
+                                      type: "text",
+                                      placeholder: "Upišite kupon"
+                                    },
+                                    domProps: { value: _vm.coupon },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.coupon = $event.target.value
+                                      }
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "col-md-6",
+                                  staticStyle: { "padding-left": "0" }
+                                },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "btn button-border",
+                                      staticStyle: { "margin-left": "10px" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.checkCoupon()
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Koristi Kupon")]
                                   )
-                                )
+                                ]
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { attrs: { colspan: "4" } }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-lg-12 p-0" }, [
+                                _vm.buttons
+                                  ? _c(
+                                      "a",
+                                      {
+                                        staticClass:
+                                          "btn btn-green float-right",
+                                        attrs: { href: _vm.checkouturl }
+                                      },
+                                      [_vm._v("Plaćanje")]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _vm.buttons
+                                  ? _c(
+                                      "a",
+                                      {
+                                        staticClass:
+                                          "btn button-border noleftmargin float-right",
+                                        attrs: { href: _vm.continueurl }
+                                      },
+                                      [_vm._v("Nazad na trgovinu")]
+                                    )
+                                  : _vm._e()
                               ])
                             ])
                           ])
@@ -7220,6 +7132,412 @@ var render = function() {
                       2
                     )
                   ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.mobile
+              ? _c("div", { staticClass: "table-responsive mb-0" }, [
+                  _c("table", { staticClass: "table cart" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      [
+                        _vm._l(_vm.$store.state.cart.items, function(item) {
+                          return _c("tr", { staticClass: "cart_item" }, [
+                            _c(
+                              "td",
+                              { staticClass: "cart-product-thumbnail" },
+                              [
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: {
+                                      href: _vm.base_path + item.attributes.path
+                                    }
+                                  },
+                                  [
+                                    _c("img", {
+                                      attrs: {
+                                        width: "64",
+                                        height: "64",
+                                        src:
+                                          _vm.base_path +
+                                          item.associatedModel.image,
+                                        alt: item.name,
+                                        title: item.name
+                                      }
+                                    })
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "cart-product-name" }, [
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    href: _vm.base_path + item.attributes.path
+                                  }
+                                },
+                                [_vm._v(_vm._s(item.name))]
+                              ),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "float-right" }, [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass: "remove",
+                                    attrs: { title: "Ukloni" },
+                                    on: {
+                                      click: function($event) {
+                                        $event.preventDefault()
+                                        return _vm.removeFromCart(item)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("i", {
+                                      staticClass: "icon-trash2 text-danger"
+                                    })
+                                  ]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("br"),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "row",
+                                  staticStyle: { margin: "5px 0px" }
+                                },
+                                [
+                                  _c("div", { staticClass: "col-xs-2" }, [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: item.quantity,
+                                          expression: "item.quantity"
+                                        }
+                                      ],
+                                      staticClass: "form-control qty-form",
+                                      staticStyle: { "max-width": "54px" },
+                                      attrs: {
+                                        type: "number",
+                                        min: "1",
+                                        step: "1"
+                                      },
+                                      domProps: { value: item.quantity },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            item,
+                                            "quantity",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "col-xs-1",
+                                      staticStyle: { "padding-top": "7px" }
+                                    },
+                                    [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "remove",
+                                          attrs: { title: "Obnovi" },
+                                          on: {
+                                            click: function($event) {
+                                              $event.preventDefault()
+                                              return _vm.updateCart(item)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "icon-refresh2 text-info",
+                                            staticStyle: {
+                                              "margin-left": "15px"
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "col-xs-9",
+                                      staticStyle: { width: "67%" }
+                                    },
+                                    [
+                                      _c(
+                                        "span",
+                                        {
+                                          staticClass:
+                                            "mobile-prices float-right text-right"
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                        " +
+                                              _vm._s(
+                                                "x " +
+                                                  _vm.$store.state.service.formatPrice(
+                                                    item.price
+                                                  ) +
+                                                  "   =   " +
+                                                  _vm.$store.state.service.formatPrice(
+                                                    item.price * item.quantity
+                                                  )
+                                              ) +
+                                              "\n                                        "
+                                          ),
+                                          _c("br"),
+                                          _vm._v(
+                                            "\n                                        " +
+                                              _vm._s(
+                                                Object.keys(item.conditions)
+                                                  .length
+                                                  ? "-" +
+                                                      _vm.$store.state.service.formatPrice(
+                                                        item.conditions
+                                                          .parsedRawValue *
+                                                          item.quantity
+                                                      )
+                                                  : ""
+                                              ) +
+                                              "\n                                        "
+                                          ),
+                                          _c("br")
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "span",
+                                        {
+                                          staticClass: "float-right text-right"
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                        " +
+                                              _vm._s(
+                                                Object.keys(item.conditions)
+                                                  .length
+                                                  ? _vm.$store.state.service.formatPrice(
+                                                      (item.price -
+                                                        item.conditions
+                                                          .parsedRawValue) *
+                                                        item.quantity
+                                                    )
+                                                  : _vm.$store.state.service.formatPrice(
+                                                      item.price * item.quantity
+                                                    )
+                                              ) +
+                                              "\n                                    "
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ])
+                          ])
+                        }),
+                        _vm._v(" "),
+                        _c("tr", { staticClass: "empty" }, [
+                          _c("td", { attrs: { colspan: "2" } }, [
+                            _c("div", { staticClass: "row" }, [
+                              _c("div", { staticClass: "col-lg-12 p-0" }, [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.coupon,
+                                      expression: "coupon"
+                                    }
+                                  ],
+                                  staticClass: "sm-form-control",
+                                  staticStyle: {
+                                    width: "48%",
+                                    display: "inline"
+                                  },
+                                  attrs: {
+                                    type: "text",
+                                    placeholder: "Upišite kupon"
+                                  },
+                                  domProps: { value: _vm.coupon },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.coupon = $event.target.value
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("span", [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "btn button-border",
+                                      staticStyle: {
+                                        "margin-left": "10px",
+                                        width: "45%"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.checkCoupon()
+                                        }
+                                      }
+                                    },
+                                    [_vm._v("Koristi Kupon")]
+                                  )
+                                ])
+                              ])
+                            ])
+                          ])
+                        ])
+                      ],
+                      2
+                    )
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "row col-mb-30 text-right" }, [
+              _c("div", { staticClass: "col-lg-6" }),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-6" }, [
+                _c("h4", { staticClass: "text-left" }, [
+                  _vm._v("Iznos košarice")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "table-responsive" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass: "table cart",
+                      staticStyle: { "margin-bottom": "0 !important" }
+                    },
+                    [
+                      _c(
+                        "tbody",
+                        [
+                          _c("tr", { staticClass: "cart_item" }, [
+                            _vm._m(2),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "cart-product-name" }, [
+                              _c("span", { staticClass: "amount" }, [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.$store.state.service.formatPrice(
+                                      _vm.$store.state.cart.subtotal
+                                    )
+                                  )
+                                )
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.$store.state.cart.tax, function(tax) {
+                            return _c("tr", { staticClass: "cart_item" }, [
+                              _c("td", { staticClass: "cart-product-name" }, [
+                                _c("strong", [_vm._v(_vm._s(tax.title))])
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "cart-product-name" }, [
+                                _c("span", { staticClass: "amount" }, [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.$store.state.service.formatPrice(
+                                        tax.value
+                                      )
+                                    )
+                                  )
+                                ])
+                              ])
+                            ])
+                          }),
+                          _vm._v(" "),
+                          _c("tr", { staticClass: "cart_item" }, [
+                            _vm._m(3),
+                            _vm._v(" "),
+                            _c("td", { staticClass: "cart-product-name" }, [
+                              _c("span", { staticClass: "amount color lead" }, [
+                                _c("strong", [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.$store.state.service.formatPrice(
+                                        _vm.$store.state.cart.total
+                                      )
+                                    )
+                                  )
+                                ])
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _vm.mobile
+                            ? _c("tr", { staticClass: "empty" }, [
+                                _c("td", { attrs: { colspan: "2" } }, [
+                                  _c("div", { staticClass: "row" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "col-lg-12 p-0 mt-3" },
+                                      [
+                                        _vm.buttons
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "btn btn-green float-right",
+                                                attrs: { href: _vm.checkouturl }
+                                              },
+                                              [_vm._v("Plaćanje")]
+                                            )
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _vm.buttons
+                                          ? _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "btn button-border noleftmargin float-right",
+                                                attrs: { href: _vm.continueurl }
+                                              },
+                                              [_vm._v("Nazad na trgovinu")]
+                                            )
+                                          : _vm._e()
+                                      ]
+                                    )
+                                  ])
+                                ])
+                              ])
+                            : _vm._e()
+                        ],
+                        2
+                      )
+                    ]
+                  )
                 ])
               ])
             ])
@@ -7232,9 +7550,9 @@ var render = function() {
                     _c("td", { attrs: { colspan: "6" } }, [
                       _c("div", { staticClass: "row" }, [
                         _c("div", { staticClass: "col-12 p-0" }, [
-                          _vm._m(2),
+                          _vm._m(4),
                           _vm._v(" "),
-                          _vm._m(3),
+                          _vm._m(5),
                           _vm._v(" "),
                           _c(
                             "a",
@@ -7254,14 +7572,109 @@ var render = function() {
             ])
           ]),
       _vm._v(" "),
-      _c("input", {
-        attrs: { type: "hidden", name: "order_data" },
-        domProps: { value: JSON.stringify(_vm.$store.state.cart) }
-      })
+      !_vm.show_delete_btn
+        ? _c("input", {
+            attrs: { type: "hidden", name: "order_data" },
+            domProps: { value: JSON.stringify(_vm.$store.state.cart) }
+          })
+        : _vm._e()
     ])
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c(
+          "th",
+          {
+            staticClass: "cart-product-remove",
+            staticStyle: { width: "50px" }
+          },
+          [_vm._v(" ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "cart-product-thumbnail",
+            staticStyle: { width: "5%" }
+          },
+          [_vm._v(" ")]
+        ),
+        _vm._v(" "),
+        _c("th", { staticClass: "cart-product-name" }, [
+          _vm._v("Naziv artikla")
+        ]),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "cart-product-quantity",
+            staticStyle: { width: "100px" }
+          },
+          [_vm._v("Količina")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "cart-product-remove",
+            staticStyle: { width: "30px" }
+          },
+          [_vm._v(" ")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          { staticClass: "cart-product-price", staticStyle: { width: "12%" } },
+          [_vm._v("Jed. Cijena")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          { staticClass: "cart-product-price", staticStyle: { width: "12%" } },
+          [_vm._v("Iznos")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          { staticClass: "cart-product-price", staticStyle: { width: "12%" } },
+          [_vm._v("Rabat")]
+        ),
+        _vm._v(" "),
+        _c(
+          "th",
+          {
+            staticClass: "cart-product-subtotal",
+            staticStyle: { width: "12%" }
+          },
+          [_vm._v("Ukupno")]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c(
+          "th",
+          { staticClass: "text-center", staticStyle: { width: "20%" } },
+          [_c("i", { staticClass: "icon-cart" })]
+        ),
+        _vm._v(" "),
+        _c("th", { staticClass: "cart-product-name" }, [
+          _vm._v("Detalji košarice")
+        ])
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -21036,6 +21449,21 @@ function () {
     key: "returnSuccess",
     value: function returnSuccess(msg) {
       window.ToastSuccess.fire(msg);
+    }
+    /**
+     * Returns HR formated price string.
+     *
+     * @param price
+     * @returns {string}
+     */
+
+  }, {
+    key: "formatPrice",
+    value: function formatPrice(price) {
+      return Number(price).toLocaleString('hr-HR', {
+        style: 'currency',
+        currency: 'HRK'
+      });
     }
   }]);
 

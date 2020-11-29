@@ -24,12 +24,12 @@ class CustomerController extends Controller
             return redirect()->route('register');
         }
 
-        $customer = auth()->user();
+        $user = auth()->user();
 
         $query = (new Message())->newQuery();
         $messages = $query->inbox()->orderBy('created_at', 'desc')->with('sender', 'recipient')->paginate(20);
 
-        return view('front.logout', compact('customer', 'messages'));
+        return view('front.account.partials.dashboard', compact('user', 'messages'));
     }
 
 
@@ -84,9 +84,9 @@ class CustomerController extends Controller
      */
     public function orders()
     {
-        $customer = auth()->user();
+        $user = auth()->user();
 
-        return view('front.customer.orders', compact('customer'));
+        return view('front.account.partials.orders', compact('user'));
     }
 
 
@@ -101,6 +101,28 @@ class CustomerController extends Controller
 
         return view('front.customer.order', compact('customer', 'order'));
     }
+    
+    
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function service()
+    {
+        $user = auth()->user();
+        
+        return view('front.account.partials.service', compact('user'));
+    }
+    
+    
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function settings()
+    {
+        $user = auth()->user();
+        
+        return view('front.account.partials.settings', compact('user'));
+    }
 
 
     /**
@@ -108,12 +130,12 @@ class CustomerController extends Controller
      */
     public function messages()
     {
-        $customer = auth()->user();
+        $user = auth()->user();
 
         $query = (new Message())->newQuery();
         $messages = $query->inbox()->orderBy('created_at', 'desc')->with('sender', 'recipient')->paginate(20);
 
-        return view('front.customer.messages', compact('customer', 'messages'));
+        return view('front.account.partials.messages', compact('user', 'messages'));
     }
 
 

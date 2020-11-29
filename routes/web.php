@@ -270,15 +270,19 @@ Route::post('kontakt-poruka', 'Front\HomeController@message')->name('kontakt.for
 Route::get('info/servis-vilicara', 'Front\HomeController@page')->name('servis');
 
 Route::get('moj-racun', 'Front\CustomerController@index')->name('moj');
-Route::get('moj-racun/zahtjev', 'Front\CustomerController@sendRequest')->name('moj.zahtjev.request');
-Route::get('moj-racun/promjeni', 'Front\CustomerController@edit')->name('moj.edit');
-Route::post('moj-racun/promjeni', 'Front\CustomerController@update')->name('moj.update');
 Route::get('moj-racun/narudzbe', 'Front\CustomerController@orders')->name('moj.narudzbe');
 Route::get('moj-racun/narudzba/{order}', 'Front\CustomerController@viewOrder')->name('moj.narudzba');
+Route::get('moj-racun/servis', 'Front\CustomerController@service')->name('moj.servis');
 Route::get('moj-racun/poruke', 'Front\CustomerController@messages')->name('moj.poruke');
 Route::get('moj-racun/poruka/nova', 'Front\CustomerController@newMessage')->name('moj.poruka.nova');
 Route::get('moj-racun/poruka/{message}', 'Front\CustomerController@viewMessage')->name('moj.poruka');
 Route::post('moj-racun/poruka', 'Front\CustomerController@sendMessage')->name('moj.poruka.send');
+Route::get('moj-racun/postavke', 'Front\CustomerController@settings')->name('moj.postavke');
+
+Route::get('moj-racun/zahtjev', 'Front\CustomerController@sendRequest')->name('moj.zahtjev.request');
+Route::get('moj-racun/promjeni', 'Front\CustomerController@edit')->name('moj.edit');
+Route::post('moj-racun/promjeni', 'Front\CustomerController@update')->name('moj.update');
+
 
 Route::get('kosarica', 'Front\CartController@index')->name('kosarica');
 Route::get('kosarica/naplata', 'Front\CartController@checkout')->name('naplata');

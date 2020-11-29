@@ -7,7 +7,6 @@ use App\Mail\OrderReceived;
 use App\Mail\OrderSent;
 use App\Models\Back\Orders\Order;
 use App\Models\Front\AgCart;
-use App\Models\Front\Category\Category;
 use App\Models\Front\Client;
 use PDF;
 use Illuminate\Http\Request;

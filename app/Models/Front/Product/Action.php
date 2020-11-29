@@ -36,7 +36,7 @@ class Action extends Model
     {
         return $query->where('date_start', '<', Carbon::now())
             ->where('date_end', '>', Carbon::now())
-            ->orWhere('date_start', null)
+            //->orWhere('date_start', null)
             ->orWhere('date_end', null);
     }
 }

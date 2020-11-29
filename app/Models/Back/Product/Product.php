@@ -57,8 +57,8 @@ class Product extends Model
     {
         return $this->hasMany(ProductBlock::class, 'product_id');
     }
-
-
+    
+    
     /**
      * @return Relation
      */
@@ -69,6 +69,15 @@ class Product extends Model
             ->where('date_end', '>', Carbon::now())
             ->orWhere('date_start', null)
             ->orWhere('date_end', null);
+    }
+    
+    
+    /**
+     * @return Relation
+     */
+    public function all_actions()
+    {
+        return $this->hasOne(ProductAction::class, 'product_id');
     }
 
 

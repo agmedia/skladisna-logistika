@@ -6,7 +6,7 @@
         <h2 class="content-heading">Akcije
             <small>
                 <span class="float-right">{{--{{ $count }}--}}
-                    <a href="{{ route('action.create') }}" class="btn btn-sm btn-secondary ml-30" data-toggle="tooltip" title="New">
+                    <a href="{{ route('action.create') }}" class="btn btn-sm btn-secondary ml-30" data-toggle="tooltip" title="Nova Akcija">
                         <i class="si si-plus"></i> Nova Akcija
                     </a>
                 </span>
@@ -20,12 +20,13 @@
                 <table class="table table-hover table-vcenter">
                     <thead>
                     <tr>
-                        <th style="width: 30px;">#</th>
+                        <th class="text-center" style="width: 45px;">#</th>
+                        <th style="width: 15%;">Ime Akcije</th>
                         <th>Ime Proizvoda</th>
-                        <th class="text-center" style="width: 15%;">Od</th>
-                        <th class="text-center" style="width: 15%;">Do</th>
-                        <th class="text-center" style="width: 10%;">Popust</th>
-                        <th class="d-none d-sm-table-cell text-right" style="width: 90px;">Akcija</th>
+                        <th class="text-center" style="width: 12%;">Od</th>
+                        <th class="text-center" style="width: 12%;">Do</th>
+                        <th class="text-center" style="width: 12%;">Popust</th>
+                        <th class="d-none d-sm-table-cell text-right" style="width: 100px;">Akcija</th>
                     </tr>
                     </thead>
                     @foreach($actions as $key => $action)
@@ -33,11 +34,14 @@
                         <tr>
                             <td class="text-center">{{ $key + 1 }}.</td>
                             <td class="font-w600">
-                                <a href="{{ route('action.edit', ['id' => $action->id]) }}" class="js-tooltip-enabled" data-toggle="tooltip" data-title="Uredi">{{ $action->product ? $action->product->name : '' }}</a>
+                                <a href="{{ route('action.edit', ['id' => $action->id]) }}" class="js-tooltip-enabled" data-toggle="tooltip" data-title="Uredi Akciju">{{ $action->name }}</a>
+                            </td>
+                            <td class="font-w600">
+                                <a href="{{ route('action.edit', ['id' => $action->id]) }}" class="js-tooltip-enabled" data-toggle="tooltip" data-title="Uredi Akciju">{{ $action->product ? $action->product->name : '' }}</a>
                             </td>
                             <td class="text-center font-size-sm">{{ $action->date_start ? date_format(date_create($action->date_start), 'd.m.Y. H:m') : '' }}</td>
                             <td class="text-center font-size-sm">{{ $action->date_end ? date_format(date_create($action->date_end), 'd.m.Y. H:m') : '' }}</td>
-                            <td class="text-center"><strong>{{ $action->discount }}</strong>%</td>
+                            <td class="text-center">-{{ $action->discount != '' ? $action->discount . '%' : number_format($action->price, 2, ',', '.') }}</td>
                             <td class="d-none d-sm-table-cell text-right">
                                 <button type="button" class="btn btn-sm btn-circle btn-alt-danger" onclick="event.preventDefault(); shouldDeleteAction({{ json_encode($action) }});">
                                     <i class="fa fa-times"></i>

@@ -2,8 +2,10 @@
 
 namespace App\Models\Back\Product;
 
+
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class ProductAction extends Model
 {
@@ -26,8 +28,8 @@ class ProductAction extends Model
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
     }
-
-
+    
+    
     /**
      * @return mixed
      */
@@ -35,7 +37,7 @@ class ProductAction extends Model
     {
         return self::where('date_start', '<', Carbon::now())
             ->where('date_end', '>', Carbon::now())
-            ->orWhereNull('date_start')
+            //->orWhereNull('date_start')
             ->orWhereNull('date_end')
             ->with('product');
     }
@@ -54,14 +56,18 @@ class ProductAction extends Model
             foreach ($request->products as $product) {
                 // Delete, if any action exist
                 self::where('product_id', $product)->delete();
+                
+                Log::info($request->date_start);
 
                 // Insert new action
                 $_id = self::insertGetId([
                     'product_id' => $product,
+                    'name'       => $request->name,
+                    'coupon'     => $request->code,
                     'price'      => $request->price,
                     'discount'   => $request->discount,
-                    'date_start' => new Carbon($request->date_start),
-                    'date_end'   => new Carbon($request->date_end),
+                    'date_start' => $request->date_start ? new Carbon($request->date_start) : null,
+                    'date_end'   => $request->date_end ? new Carbon($request->date_end) : null,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now()
                 ]);

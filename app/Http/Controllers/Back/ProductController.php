@@ -106,7 +106,7 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product    = Product::with('details', 'images', 'actions', 'categories')->find($id);
+        $product    = Product::with('details', 'images', 'all_actions', 'categories')->find($id);
         $categories = Category::getListWithoutTop();
         $pdfs       = Storage::disk('media')->files('pdf');
         $arr        = [];

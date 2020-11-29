@@ -29,9 +29,21 @@
             <div class="block block-rounded block-shadow">
                 <div class="block-content">
                     <div class="row items-push">
-                        <div class="col-lg-7">
+                        <div class="col-lg-8 col-lg-offset-2">
                             <h5 class="text-black mb-0 mt-20">Generalne Informacije</h5>
                             <hr class="mb-30">
+
+                            <div class="form-group row mb-50">
+                                <div class="col-md-8">
+                                    <label for="name">Ime akcije</label>
+                                    <input type="text" name="name" class="form-control form-control-lg" value="{{ isset($action) ? $action->name : '' }}">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="coupon">Kupon kod</label>
+                                    <input type="text" class="form-control form-control-lg" name="coupon" value="{{ isset($action) ? $action->coupon : '' }}">
+                                </div>
+                            </div>
+
                             <div class="form-group mb-50">
                                 <label for="products">Odaberi akcijske proizvode</label>
                                 <select class="form-control" id="product-select" name="products[]" style="width: 100%;" multiple>
@@ -44,24 +56,24 @@
 
                             <div class="form-group row mb-50">
                                 <div class="col-md-6">
-                                    <label for="date_start">Početak akcije</label>
+                                    <label for="date_start">Datum početka akcije</label>
                                     <input type="text" name="date_start" id="start-date-picker" class="form-control form-control-lg" value="{{ isset($action->date_start) ? date_format(date_create($action->date_start), 'd.m.Y. H:m') : '' }}" style="height: 34px; background-color: white;">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="date_end">Kraj akcije</label>
+                                    <label for="date_end">Datum kraja akcije</label>
                                     <input type="text" class="form-control form-control-lg" name="date_end" id="end-date-picker" value="{{ isset($action->date_end) ? date_format(date_create($action->date_end), 'd.m.Y. H:m') : '' }}" style="height: 34px; background-color: white;">
                                 </div>
                             </div>
 
                             <div class="form-group row mb-50">
-                                <div class="col-md-12">
-                                    <label for="discount">Popust</label>
-                                    <input type="text" class="form-control" name="discount" placeholder="Type discount percent..." value="{{ isset($action->discount) ? $action->discount : '' }}">
-                                </div>
-                                {{--<div class="col-md-6">
+                                <div class="col-md-6">
                                     <label for="price">Cijena sa popustom</label>
                                     <input type="text" class="form-control" name="price" placeholder="Type special price..." value="{{ isset($action) ? $action->price : '' }}">
-                                </div>--}}
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="discount">Popust <span class="text-gray">Postotak popusta %</span></label>
+                                    <input type="text" class="form-control" name="discount" value="{{ isset($action->discount) ? $action->discount : '' }}">
+                                </div>
                             </div>
                         </div>
 

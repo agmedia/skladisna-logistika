@@ -77,7 +77,7 @@ mix
     /* Vue Components */
     //.js('resources/js/back/ag-slider-images.js', 'public/js/ag-slider-images.js')
     //.js('resources/js/back/ag-autocomplete.js', 'public/js/components/ag-autocomplete.js')
-    .js('resources/js/back/ag-order-products.js', 'public/js/components/ag-order-products.js')
+    //.js('resources/js/back/ag-order-products.js', 'public/js/components/ag-order-products.js')
     //.js('resources/js/back/ag-autosuggestion.js', 'public/js/components/ag-autosuggestion.js')
     //.js('resources/js/back/ag-bar-chart.js', 'public/js/components/ag-bar-chart.js')
     //.js('resources/js/back/ag-horizontal-bar-chart.js', 'public/js/components/ag-bar-horizontal-chart.js')
@@ -116,7 +116,7 @@ mix
     /* MAIN CUSTOM SCRIPT COPY */
     //.js('resources/js/front/vue/app.js', 'public/js/cart.js')
 
-    //.js('resources/js/front/vue_v2/app.js', 'public/js/cart_v2.js')
+    .js('resources/js/front/vue_v2/app.js', 'public/js/cart_v2.js')
 
     //.scripts(['resources/front/js/custom.js'], 'public/js/base.js')
     /**/

@@ -17,7 +17,7 @@ class CreatePagesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->index();
             $table->string('slug');
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
             $table->string('seo_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();

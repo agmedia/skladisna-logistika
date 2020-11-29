@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v2;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Front\AgCart;
 use App\Models\Front\Product;
 use App\Models\Product\ProductAction;
@@ -36,12 +37,8 @@ class CartController extends Controller
 
             if (session()->has('sl_cart_id')) {
                 $this->cart = new AgCart(session('sl_cart_id'));
-
             } else {
-                $sl_cart_id = Str::random(8);
-                $this->cart = new AgCart($sl_cart_id);
-
-                session(['sl_cart_id' => $sl_cart_id]);
+                $this->resolveSession();
             }
 
             return $next($request);
@@ -56,7 +53,11 @@ class CartController extends Controller
      */
     public function get()
     {
-        return response()->json($this->cart->get());
+        $response = $this->cart->get();
+        
+        $this->resolveDB($response);
+        
+        return response()->json($response);
     }
 
 
@@ -67,7 +68,11 @@ class CartController extends Controller
      */
     public function add(Request $request)
     {
-        return response()->json($this->cart->add($request));
+        $response = $this->cart->add($request);
+    
+        $this->resolveDB($response);
+    
+        return response()->json($response);
     }
 
 
@@ -79,7 +84,11 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return response()->json($this->cart->add($request, $id));
+        $response = $this->cart->add($request, $id);
+    
+        $this->resolveDB($response);
+    
+        return response()->json($response);
     }
 
 
@@ -90,7 +99,11 @@ class CartController extends Controller
      */
     public function remove($id)
     {
-        return response()->json($this->cart->remove($id));
+        $response = $this->cart->remove($id);
+    
+        $this->resolveDB($response);
+    
+        return response()->json($response);
     }
 
 
@@ -104,5 +117,57 @@ class CartController extends Controller
         session(['sl_cart_coupon' => $coupon]);
 
         return response()->json($this->cart->coupon($coupon));
+    }
+    
+    
+    /**
+     * Resolve new cart session.
+     * If user is logged, check the DB for cart session entries.
+     */
+    private function resolveSession()
+    {
+        $sl_cart_id = Str::random(8);
+        $this->cart = new AgCart($sl_cart_id);
+        session(['sl_cart_id' => $sl_cart_id]);
+        
+        if (Auth::user()) {
+            $has_cart = Cart::where('user_id', Auth::user()->id)->first();
+        
+            if ($has_cart) {
+                $cart_data = json_decode($has_cart->cart_data);
+    
+                foreach ($cart_data->items as $item) {
+                    $this->cart->add($this->cart->resolveItemRequest($item));
+                }
+                
+                if ( ! empty($cart_data->coupon)) {
+                    $this->cart->coupon($cart_data->coupon);
+                }
+                
+                $has_cart->update(['session_id' => $sl_cart_id]);
+            }
+        }
+    }
+    
+    
+    /**
+     * If user is logged store or update the DB session.
+     *
+     * @param $response
+     */
+    private function resolveDB($response)
+    {
+        if (Auth::user()) {
+            // Queue the storage of cart data.
+            dispatch(function () use ($response) {
+                $has_cart = Cart::where('user_id', Auth::user()->id)->first();
+    
+                if ($has_cart) {
+                    Cart::edit($response);
+                } else {
+                    Cart::store($response);
+                }
+            });
+        }
     }
 }

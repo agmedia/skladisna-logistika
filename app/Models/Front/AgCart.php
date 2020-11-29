@@ -63,6 +63,7 @@ class AgCart extends Model
     public function add($request, $id = null)
     {
         if ($id) {
+            // Updejtaj artikl sa apsolutnom količinom.
             foreach ($this->cart->getContent() as $item) {
                 if ($item->id == $request['item']['id']) {
                     return $this->updateCartItem($item->id, $request);
@@ -96,14 +97,10 @@ class AgCart extends Model
     {
         $items = $this->cart->getContent();
 
+        // Refreshaj košaricu sa upisanim kuponom.
         foreach ($items as $item) {
             $this->remove($item->id);
-            $this->addToCart([
-                'item' => [
-                    'id'       => $item->id,
-                    'quantity' => $item->quantity
-                ]
-            ]);
+            $this->addToCart($this->resolveItemRequest($item));
         }
 
         $has_coupon = Action::active()->where('coupon', $coupon)->get();
@@ -123,6 +120,22 @@ class AgCart extends Model
     public function flush()
     {
         return $this->cart->clear();
+    }
+    
+    
+    /**
+     * @param $item
+     *
+     * @return array[]
+     */
+    public function resolveItemRequest($item)
+    {
+        return [
+            'item' => [
+                'id'       => $item->id,
+                'quantity' => $item->quantity
+            ]
+        ];
     }
 
 
@@ -222,8 +235,7 @@ class AgCart extends Model
                     'value' => $this->getActionPrice($product->price, $product->action)
                 ]);
             }
-            // Ako je kupon potreban za akciju
-            // i ima odgovarajući u session-u.
+            // Ako je kupon potreban za akciju i ima odgovarajući u session-u.
             if (session()->has('sl_cart_coupon') && session('sl_cart_coupon') == $product->action->coupon) {
                 return new CartCondition([
                     'name'  => ( ! empty($product->action->name)) ? $product->action->name : 'Akcija',
@@ -233,6 +245,8 @@ class AgCart extends Model
             }
         }
 
+        // Ako nema akcije na artiklu.
+        // Ako nije ispravan kupon.
         return false;
     }
 
@@ -245,11 +259,14 @@ class AgCart extends Model
      */
     private function getActionPrice($price, $action)
     {
+        // Prvo gledaj ako ima cijenu i vrati razliku.
         if (isset($action->price) && ! empty($action->price)) {
             return -($price - $action->price);
         }
 
-        return -$action->discount . "%";
+        // Ako nema cijenu vrati postotak.
+        // Ako nema ni postotak upisan vratit će 0%.
+        return -($action->discount ? $action->discount : '0') . "%";
     }
 
 

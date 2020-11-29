@@ -103,7 +103,7 @@
                             </td>
 
                             <td class="cart-product-name">
-                                <a :href="base_path + item.attributes.path">{{ item.name }}</a> <span class="float-right"><a @click.prevent="removeFromCart(item)" class="remove" title="Ukloni"><i class="icon-trash2 text-danger"></i></a></span>
+                                <a :href="base_path + item.attributes.path">{{ item.name }}</a> <span class="float-right"><a @click.prevent="removeFromCart(item)" class="remove" title="Ukloni"><i class="icon-trash2" style="color: #999999;"></i></a></span>
                                 <br>
                                 <div class="row" style="margin: 5px 0px;">
                                     <div class="col-xs-2">

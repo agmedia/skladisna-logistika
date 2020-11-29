@@ -7199,7 +7199,8 @@ var render = function() {
                                   },
                                   [
                                     _c("i", {
-                                      staticClass: "icon-trash2 text-danger"
+                                      staticClass: "icon-trash2",
+                                      staticStyle: { color: "#999999" }
                                     })
                                   ]
                                 )
@@ -21419,6 +21420,10 @@ function () {
     key: "checkCoupon",
     value: function checkCoupon(coupon) {
       var _this5 = this;
+
+      if (!coupon) {
+        coupon = null;
+      }
 
       return axios.get('cart/coupon/' + coupon).then(function (response) {
         _this5.returnSuccess(messages.couponSuccess);

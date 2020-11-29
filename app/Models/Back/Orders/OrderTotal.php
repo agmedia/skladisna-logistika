@@ -29,24 +29,20 @@ class OrderTotal extends Model
     {
         self::where('order_id', $order_id)->delete();
         
-        $has_action = self::hasAction($totals);
-        
-        foreach ($totals as $total) {
-            $sort_order = self::resolveSortOrder($total, $has_action);
-            
+        for ($i = 0; $i < count($totals); $i++) {
             self::insertGetId([
                 'order_id'   => $order_id,
-                'code'       => $total->code,
-                'title'      => $total->name,
-                'value'      => $total->value,
-                'sort_order' => $sort_order,
+                'code'       => $totals[$i]->code,
+                'title'      => $totals[$i]->name,
+                'value'      => $totals[$i]->value,
+                'sort_order' => $i,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
-            
-            if ($total->code == 'total') {
+    
+            if ($totals[$i]->code == 'total') {
                 Order::where('id', $order_id)->update([
-                    'total' => $total->value
+                    'total' => $totals[$i]->value
                 ]);
             }
         }

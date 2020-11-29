@@ -41,11 +41,19 @@ class OrderProduct extends Model
         self::where('order_id', $order_id)->delete();
         
         foreach ($products as $product) {
+            $discount = null;
+            
+            if ($product->price < $product->org_price) {
+                $discount = (intval($product->price) / intval($product->org_price) * 100) - 100;
+            }
+            
             $id = self::insertGetId([
                 'order_id'   => $order_id,
                 'product_id' => $product->id,
                 'name'       => $product->name,
                 'quantity'   => $product->quantity,
+                'org_price'  => $product->org_price,
+                'discount'   => $discount,
                 'price'      => $product->price,
                 'total'      => $product->total,
                 'created_at' => Carbon::now(),

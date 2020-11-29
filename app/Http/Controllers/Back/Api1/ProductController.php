@@ -23,10 +23,6 @@ class ProductController extends Controller
     {
         $query = (new Product())->newQuery();
 
-        if (Bouncer::is(auth()->user())->an('editor')) {
-            $query->where('client_id', auth()->user()->clientId());
-        }
-
         if ($request->has('query')) {
             $query->where('name','like','%'.$request->input('query').'%');
         }

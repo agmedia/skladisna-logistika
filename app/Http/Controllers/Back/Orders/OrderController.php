@@ -66,7 +66,7 @@ class OrderController extends Controller
         $order_stored = $order->validateRequest($request)->store();
 
         if ($order_stored) {
-            return redirect()->route('orders')->with(['success' => 'Narudžba je uspješno snimljena.!']);
+            return redirect()->back()->with(['success' => 'Narudžba je uspješno snimljena.!']);
         }
 
         return redirect()->back()->with(['error' => 'Whoops..! Došlo je do greške sa snimanjem narudžbe.']);
@@ -117,7 +117,7 @@ class OrderController extends Controller
         $order_updated = $order->validateRequest($request)->store($order->id);
 
         if ($order_updated) {
-            return redirect()->route('orders')->with(['success' => 'Narudžba je uspješno snimljena.!']);
+            return redirect()->back()->with(['success' => 'Narudžba je uspješno snimljena.!']);
         }
 
         return redirect()->back()->with(['error' => 'Whoops..! Došlo je do greške sa snimanjem narudžbe.']);

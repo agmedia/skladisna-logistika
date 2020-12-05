@@ -34,7 +34,6 @@ class CartController extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-
             if (session()->has('sl_cart_id')) {
                 $this->cart = new AgCart(session('sl_cart_id'));
             } else {
@@ -134,7 +133,7 @@ class CartController extends Controller
             $has_cart = Cart::where('user_id', Auth::user()->id)->first();
         
             if ($has_cart) {
-                $cart_data = json_decode($has_cart->cart_data);
+                $cart_data = json_decode(json_encode($has_cart->cart_data));
     
                 foreach ($cart_data->items as $item) {
                     $this->cart->add($this->cart->resolveItemRequest($item));

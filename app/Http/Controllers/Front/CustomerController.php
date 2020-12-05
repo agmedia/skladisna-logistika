@@ -34,29 +34,6 @@ class CustomerController extends Controller
 
 
     /**
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function sendRequest(Request $request)
-    {
-        if ( ! auth()->user()) {
-            return redirect()->route('register');
-        }
-
-        $message        = new Message();
-        $message_stored = $message->storeVendorRequest();
-
-        event(new MessageSent($message_stored));
-
-        if ($message_stored) {
-            return redirect()->route('moj')->with(['success' => 'Poruka je uspješno poslana.!']);
-        }
-
-        return redirect()->back()->with(['error' => 'Whoops..! Došlo je do greške sa slanjem poruke.']);
-    }
-
-
-    /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit()
@@ -192,5 +169,28 @@ class CustomerController extends Controller
         }
 
         return redirect()->back()->with(['error' => 'Whoops..! Došlo je do greške sa snimanjem poruke.']);
+    }
+
+
+    /**
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function sendRequest(Request $request)
+    {
+        if ( ! auth()->user()) {
+            return redirect()->route('register');
+        }
+
+        $message        = new Message();
+        $message_stored = $message->storeVendorRequest();
+
+        event(new MessageSent($message_stored));
+
+        if ($message_stored) {
+            return redirect()->route('moj')->with(['success' => 'Poruka je uspješno poslana.!']);
+        }
+
+        return redirect()->back()->with(['error' => 'Whoops..! Došlo je do greške sa slanjem poruke.']);
     }
 }

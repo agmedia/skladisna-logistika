@@ -58,7 +58,7 @@
                 <input type="text" class="form-control" name="discount" placeholder="Popust izrazite u postotku...%" value="{{ isset($product->all_actions) ? $product->all_actions->discount : '' }}">
             </div>
             <div class="col-md-6">
-                <label for="price">Cijena</label>
+                <label for="price">Cijena sa popustom</label>
                 <input type="text" class="form-control" name="action_price" placeholder="Ili upišite akcijsku cijenu..." value="{{ isset($product->all_actions) ? $product->all_actions->price : '' }}">
             </div>
         </div>

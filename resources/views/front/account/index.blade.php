@@ -47,10 +47,10 @@
                             </form>
                         </div>
 
-                        <div class="fancy-title topmargin title-border">
+<!--                        <div class="fancy-title topmargin title-border">
                             <h4>O meni</h4>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum laboriosam, dignissimos veniam obcaecati. Quasi eaque, odio assumenda porro explicabo laborum!</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum laboriosam, dignissimos veniam obcaecati. Quasi eaque, odio assumenda porro explicabo laborum!</p>-->
                     </div>
                 </div>
             </div>

@@ -36,7 +36,7 @@
                                     <div class="comment-meta">
                                         <div class="comment-author vcard">
                                     <span class="comment-avatar clearfix">
-                                        <img alt='Image' src='{{ asset($customer->details->avatar) }}' class='avatar avatar-60 photo avatar-default' height='60' width='60' />
+                                        <img alt='Image' src='{{ isset($customer->details) && isset($customer->details->avatar) ? asset($customer->details->avatar) : asset('media/images/avatar.jpg') }}' class='avatar avatar-60 photo avatar-default' height='60' width='60' />
                                     </span>
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@
                                             <div class="comment-meta">
                                                 <div class="comment-author vcard">
                                             <span class="comment-avatar clearfix">
-                                                <img alt='Image' src='{{ asset($message->sender->details->avatar) }}' class='avatar avatar-40 photo' height='40' width='40' />
+                                                <img alt='Image' src='{{ isset($customer->details) && isset($customer->details->avatar) ? asset($customer->details->avatar) : asset('media/images/avatar.jpg') }}' class='avatar avatar-40 photo' height='40' width='40' />
                                             </span>
                                                 </div>
                                             </div>

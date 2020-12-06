@@ -5,15 +5,13 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Log;
 
 class Message extends Mailable
 {
 
     use Queueable, SerializesModels;
 
-    public $contact;
+    public $mess;
 
 
     /**
@@ -21,9 +19,9 @@ class Message extends Mailable
      *
      * @return void
      */
-    public function __construct($contact)
+    public function __construct($mess)
     {
-        $this->contact = $contact;
+        $this->mess = $mess;
     }
 
 
@@ -34,6 +32,6 @@ class Message extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.message');
+        return $this->subject($this->mess->subject)->view('emails.message')->with(['mess' => $this->mess]);
     }
 }

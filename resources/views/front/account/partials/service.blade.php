@@ -18,6 +18,15 @@
                 <h4>Servis</h4>
             </div>
 
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <p>Molimo vas da u formularu navedete što više detalja o stroju i kvaru.</p>
+                </div>
+                <div class="col-md-12">
+                    <a href="{{ route('moj.poruka.nova', ['subject' => 'Prijava servisa - HITNO']) }}" class="button button-border button-border-thin">Prijavite servis</a>
+                </div>
+            </div>
+
         </div>
     </div>
 @endsection

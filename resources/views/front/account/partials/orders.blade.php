@@ -19,53 +19,35 @@
                 <h4>Moje narudžbe</h4>
             </div>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium harum ea quo! Nulla fugiat earum, sed corporis amet iste non, id facilis dolorum, suscipit, deleniti ea.
-               Nobis, temporibus magnam doloribus. Reprehenderit necessitatibus esse dolor tempora ea unde, itaque odit. Quos.</p>
+            <p>U nastavku je pregled vaših narudžbi poredan po datumu narudžbe.</p>
 
             <table class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                    <th>Time</th>
-                    <th>Activity</th>
+                    <th width="25%">Datum</th>
+                    <th>Aktivnost</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>
-                        <code>5/23/2021</code>
-                    </td>
-                    <td>Payment for VPS2 completed</td>
-                </tr>
-                <tr>
-                    <td>
-                        <code>5/23/2021</code>
-                    </td>
-                    <td>Logged in to the Account at 16:33:01</td>
-                </tr>
-                <tr>
-                    <td>
-                        <code>5/22/2021</code>
-                    </td>
-                    <td>Logged in to the Account at 09:41:58</td>
-                </tr>
-                <tr>
-                    <td>
-                        <code>5/21/2021</code>
-                    </td>
-                    <td>Logged in to the Account at 17:16:32</td>
-                </tr>
-                <tr>
-                    <td>
-                        <code>5/18/2021</code>
-                    </td>
-                    <td>Logged in to the Account at 22:53:41</td>
-                </tr>
+                @foreach($orders as $order)
+                    <tr>
+                        <td>
+                            <code>{{ \Carbon\Carbon::make($order->created_at)->format('d.m.Y') }}</code>
+                        </td>
+                        <td>
+                            <a href="{{ route('moj.narudzba', ['order' => $order]) }}">#{{ $order->id }}</a>
+                            <span class="text-muted">Status: </span>{{ $order->status->name }}
+                            <span class="text-muted"> - {{ number_format($order->total, 2, ',', '.') }} HRK</span>
+                            <span class="float-right"><a href="{{ route('moj.narudzba', ['order' => $order]) }}">Detalji...</a></span>
+                        </td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
-
         </div>
-
     </div>
+    <div class="clearfix"></div>
+    {{ $orders->links('front.layouts.partials.paginate') }}
 @endsection
 
 @push('partial_js')

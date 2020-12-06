@@ -7,6 +7,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class Message extends Model
 {
@@ -76,7 +77,7 @@ class Message extends Model
         return $query
             ->where('to_user_id', auth()->user()->id)
             ->orWhere('from_user_id', auth()->user()->id)
-            ->groupBy('subject');
+            ->groupBy('group_id');
     }
 
 
@@ -105,6 +106,7 @@ class Message extends Model
     public function storeData()
     {
         $stored = $this->insertGetId([
+            'group_id'        => $this->request->group_id,
             'from_user_id'    => auth()->user()->id,
             'to_user_id'      => $this->to->id,
             'name'            => '',

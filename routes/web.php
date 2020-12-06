@@ -30,7 +30,6 @@ Route::middleware('auth', 'noCustomers')->group(function () {
         Route::get('/dashboard/test', 'Back\DashboardController@test')->name('dashboard.test');
         Route::get('/dashboard/test2', 'Back\DashboardController@testTwo')->name('dashboard.test2');
 
-
         // Categories
         Route::get('categories', 'Back\CategoryController@index')->name('categories');
         Route::middleware('strike.editor')->group(function () {

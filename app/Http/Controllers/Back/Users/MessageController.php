@@ -53,6 +53,11 @@ class MessageController extends Controller
             $request->recipient = $request->input('user_id');
         }
 
+        if ( ! $request->has('group_id')) {
+            $group = Message::groupBy('group_id')->orderBy('group_id')->pluck('group_id')->last();
+            $request->group_id = $group + 1;
+        }
+
         $message        = new Message();
         $message_stored = $message->validateRequest($request)->storeData();
 

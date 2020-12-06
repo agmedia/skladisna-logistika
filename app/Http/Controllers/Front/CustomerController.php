@@ -182,7 +182,7 @@ class CustomerController extends Controller
         $message = new Message();
 
         if ( ! $request->has('group_id')) {
-            $group = Message::groupBy('group_id')->count();
+            $group = Message::groupBy('group_id')->orderBy('group_id')->pluck('group_id')->last();
             $request->group_id = $group + 1;
         }
 

@@ -32,6 +32,9 @@ class Message extends Mailable
      */
     public function build()
     {
-        return $this->subject($this->mess->subject)->view('emails.message')->with(['mess' => $this->mess]);
+        return $this->subject($this->mess->subject)
+                    ->from($this->mess->sender)
+                    ->view('emails.message')
+                    ->with(['mess' => $this->mess]);
     }
 }

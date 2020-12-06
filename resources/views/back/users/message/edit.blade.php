@@ -43,8 +43,9 @@
                                 @csrf
                                 @if (isset($recipient))
                                     <div class="form-group mb-30">
-                                        <label for="subject">Pošaljite novu poruka prema: <a href="#">{{ $recipient->name }}</a> <span class="text-gray">{{ date_format(date_create(now()), 'd.m.Y. h:i') }}</span></label>
+                                        <label for="subject">Pošaljite novu poruka prema: <a href="#">{{ $recipient->name }}</a> <span class="text-gray">{{ date_format(date_create(now()), 'd.m.Y. H:i') }}</span></label>
                                         <input type="hidden" name="recipient" value="{{ $recipient->id }}">
+                                        <input type="hidden" name="group_id" value="{{ $messages[0]->group_id }}">
                                     </div>
                                 @else
                                     <div id="ag-auto-suggestion-app">
@@ -77,12 +78,12 @@
                                 <td class="d-none d-sm-table-cell"></td>
                                 <td class="font-size-sm">
                                     @if ($message->from_user_id == auth()->user()->id)
-                                        <a href="#">Vi</a> <span class="text-gray mx-10">pišete</span><em>{{ date_format(date_create($message->created_at), 'd.m.Y. h:i:s') }}</em>
+                                        <a href="#">Vi</a> <span class="text-gray mx-10">pišete</span><em>{{ date_format(date_create($message->created_at), 'd.m.Y. H:i:s') }}</em>
                                     @else
                                         @if (Bouncer::is(auth()->user())->an('admin'))
-                                            <a href="{{ route('user.edit', ['id' => $message->sender->id]) }}">{{ $message->sender->name }}</a> <span class="text-gray mx-10">piše</span><em>{{ date_format(date_create($message->created_at), 'd.m.Y. h:i:s') }}</em>
+                                            <a href="{{ route('user.edit', ['id' => $message->sender->id]) }}">{{ $message->sender->name }}</a> <span class="text-gray mx-10">piše</span><em>{{ date_format(date_create($message->created_at), 'd.m.Y. H:i:s') }}</em>
                                         @else
-                                            <a href="#">{{ $message->sender->name }}</a> <span class="text-gray mx-10">piše</span><em>{{ date_format(date_create($message->created_at), 'd.m.Y. h:i:s') }}</em>
+                                            <a href="#">{{ $message->sender->name }}</a> <span class="text-gray mx-10">piše</span><em>{{ date_format(date_create($message->created_at), 'd.m.Y. H:i:s') }}</em>
                                         @endif
                                     @endif
                                 </td>

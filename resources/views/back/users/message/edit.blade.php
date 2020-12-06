@@ -33,7 +33,7 @@
                         <td class="d-none d-sm-table-cell text-center">
                             <div class="mb-10">
                                 <a href="#">
-                                    <img class="img-avatar" src="{{ auth()->user()->details->avatar }}" alt="">
+                                    <img class="img-avatar" src="{{ isset(auth()->user()->details->avatar) ? asset(auth()->user()->details->avatar) : asset('media/images/avatar.jpg') }}" alt="">
                                 </a>
                             </div>
                             <small></small>
@@ -91,7 +91,7 @@
                                 <td class="d-none d-sm-table-cell text-center" style="width: 140px;">
                                     <div class="mb-10">
                                         <a href="be_pages_generic_profile.html">
-                                            <img class="img-avatar" src="{{ asset($message->sender->details->avatar) }}" alt="">
+                                            <img class="img-avatar" src="{{ isset($message->sender->details->avatar) ? asset($message->sender->details->avatar) : asset('media/images/avatar.jpg') }}" alt="">
                                         </a>
                                     </div>
                                     <small>{{ $message->sender->name }}</small>

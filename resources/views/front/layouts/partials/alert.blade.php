@@ -12,3 +12,10 @@
         <button type="button" class="close" data-dismiss="alert">×</button>
     </div>
 @endif
+
+@if (session('error'))
+    <div class="alert alert-danger">
+        <i class="fa fa-exclamation-circle"></i> {{ session('error') }}
+        <button type="button" class="close" data-dismiss="alert">×</button>
+    </div>
+@endif

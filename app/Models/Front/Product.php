@@ -178,4 +178,21 @@ class Product extends Model
         return $query->where('status', 1)->select('id', 'name')->get();
     }
 
+
+    /**
+     * @param $id
+     *
+     * @return string
+     */
+    public static function resolveLink($id)
+    {
+        $product = self::find($id);
+
+        return route('proizvod', [
+            'cat' => isset($product->category()->slug) ? $product->category()->slug : '',
+            'subcat' => $product->subcategory() ? $product->subcategory()->slug : 'ikoi',
+            'prod' => $product->slug
+        ]);
+    }
+
 }

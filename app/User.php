@@ -103,13 +103,8 @@ class User extends Authenticatable
     public function validateCustomerRequest(Request $request)
     {
         $request->validate([
-            'fname'    => 'required',
-            'lname'    => 'required',
-            'address'  => 'required',
-            'zip'      => 'required',
-            'city'     => 'required',
-            'email'    => 'required',
-            'username' => 'required',
+            'name'  => 'required',
+            'email' => 'required',
         ]);
 
         $this->setRequest($request);
@@ -221,13 +216,17 @@ class User extends Authenticatable
     public function updateCustomerData($id)
     {
         $updated = $this->where('id', $id)->update([
-            'name'       => $this->request->username,
+            'name'       => $this->request->name,
             'email'      => $this->request->email,
             'updated_at' => Carbon::now()
         ]);
 
         if ($updated) {
             UserDetail::updateCustomerData($this->request, $id);
+
+            if ($this->request->user_image) {
+                $this->resolveAvatar($id);
+            }
 
             return true;
         }

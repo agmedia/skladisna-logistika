@@ -268,18 +268,25 @@ Route::get('kontakt', 'Front\HomeController@contact')->name('kontakt');
 Route::post('kontakt-poruka', 'Front\HomeController@message')->name('kontakt.form');
 
 Route::get('info/servis-vilicara', 'Front\HomeController@page')->name('servis');
-
+/**
+ * Postavke računa korisnika.
+ */
 Route::get('moj-racun', 'Front\CustomerController@index')->name('moj');
-Route::get('moj-racun/zahtjev', 'Front\CustomerController@sendRequest')->name('moj.zahtjev.request');
-Route::get('moj-racun/promjeni', 'Front\CustomerController@edit')->name('moj.edit');
-Route::post('moj-racun/promjeni', 'Front\CustomerController@update')->name('moj.update');
 Route::get('moj-racun/narudzbe', 'Front\CustomerController@orders')->name('moj.narudzbe');
 Route::get('moj-racun/narudzba/{order}', 'Front\CustomerController@viewOrder')->name('moj.narudzba');
+Route::get('moj-racun/narudzba/ponovi/{order}', 'Front\CustomerController@repeatOrder')->name('moj.narudzba.ponovi');
+Route::get('moj-racun/narudzba/ispis/{order}', 'Front\CustomerController@printOrder')->name('moj.narudzba.ispis');
+Route::get('moj-racun/servis', 'Front\CustomerController@service')->name('moj.servis');
 Route::get('moj-racun/poruke', 'Front\CustomerController@messages')->name('moj.poruke');
-Route::get('moj-racun/poruka/nova', 'Front\CustomerController@newMessage')->name('moj.poruka.nova');
+Route::get('moj-racun/poruka/nova/{subject?}', 'Front\CustomerController@newMessage')->name('moj.poruka.nova');
 Route::get('moj-racun/poruka/{message}', 'Front\CustomerController@viewMessage')->name('moj.poruka');
-Route::post('moj-racun/poruka', 'Front\CustomerController@sendMessage')->name('moj.poruka.send');
-
+Route::post('moj-racun/poruka', 'Front\CustomerController@sendMessage')->name('moj.poruka.salji');
+Route::get('moj-racun/postavke', 'Front\CustomerController@settings')->name('moj.postavke');
+Route::post('moj-racun/postavke/promjeni', 'Front\CustomerController@updateAccount')->name('moj.postavke.promijeni');
+/**
+ * Cart and checkout controllers.
+ * Together with cart API endpoints.
+ */
 Route::get('kosarica', 'Front\CartController@index')->name('kosarica');
 Route::get('kosarica/naplata', 'Front\CartController@checkout')->name('naplata');
 Route::post('kosarica/naplata', 'Front\CheckoutController@proccessOrder')->name('napravi.narudzbu');
@@ -289,10 +296,6 @@ Route::get('kosarica/error', 'Front\CheckoutController@error')->name('narudzba.e
 //Route::get('blogs/{blog?}', 'Front\BlogController@index')->name('blogovi');
 Route::get('blogs/{cat}/{subcat?}/{page?}', 'Front\BlogController@index')->name('blogovi');
 //Route::get('blogs/{blog?}', 'Front\ClientController@blog')->name('blog');
-
-/*Route::get('prodavaci/{client}/info/{page}', 'Front\ClientController@page')->name('klijent.page');
-Route::get('prodavaci/{client}/blogs/{blog?}', 'Front\ClientController@blog')->name('klijent.blog');
-Route::get('prodavaci/{client?}/{cat?}/{subcat?}', 'Front\ClientController@index')->name('klijent');*/
 
 Route::get('toyota-vilicari', 'Front\CategoryController@toyota')->name('toyota-vilicari');
 

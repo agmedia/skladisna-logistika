@@ -9,18 +9,18 @@ use Illuminate\Support\Facades\Auth;
 
 class Cart extends Model
 {
-    
+
     /**
      * @var string
      */
     protected $table = 'carts';
-    
+
     /**
      * @var array
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
-    
-    
+
+
     /**
      * @param $value
      *
@@ -30,8 +30,8 @@ class Cart extends Model
     {
         return unserialize($value);
     }
-    
-    
+
+
     /**
      * @param $value
      */
@@ -39,8 +39,8 @@ class Cart extends Model
     {
         $this->attributes['cart_data'] = serialize($value);
     }
-    
-    
+
+
     /**
      * @param $request
      *
@@ -54,8 +54,8 @@ class Cart extends Model
             'cart_data'  => $request
         ]);
     }
-    
-    
+
+
     /**
      * @param array $request
      *
@@ -67,5 +67,39 @@ class Cart extends Model
             'cart_data'  => serialize($request),
             'updated_at' => Carbon::now()
         ]);
+    }
+
+
+    /**
+     * @param      $session_id
+     * @param null $cart
+     *
+     * @return bool
+     */
+    public static function checkLogged($session_id, $cart = null)
+    {
+        if (Auth::user()) {
+            $has_cart = Cart::where('user_id', Auth::user()->id)->first();
+
+            if ($has_cart) {
+                $cart_data = json_decode(json_encode($has_cart->cart_data));
+
+                foreach ($cart_data->items as $item) {
+                    $cart->add($cart->resolveItemRequest($item));
+                }
+
+                if ( ! empty($cart_data->coupon)) {
+                    $cart->coupon($cart_data->coupon);
+                }
+
+                $has_cart->update(['session_id' => $session_id]);
+
+                return true;
+            }
+
+            return false;
+        }
+
+        return false;
     }
 }

@@ -123,38 +123,22 @@ class CartController extends Controller
      * Resolve new cart session.
      * If user is logged, check the DB for cart session entries.
      */
-    private function resolveSession()
+    private function resolveSession(): void
     {
         $sl_cart_id = Str::random(8);
         $this->cart = new AgCart($sl_cart_id);
         session(['sl_cart_id' => $sl_cart_id]);
         
-        if (Auth::user()) {
-            $has_cart = Cart::where('user_id', Auth::user()->id)->first();
-        
-            if ($has_cart) {
-                $cart_data = json_decode(json_encode($has_cart->cart_data));
-    
-                foreach ($cart_data->items as $item) {
-                    $this->cart->add($this->cart->resolveItemRequest($item));
-                }
-                
-                if ( ! empty($cart_data->coupon)) {
-                    $this->cart->coupon($cart_data->coupon);
-                }
-                
-                $has_cart->update(['session_id' => $sl_cart_id]);
-            }
-        }
+        Cart::checkLogged($sl_cart_id, $this->cart);
     }
-    
-    
+
+
     /**
      * If user is logged store or update the DB session.
      *
      * @param $response
      */
-    private function resolveDB($response)
+    private function resolveDB($response): void
     {
         if (Auth::user()) {
             // Queue the storage of cart data.

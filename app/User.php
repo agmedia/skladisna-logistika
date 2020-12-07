@@ -196,7 +196,7 @@ class User extends Authenticatable
 
         $user = UserDetail::where('user_id', $id)->first();
 
-        if ($user->avatar && $user->avatar != 'media/images/avatar.jpg') {
+        if (isset($user->avatar) && $user->avatar && $user->avatar != 'media/images/avatar.jpg') {
             $delete_path = str_replace(config('filesystems.disks.user.url'), '', $user->avatar);
 
             Storage::disk('user')->delete($delete_path);

@@ -24,7 +24,7 @@
         </tr>
         <tr>
             <td style="padding: 5px 20px 30px 20px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555; word-wrap: break-word !important; width: 450px; max-width: 450px;">
-                <pre>{!! $mess->message_content !!}</pre>
+                <p>{!! $mess->message_content !!}</p>
             </td>
         </tr>
         <tr>

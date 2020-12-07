@@ -44,44 +44,44 @@
 
                     <div class="col_half">
                         <label for="fname">Ime</label>
-                        <input type="text" id="fname" name="fname" value="{{ $customer->details->fname }}" class="sm-form-control">
+                        <input type="text" id="fname" name="fname" value="{{ isset($customer->details->fname) ? $customer->details->fname : '' }}" class="sm-form-control">
                     </div>
                     <div class="col_half col_last">
                         <label for="lname">Prezime</label>
-                        <input type="text" id="lname" name="lname" value="{{ $customer->details->lname }}" class="sm-form-control">
+                        <input type="text" id="lname" name="lname" value="{{ isset($customer->details->lname) ? $customer->details->lname : '' }}" class="sm-form-control">
                     </div>
 
                     <div class="clear"></div>
 
                     <div class="col_half">
                         <label for="company">Poduzeće</label>
-                        <input type="text" id="company" name="company" value="{{ $customer->details->company }}" class="sm-form-control">
+                        <input type="text" id="company" name="company" value="{{ isset($customer->details->company) ? $customer->details->company : '' }}" class="sm-form-control">
                     </div>
                     <div class="col_half col_last">
                         <label for="oib">OIB</label>
-                        <input type="text" id="oib" name="oib" value="{{ $customer->details->oib }}" class="sm-form-control">
+                        <input type="text" id="oib" name="oib" value="{{ isset($customer->details->oib) ? $customer->details->oib : '' }}" class="sm-form-control">
                     </div>
 
                     <div class="clear"></div>
 
                     <div class="col_full">
                         <label for="address">Adresa</label>
-                        <input type="text" id="address" name="address" value="{{ $customer->details->address }}" class="sm-form-control">
+                        <input type="text" id="address" name="address" value="{{ isset($customer->details->address) ? $customer->details->address : '' }}" class="sm-form-control">
                     </div>
 
                     <div class="clear"></div>
 
                     <div class="col_one_third">
                         <label for="zip">Poštanski broj</label>
-                        <input type="text" id="zip" name="zip" value="{{ $customer->details->zip }}" class="sm-form-control">
+                        <input type="text" id="zip" name="zip" value="{{ isset($customer->details->zip) ? $customer->details->zip : '' }}" class="sm-form-control">
                     </div>
                     <div class="col_one_third">
                         <label for="city">Grad</label>
-                        <input type="text" id="city" name="city" value="{{ $customer->details->city }}" class="sm-form-control">
+                        <input type="text" id="city" name="city" value="{{ isset($customer->details->city) ? $customer->details->city : '' }}" class="sm-form-control">
                     </div>
                     <div class="col_one_third col_last">
                         <label for="phone">Telefon</label>
-                        <input type="text" id="phone" name="phone" value="{{ $customer->details->phone }}" class="sm-form-control">
+                        <input type="text" id="phone" name="phone" value="{{ isset($customer->details->phone) ? $customer->details->phone : '' }}" class="sm-form-control">
                     </div>
 
                     <div class="clear"></div>

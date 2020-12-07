@@ -49,6 +49,7 @@ class AgCart extends Model
             'total'      => $this->cart->getTotal()
         ];
         $response['tax'] = $this->getTax($response);
+        $response['total'] = $this->cart->getTotal() + $response['tax'][0]['value'];
 
         return $response;
     }
@@ -279,7 +280,7 @@ class AgCart extends Model
     {
         $without = $cart['subtotal'] / 1.25;
 
-        return [
+        /*return [
             0 => [
                 'title' => 'Iznos bez PDV-a',
                 'value' => $without
@@ -287,6 +288,12 @@ class AgCart extends Model
             1 => [
                 'title' => 'PDV (25%)',
                 'value' => $without * 0.25
+            ]
+        ];*/
+        return [
+            0 => [
+                'title' => 'PDV (25%)',
+                'value' => $cart['subtotal'] * 0.25
             ]
         ];
     }

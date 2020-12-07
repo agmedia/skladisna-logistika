@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Back\Users\UserDetail;
 use App\Models\Recaptcha;
 use App\User;
 use Bouncer;
@@ -87,6 +88,21 @@ class RegisterController extends Controller
         ]);
 
         Bouncer::assign('customer')->to($customer);
+
+        UserDetail::create([
+            'user_id' => $customer->id,
+            'fname'   => $data['name'],
+            'lname'   => '',
+            'address' => '',
+            'zip'     => '',
+            'city'    => '',
+            'phone'   => '',
+            'avatar'  => 'media/images/avatar.jpg',
+            'bio'     => '',
+            'company' => '',
+            'oib'     => '',
+            'social'  => '',
+        ]);
 
         return $customer;
     }

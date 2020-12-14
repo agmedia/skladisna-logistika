@@ -55,7 +55,7 @@ return [
         ],
         'nett' => [
             'title' => 'Iznos bez PDV-a',
-            'status' => 1,
+            'status' => 0,
             'sort_order' => 1,
         ],
         'shipping' => [

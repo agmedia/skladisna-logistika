@@ -95,11 +95,11 @@ class OrderTotal extends Model
         if ($code == 'subtotal') {
             return intval($obj->subtotal);
         }
-        if ($code == 'nett') {
+        /*if ($code == 'nett') {
             return intval($obj->tax[0]->value);
-        }
+        }*/
         if ($code == 'tax') {
-            return intval($obj->tax[1]->value);
+            return intval($obj->tax[0]->value);
         }
         if ($code == 'total') {
             return intval($obj->total);

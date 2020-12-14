@@ -6194,7 +6194,7 @@ body:not(.device-touch):not(.device-sm):not(.device-xs) .product-image > a {
 	font-weight: 400;
 
 	color: #888;
-	font-size: 22px;
+	font-size: 16px;
 }
 
 .product-price ins {

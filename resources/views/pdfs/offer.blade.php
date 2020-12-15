@@ -258,10 +258,12 @@
         @endforeach
 
         @foreach($order->totals as $i => $total)
-            <tr class="bg-white">
-                <td colspan="5" class="total text-right">{{ $total->title }}</td>
-                <td colspan="2" class="total text-right">{{ number_format($total->value, 2, ',', '.') }}</td>
-            </tr>
+            @if($total->code != 'tax')
+                <tr class="bg-white">
+                    <td colspan="5" class="total text-right">{{ $total->title == 'Sveukupno' ? $total->title . ' (25%)' : $total->title }}</td>
+                    <td colspan="2" class="total text-right">{{ number_format($total->value, 2, ',', '.') }}</td>
+                </tr>
+            @endif
         @endforeach
 
     </table>

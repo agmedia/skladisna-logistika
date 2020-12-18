@@ -107,15 +107,15 @@
                             ============================================= -->
                             @if ($prod->price != 0)
                                 <div class="line"></div>
-                                @if ( ! empty($prod->action))
-                                    @if ( ! empty($prod->action->price))
-                                        <div class="product-price">
-                                            <del>{{ number_format($prod->price, 2) }}kn</del> <ins> {{ number_format($prod->action->price, 2) }}kn</ins>
-                                        </div><!-- .price -->
-                                    @else
+                                @if ( ! empty($prod->action) && empty($prod->action->coupon))
+                                    @if ($prod->action->discount)
                                         <div class="product-price">
                                             <del>{{ number_format($prod->price, 2) }}kn</del> <ins> {{ number_format(($prod->price - ($prod->price * ($prod->action->discount / 100))), 2) }}kn</ins>
-                                        </div><!-- .price -->
+                                        </div>
+                                    @else
+                                        <div class="product-price">
+                                            <del>{{ number_format($prod->price, 2) }}kn</del> <ins> {{ number_format($prod->action->price, 2) }}kn</ins>
+                                        </div>
                                     @endif
                                 @else
                                     <div class="product-price">
@@ -125,14 +125,7 @@
                                 <div class="clear"></div>
                                 <!-- Product Single - Quantity & Cart Button -->
                                 @include('front.product.partials.add-to-cart-btn', ['product' => $prod])
-                                {{--<form class="cart nobottommargin clearfix" method="post" enctype='multipart/form-data'>
-                                    <div class="quantity clearfix">
-                                        <input type="button" value="-" class="minus">
-                                        <input type="text" step="1" min="1"  name="quantity" value="1" title="Količina" class="qty" size="4" />
-                                        <input type="button" value="+" class="plus">
-                                    </div>
-                                    <button type="submit" class="btn btn-green nomargin">U košaricu</button>
-                                </form>--}}
+
                                 <div class="clear"></div>
                                 <div class="line"></div>
                             @else
@@ -346,16 +339,15 @@
                         <h3 class="main-headline">Povezani proizvodi</h3>
                     </div>
                     <div id="shop" class="shop cat product-3 clearfix" data-layout="fitRows">
-                    @foreach($related as $prod)
-                        @include('front.product.partials.product-category', [
-                                  'product' => $prod,
-                                  'link' => route('proizvod', [
-                                      'cat' => isset($prod->category()->slug) ? $prod->category()->slug : '',
-                                      'subcat' => $prod->subcategory() ? $prod->subcategory()->slug : '',
-                                      'prod' => $prod->slug
-                                  ])
-                              ])
-                        <!-- .single-product ends -->
+                        @foreach($related as $prod)
+                            @include('front.product.partials.product-category', [
+                                          'product' => $prod,
+                                          'link' => route('proizvod', [
+                                              'cat' => isset($prod->category()->slug) ? $prod->category()->slug : '',
+                                              'subcat' => $prod->subcategory() ? $prod->subcategory()->slug : '',
+                                              'prod' => $prod->slug
+                                          ])
+                                      ])
                         @endforeach
                     </div>
                 </div>

@@ -67,13 +67,11 @@ class AppServiceProvider extends ServiceProvider
         View::share('info_pages', $info_pages);*/
 
         // App Settings - Admin
-        /*view()->composer('*', function($view)
+        view()->composer('*', function($view)
         {
             if (Auth::check()) {
-                $view->with('settings', Cache::rememberForever('app_set', function () {
-                    return Profile::settings(Auth::user()->id);
-                }));
+                $view->with('settings', Profile::settings(Auth::user()->id));
             }
-        });*/
+        });
     }
 }

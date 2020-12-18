@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Back\Settings\Profile;
 use App\User;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 
 class SettingController extends Controller
 {
@@ -95,6 +96,7 @@ class SettingController extends Controller
     *                                Copyright : AGmedia                           *
     *                              email: filip@agmedia.hr                         *
     *******************************************************************************/
+
     /**
      * @needs_testing
      *
@@ -106,6 +108,7 @@ class SettingController extends Controller
 
         return redirect()->back()->with('success', 'Database refreshed succesfully!');
     }
+
 
     /**
      * @needs_testing
@@ -120,6 +123,9 @@ class SettingController extends Controller
     }
 
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function sidebarInverseToggle()
     {
         return response()->json(

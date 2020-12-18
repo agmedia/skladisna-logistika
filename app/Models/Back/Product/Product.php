@@ -189,7 +189,8 @@ class Product extends Model
             'viewed'           => 0,
             'sort_order'       => isset($this->request->sort_order) ? $this->request->sort_order : 0,
             'used'             => (isset($this->request->used) and $this->request->used == 'on') ? 1 : 0,
-            'topponuda'             => (isset($this->request->topponuda) and $this->request->topponuda == 'on') ? 1 : 0,
+            'rent'             => (isset($this->request->rent) and $this->request->rent == 'on') ? 1 : 0,
+            'topponuda'        => (isset($this->request->topponuda) and $this->request->topponuda == 'on') ? 1 : 0,
             'status'           => (isset($this->request->status) and $this->request->status == 'on') ? 1 : 0,
             'created_at'       => Carbon::now(),
             'updated_at'       => Carbon::now()
@@ -228,7 +229,8 @@ class Product extends Model
             'price'            => isset($this->request->price) ? $this->request->price : 0,
             'sort_order'       => isset($this->request->sort_order) ? $this->request->sort_order : 0,
             'used'             => (isset($this->request->used) and $this->request->used == 'on') ? 1 : 0,
-            'topponuda'             => (isset($this->request->topponuda) and $this->request->topponuda == 'on') ? 1 : 0,
+            'rent'             => (isset($this->request->rent) and $this->request->rent == 'on') ? 1 : 0,
+            'topponuda'        => (isset($this->request->topponuda) and $this->request->topponuda == 'on') ? 1 : 0,
             'status'           => (isset($this->request->status) and $this->request->status == 'on') ? 1 : 0,
             'updated_at'       => Carbon::now()
         ]);

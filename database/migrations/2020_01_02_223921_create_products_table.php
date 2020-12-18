@@ -31,6 +31,7 @@ class CreateProductsTable extends Migration
             $table->integer('viewed')->unsigned()->default(0);
             $table->integer('sort_order')->unsigned()->default(0);
             $table->boolean('used')->default(false);
+            $table->boolean('rent')->default(false);
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

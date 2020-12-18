@@ -58,17 +58,35 @@
 
         <div class="block mb-30">
             <div class="block-content" style="background-color: #f8f9f9; border: 1px solid #e9e9e9; padding: 30px;">
-                <div class="form-group mb-30">
-                    <label class="css-control css-control-sm css-control-success css-switch res">
-                        <input type="checkbox" class="css-control-input" name="status" @if (isset($product) and $product->status) checked @endif>
-                        <span class="css-control-indicator"></span> Online Status
-                    </label>
-                </div>
-                <div class="form-group mb-30">
-                    <label class="css-control css-control-sm css-control-success css-switch res">
-                        <input type="checkbox" class="css-control-input" name="topponuda" @if (isset($product) and $product->topponuda) checked @endif>
-                        <span class="css-control-indicator"></span> Top ponuda
-                    </label>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group mb-20">
+                            <label class="css-control css-control-sm css-control-success css-switch res">
+                                <input type="checkbox" class="css-control-input" name="status" @if (isset($product) and $product->status) checked @endif>
+                                <span class="css-control-indicator"></span> Online Status
+                            </label>
+                        </div>
+                        <div class="form-group mb-30">
+                            <label class="css-control css-control-sm css-control-success css-switch res">
+                                <input type="checkbox" class="css-control-input" name="topponuda" @if (isset($product) and $product->topponuda) checked @endif>
+                                <span class="css-control-indicator"></span> Top Ponuda
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group mb-20">
+                            <label class="css-control css-control-sm css-control-success css-switch res">
+                                <input type="checkbox" class="css-control-input" name="used" @if (isset($product) and $product->used) checked @endif>
+                                <span class="css-control-indicator"></span> Rabljeno
+                            </label>
+                        </div>
+                        <div class="form-group mb-30">
+                            <label class="css-control css-control-sm css-control-success css-switch res">
+                                <input type="checkbox" class="css-control-input" name="rent" @if (isset($product) and $product->rent) checked @endif>
+                                <span class="css-control-indicator"></span> Najam
+                            </label>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group mb-10">
                     <label for="sort_order">Poredak</label>

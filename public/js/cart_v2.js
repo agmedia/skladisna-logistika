@@ -7280,81 +7280,72 @@ var render = function() {
                                     ]
                                   ),
                                   _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "col-xs-9",
-                                      staticStyle: { width: "67%" }
-                                    },
-                                    [
-                                      _c(
-                                        "span",
-                                        {
-                                          staticClass:
-                                            "mobile-prices float-right text-right"
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                                        " +
-                                              _vm._s(
-                                                "x " +
-                                                  _vm.$store.state.service.formatPrice(
-                                                    item.price
-                                                  ) +
-                                                  "   =   " +
-                                                  _vm.$store.state.service.formatPrice(
-                                                    item.price * item.quantity
-                                                  )
-                                              ) +
-                                              "\n                                        "
-                                          ),
-                                          _c("br"),
-                                          _vm._v(
-                                            "\n                                        " +
-                                              _vm._s(
-                                                Object.keys(item.conditions)
-                                                  .length
-                                                  ? "-" +
-                                                      _vm.$store.state.service.formatPrice(
-                                                        item.conditions
-                                                          .parsedRawValue *
-                                                          item.quantity
-                                                      )
-                                                  : ""
-                                              ) +
-                                              "\n                                        "
-                                          ),
-                                          _c("br")
-                                        ]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "span",
-                                        {
-                                          staticClass: "float-right text-right"
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                                        " +
-                                              _vm._s(
-                                                Object.keys(item.conditions)
-                                                  .length
-                                                  ? _vm.$store.state.service.formatPrice(
-                                                      (item.price -
-                                                        item.conditions
-                                                          .parsedRawValue) *
+                                  _c("div", { staticClass: "col-xs-9" }, [
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass:
+                                          "mobile-prices float-right text-right"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                        " +
+                                            _vm._s(
+                                              "x " +
+                                                _vm.$store.state.service.formatPrice(
+                                                  item.price
+                                                ) +
+                                                "   =   " +
+                                                _vm.$store.state.service.formatPrice(
+                                                  item.price * item.quantity
+                                                )
+                                            ) +
+                                            "\n                                        "
+                                        ),
+                                        _c("br"),
+                                        _vm._v(
+                                          "\n                                        " +
+                                            _vm._s(
+                                              Object.keys(item.conditions)
+                                                .length
+                                                ? "-" +
+                                                    _vm.$store.state.service.formatPrice(
+                                                      item.conditions
+                                                        .parsedRawValue *
                                                         item.quantity
                                                     )
-                                                  : _vm.$store.state.service.formatPrice(
-                                                      item.price * item.quantity
-                                                    )
-                                              ) +
-                                              "\n                                    "
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  )
+                                                : ""
+                                            ) +
+                                            "\n                                        "
+                                        ),
+                                        _c("br")
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "span",
+                                      { staticClass: "float-right text-right" },
+                                      [
+                                        _vm._v(
+                                          "\n                                        " +
+                                            _vm._s(
+                                              Object.keys(item.conditions)
+                                                .length
+                                                ? _vm.$store.state.service.formatPrice(
+                                                    (item.price -
+                                                      item.conditions
+                                                        .parsedRawValue) *
+                                                      item.quantity
+                                                  )
+                                                : _vm.$store.state.service.formatPrice(
+                                                    item.price * item.quantity
+                                                  )
+                                            ) +
+                                            "\n                                    "
+                                        )
+                                      ]
+                                    )
+                                  ])
                                 ]
                               )
                             ])
@@ -7376,7 +7367,7 @@ var render = function() {
                                   ],
                                   staticClass: "sm-form-control",
                                   staticStyle: {
-                                    width: "48%",
+                                    width: "40%",
                                     display: "inline"
                                   },
                                   attrs: {
@@ -7398,11 +7389,9 @@ var render = function() {
                                   _c(
                                     "a",
                                     {
-                                      staticClass: "btn button-border",
-                                      staticStyle: {
-                                        "margin-left": "10px",
-                                        width: "45%"
-                                      },
+                                      staticClass:
+                                        "btn button-border float-right",
+                                      staticStyle: { width: "55%" },
                                       on: {
                                         click: function($event) {
                                           $event.preventDefault()

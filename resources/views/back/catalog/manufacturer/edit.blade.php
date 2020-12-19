@@ -147,7 +147,7 @@
                         <div class="col-12">
                             <div class="block">
                                 <div class="block-header block-header-default" style="border: 1px solid #e9e9e9;">
-                                    <h3 class="block-title">Sadržaj Stranice</h3>
+                                    <h3 class="block-title">Opis Proizvođača</h3>
                                     <div class="block-options">
                                         <button type="button" class="btn-block-option ml-10" data-toggle="popover" data-placement="top" data-html="true" title="Languages" data-content="Insert description content in appropriate languages tabs.">
                                             <i class="si si-question ml-5"></i>

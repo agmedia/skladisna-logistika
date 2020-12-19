@@ -23,7 +23,7 @@
         <div class="block" id="ag-autocomplete-app">
             <div class="block-content bg-body-light">
                 <div class="row mb-3">
-                    <div class="col-12 col-md-5">
+                    <div class="col-12 col-md-3">
                         <div class="form-group">
                             <ag-autocomplete url="{{ route('products.autocomplete') }}" min="1" target="products" placeholder="Upiši artikl koji tražiš..."></ag-autocomplete>
                         </div>
@@ -34,13 +34,25 @@
                                 <select class="form-control" id="category-select" name="category">
                                     <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category['id'] }}" {{ ($category['id'] == request()->input('catid')) ? 'selected' : '' }}>{{ $category['name'] }}</option>
+                                        <option value="{{ $category['id'] }}" {{ ($category['id'] == request()->input('category')) ? 'selected' : '' }}>{{ $category['name'] }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </form>
                     </div>
-                    <div class="col-12 col-md-2">
+                    <div class="col-12 col-md-3">
+                        <form action="{{ route('products') }}" method="get">
+                            <div class="form-group">
+                                <select class="form-control" id="manufacturer-select" name="manufacturer">
+                                    <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+                                    @foreach ($manufacturers as $key => $manufacturer)
+                                        <option value="{{ $key }}" {{ ($key == request()->input('manufacturer')) ? 'selected' : '' }}>{{ $manufacturer }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12 col-md-1">
                         <div class="form-group">
                             <div class="dropdown float-right">
                                 <button type="button" class="btn btn-secondary dropdown-toggle" id="products-status" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -139,35 +151,44 @@
             $('#category-select').select2({
                 placeholder: "Odaberi Kategorije...",
                 allowClear: true
-            })
+            });
+            $('#manufacturer-select').select2({
+                placeholder: "Odaberi Proizvođača...",
+                allowClear: true
+            });
 
             $('#category-select').on('change', (e) => {
-                let search = e.currentTarget.selectedOptions[0]
-                let url = new URL(location.href)
-                let params = new URLSearchParams(url.search)
-                let keys = []
+                setURL('category', e.currentTarget.selectedOptions[0]);
+            });
+            $('#manufacturer-select').on('change', (e) => {
+                setURL('manufacturer', e.currentTarget.selectedOptions[0]);
+            });
+        });
 
-                for(var key of params.keys()) {
-                    if (key === 'category' || key === 'catid') {
-                        keys.push(key)
-                    }
+        function setURL(type, search) {
+            let url = new URL(location.href);
+            let params = new URLSearchParams(url.search);
+            let keys = [];
+
+            for(var key of params.keys()) {
+                if (key === type) {
+                    keys.push(key);
                 }
+            }
 
-                keys.forEach((value) => {
-                    if (params.has(value)) {
-                        params.delete(value)
-                    }
-                })
-
-                if (search.value) {
-                    params.append('category', search.label)
-                    params.append('catid', search.value)
+            keys.forEach((value) => {
+                if (params.has(value)) {
+                    params.delete(value);
                 }
-
-                url.search = params
-                location.href = url
             })
-        })
+
+            if (search.value) {
+                params.append(type, search.value);
+            }
+
+            url.search = params;
+            location.href = url;
+        }
 
         function SelectStatus(status) {
             let url = new URL(location.href)

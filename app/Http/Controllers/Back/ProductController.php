@@ -34,10 +34,13 @@ class ProductController extends Controller
             $query->where('name', 'like', '%' . $request->input('search') . '%');
         }
 
-        if ($request->has('category') or $request->has('catid')) {
+        if ($request->has('category')) {
             $query->with('categories')->whereHas('categories', function ($query) use ($request) {
-                $query->where('id', $request->input('catid'));
+                $query->where('id', $request->input('category'));
             });
+        }
+        if ($request->has('manufacturer')) {
+            $query->where('manufacturer_id', $request->input('manufacturer'));
         }
 
         if ($request->has('status')) {
@@ -47,8 +50,9 @@ class ProductController extends Controller
 
         $products   = $query->with('actions')->paginate(20);
         $categories = Category::getList();
+        $manufacturers = Manufacturer::list();
 
-        return view('back.product.index', compact('products', 'categories'));
+        return view('back.product.index', compact('products', 'categories', 'manufacturers'));
     }
 
 

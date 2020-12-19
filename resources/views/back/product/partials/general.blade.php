@@ -105,6 +105,16 @@
                     <input type="text" class="form-control form-control-lg" name="ean" value="{{ isset($product) ? $product->ean : '' }}">
                 </div>--}}
                 <div class="form-group mb-30">
+                    <label for="manufacturer">Proizvođač</label>
+                    <select class="js-select2 form-control" id="manufacturer-select" name="manufacturer" style="width: 100%;">
+                        <option value="0">Odaberite proizvođača...</option>
+                        @foreach ($manufacturers as $key => $manufacturer)
+                            <option value="{{ $key }}" {{ (isset($product->manufacturer_id) and $key == $product->manufacturer_id) ? 'selected="selected"' : '' }}>{{ strtoupper($manufacturer) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="form-group mb-30">
                     <label for="quantity">Količina</label>
                     <input type="text" class="form-control form-control-lg" name="quantity" value="{{ isset($product) ? $product->quantity : '' }}">
                 </div>
@@ -142,69 +152,71 @@
 @push('product_scripts')
     <!-- Summernote -->
     <script>
-      $(() => {
+        $(() => {
 
-        $('.js-summernote').summernote({
+            $('#manufacturer-select').select2()
 
-          height: 333,
-          minHeight: 126,
-          placeholder: "Opiši proizvod...",
-          toolbar: [
-              ['style', ['style']],
-              ['font', ['bold', 'underline', 'clear']],
-              ['para', ['ul', 'ol', 'paragraph']],
-              ['table', ['table']],
-              ['insert', ['link', 'picture', 'video']],
-              ['view', ['fullscreen', 'codeview', 'help']],
+            $('.js-summernote').summernote({
 
-          ],
-          styleTags: ['p', 'h3', 'h4','blockquote'],
+                height: 333,
+                minHeight: 126,
+                placeholder: "Opiši proizvod...",
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']],
 
+                ],
+                styleTags: ['p', 'h3', 'h4','blockquote'],
+
+            })
+
+            // Init Bootstrap Maxlength (with .js-maxlength class)
+            $('.js-maxlength:not(.js-maxlength-enabled)').each((index, element) => {
+                let el = $(element);
+
+                // Add .js-maxlength-enabled class to tag it as activated and init it
+                el.addClass('js-maxlength-enabled').maxlength({
+                    alwaysShow: el.data('always-show') ? true : false,
+                    threshold: el.data('threshold') || 10,
+                    warningClass: el.data('warning-class') || 'badge badge-warning',
+                    limitReachedClass: el.data('limit-reached-class') || 'badge badge-danger',
+                    placement: el.data('placement') || 'bottom',
+                    preText: el.data('pre-text') || '',
+                    separator: el.data('separator') || '/',
+                    postText: el.data('post-text') || ''
+                });
+            })
+
+            // Init Tags Inputs (with .js-tags-input class)
+            $('.js-tags-input:not(.js-tags-input-enabled)').each((index, element) => {
+                var el = $(element);
+
+                // Add .js-tags-input-enabled class to tag it as activated and init it
+                el.addClass('js-tags-input-enabled').tagsInput({
+                    height: el.data('height') || false,
+                    width: el.data('width') || '100%',
+                    defaultText: el.data('default-text') || 'Add tag',
+                    removeWithBackspace: el.data('remove-with-backspace') || true,
+                    delimiter: [',']
+                });
+            });
+
+            SetSEOPreview()
         })
-
-        // Init Bootstrap Maxlength (with .js-maxlength class)
-        $('.js-maxlength:not(.js-maxlength-enabled)').each((index, element) => {
-          let el = $(element);
-
-          // Add .js-maxlength-enabled class to tag it as activated and init it
-          el.addClass('js-maxlength-enabled').maxlength({
-            alwaysShow: el.data('always-show') ? true : false,
-            threshold: el.data('threshold') || 10,
-            warningClass: el.data('warning-class') || 'badge badge-warning',
-            limitReachedClass: el.data('limit-reached-class') || 'badge badge-danger',
-            placement: el.data('placement') || 'bottom',
-            preText: el.data('pre-text') || '',
-            separator: el.data('separator') || '/',
-            postText: el.data('post-text') || ''
-          });
-        })
-
-        // Init Tags Inputs (with .js-tags-input class)
-        $('.js-tags-input:not(.js-tags-input-enabled)').each((index, element) => {
-          var el = $(element);
-
-          // Add .js-tags-input-enabled class to tag it as activated and init it
-          el.addClass('js-tags-input-enabled').tagsInput({
-            height: el.data('height') || false,
-            width: el.data('width') || '100%',
-            defaultText: el.data('default-text') || 'Add tag',
-            removeWithBackspace: el.data('remove-with-backspace') || true,
-            delimiter: [',']
-          });
-        });
-
-        SetSEOPreview()
-      })
 
         function SetSEOPreview() {
-          let seo_title = document.getElementById('seo-title').value
-          document.getElementById('seo-title-value').innerHTML = seo_title
+            let seo_title = document.getElementById('seo-title').value
+            document.getElementById('seo-title-value').innerHTML = seo_title
 
-          let seo_url = document.getElementById('seo-url').value
-          document.getElementById('seo-url-value').innerHTML = 'https://{{ request()->getHost() }}/' + seo_url
+            let seo_url = document.getElementById('seo-url').value
+            document.getElementById('seo-url-value').innerHTML = 'https://{{ request()->getHost() }}/' + seo_url
 
-          let seo_description = document.getElementById('seo-description').value
-          document.getElementById('seo-description-value').innerHTML = seo_description
+            let seo_description = document.getElementById('seo-description').value
+            document.getElementById('seo-description-value').innerHTML = seo_description
         }
     </script>
 @endpush

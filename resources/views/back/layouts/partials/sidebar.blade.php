@@ -83,21 +83,30 @@
                         <i class="si si-grid"></i><span class="sidebar-mini-hide">Nadzorna ploča</span>
                     </a>
                 </li>
-                <li>
-                    <a class="{{ (request()->is('admin/categories') or request()->is('admin/category/*')) ? 'active' : '' }}" href="{{ route('categories') }}">
-                        <i class="si si-layers"></i><span class="sidebar-mini-hide">Kategorije</span>
-                    </a>
+
+                <li class="{{ (request()->is('admin/categories') or request()->is('admin/category/*')
+                                or request()->is('admin/products') or request()->is('admin/products/*')
+                                or request()->is('admin/catalog/*')) ? 'open' : '' }}">
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span class="sidebar-mini-hide">Katalog</span></a>
+                    <ul>
+                        <li>
+                            <a class="{{ (request()->is('admin/categories') or request()->is('admin/category/*')) ? 'active' : '' }}" href="{{ route('categories') }}">Kategorije</a>
+                        </li>
+                        <li>
+                            <a class="{{ (request()->is('admin/products') or request()->is('admin/products/*')) ? ' active' : '' }}" href="{{ route('products') }}">Proizvodi</a>
+                        </li>
+                        <li>
+                            <a class="{{ (request()->is('admin/catalog/manufacturers') or request()->is('admin/catalog/manufacturers/*')) ? ' active' : '' }}" href="{{ route('manufacturers') }}">Proizvođači</a>
+                        </li>
+                    </ul>
                 </li>
-                <li>
-                    <a class="{{ (request()->is('admin/products') or request()->is('admin/product/*')) ? ' active' : '' }}" href="{{ route('products') }}">
-                        <i class="si si-basket-loaded"></i><span class="sidebar-mini-hide">Proizvodi</span>
-                    </a>
-                </li>
+
                 <li>
                     <a class="{{ (request()->is('admin/orders') or request()->is('admin/orders/*')) ? ' active' : '' }}" href="{{ route('orders') }}">
                         <i class="si si-trophy"></i><span class="sidebar-mini-hide">Narudžbe</span>
                     </a>
                 </li>
+
                 <li class="{{ (request()->is('admin/marketing') or request()->is('admin/marketing/*')) ? 'open' : '' }}">
                     <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-diamond"></i><span class="sidebar-mini-hide">Marketing</span></a>
                     <ul>
@@ -114,6 +123,7 @@
                         </li>
                     </ul>
                 </li>
+
                 <li class="nav-main-heading">
                     <span class="sidebar-mini-visible">AS</span><span class="sidebar-mini-hidden">Postavke Aplikacije</span>
                 </li>

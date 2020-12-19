@@ -185,6 +185,7 @@ class Product extends Model
             'meta_keywords'    => $this->request->meta_keywords,
             // Related products (string comma separated product_id's)
             'slug'             => isset($this->request->slug) ? Str::slug($this->request->slug) : Str::slug($this->request->name),
+            'manufacturer_id'  => $this->request->manufacturer,
             'price'            => isset($this->request->price) ? $this->request->price : 0,
             'viewed'           => 0,
             'sort_order'       => isset($this->request->sort_order) ? $this->request->sort_order : 0,
@@ -226,6 +227,7 @@ class Product extends Model
             'meta_keywords'    => $this->request->meta_keywords,
             // Related products (string comma separated product_id's)
             'slug'             => isset($this->request->slug) ? Str::slug($this->request->slug) : Str::slug($this->request->name),
+            'manufacturer_id'  => $this->request->manufacturer,
             'price'            => isset($this->request->price) ? $this->request->price : 0,
             'sort_order'       => isset($this->request->sort_order) ? $this->request->sort_order : 0,
             'used'             => (isset($this->request->used) and $this->request->used == 'on') ? 1 : 0,

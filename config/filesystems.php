@@ -104,6 +104,12 @@ return [
             'url' => 'media/images/gallery/products/'
         ],
         //
+        'manufacturer' => [
+            'driver' => 'local',
+            'root' => public_path('media/images/gallery/manufacturer/'),
+            'url' => 'media/images/gallery/manufacturer/'
+        ],
+        //
         'slider' => [
             'driver' => 'local',
             'root' => public_path('media/images/gallery/slider/'),

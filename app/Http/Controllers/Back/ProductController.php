@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Back;
 
 use App\Imports\ProductsImport;
+use App\Models\Back\Catalog\Manufacturer;
 use App\Models\Back\Category;
 use App\Models\Back\Photo;
 use App\Models\Back\Product\Product;
@@ -30,11 +31,11 @@ class ProductController extends Controller
         $query = (new Product())->newQuery();
 
         if ($request->has('search')) {
-            $query->where('name','like','%' . $request->input('search') . '%');
+            $query->where('name', 'like', '%' . $request->input('search') . '%');
         }
 
         if ($request->has('category') or $request->has('catid')) {
-            $query->with('categories')->whereHas('categories',function ($query) use ($request) {
+            $query->with('categories')->whereHas('categories', function ($query) use ($request) {
                 $query->where('id', $request->input('catid'));
             });
         }
@@ -44,7 +45,7 @@ class ProductController extends Controller
             $query->where('status', $operator);
         }
 
-        $products = $query->with('actions')->paginate(20);
+        $products   = $query->with('actions')->paginate(20);
         $categories = Category::getList();
 
         return view('back.product.index', compact('products', 'categories'));
@@ -58,10 +59,11 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::getListWithoutTop();
-        $pdfs       = Storage::disk('media')->files('pdf');
+        $categories    = Category::getListWithoutTop();
+        $manufacturers = Manufacturer::list();
+        $pdfs          = Storage::disk('media')->files('pdf');
 
-        return view('back.product.edit', compact('categories', 'pdfs'));
+        return view('back.product.edit', compact('categories', 'manufacturers', 'pdfs'));
     }
 
 
@@ -106,10 +108,11 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product    = Product::with('details', 'images', 'all_actions', 'categories')->find($id);
-        $categories = Category::getListWithoutTop();
-        $pdfs       = Storage::disk('media')->files('pdf');
-        $arr        = [];
+        $product       = Product::with('details', 'images', 'all_actions', 'categories')->find($id);
+        $categories    = Category::getListWithoutTop();
+        $manufacturers = Manufacturer::list();
+        $pdfs          = Storage::disk('media')->files('pdf');
+        $arr           = [];
 
         if ( ! empty($product->categories)) {
             foreach ($product->categories as $category) {
@@ -119,7 +122,7 @@ class ProductController extends Controller
 
         $product_categories = collect($arr)->flatten()->all();
 
-        return view('back.product.edit', compact('product', 'categories', 'product_categories', 'pdfs'));
+        return view('back.product.edit', compact('product', 'categories', 'manufacturers', 'product_categories', 'pdfs'));
     }
 
 

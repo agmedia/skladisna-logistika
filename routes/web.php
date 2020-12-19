@@ -30,6 +30,18 @@ Route::middleware('auth', 'noCustomers')->group(function () {
         Route::get('/dashboard/test', 'Back\DashboardController@test')->name('dashboard.test');
         Route::get('/dashboard/test2', 'Back\DashboardController@testTwo')->name('dashboard.test2');
 
+        // CATALOG
+        Route::prefix('catalog')->middleware('emptyClientData')->group(function () {
+            // MANUFACTURERS
+            Route::prefix('manufacturers')->middleware('emptyClientData')->group(function () {
+                Route::get('/', 'Back\Catalog\ManufacturerController@index')->name('manufacturers');
+                Route::get('create', 'Back\Catalog\ManufacturerController@create')->name('manufacturer.create');
+                Route::post('/', 'Back\Catalog\ManufacturerController@store')->name('manufacturer.store');
+                Route::get('{id}/edit', 'Back\Catalog\ManufacturerController@edit')->name('manufacturer.edit');
+                Route::patch('{manufacturer}', 'Back\Catalog\ManufacturerController@update')->name('manufacturer.update');
+            });
+        });
+
         // Categories
         Route::get('categories', 'Back\CategoryController@index')->name('categories');
         Route::middleware('strike.editor')->group(function () {
@@ -155,6 +167,7 @@ Route::middleware('auth', 'noCustomers')->group(function () {
             // Delete routes (javascript POST)
             Route::post('category/destroy', 'Back\CategoryController@destroy')->name('category.destroy');
             Route::post('product/destroy', 'Back\ProductController@destroy')->name('product.destroy');
+            Route::post('manufacturer/destroy', 'Back\Catalog\ManufacturerController@destroy')->name('manufacturer.destroy');
             Route::post('order/destroy', 'Back\Orders\OrderController@destroy')->name('order.destroy');
             Route::post('action/destroy', 'Back\Marketing\ActionController@destroy')->name('action.destroy');
             Route::post('blog/destroy', 'Back\Marketing\BlogController@destroy')->name('blog.destroy');

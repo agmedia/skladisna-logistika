@@ -108,9 +108,7 @@
                 if (response.data.success) {
                     location.reload();
                 } else {
-                    return errorToast.fire({
-                        text: response.data.success,
-                    });
+                    return errorToast.fire(response.data.message);
                 }
             });
         }

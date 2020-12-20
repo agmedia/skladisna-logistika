@@ -156,8 +156,8 @@
                                 <li class="{{ request()->is('admin/settings/store/payments') ? 'open' : '' }}">
                                     <a class="{{ request()->is('admin/settings/store/payments') ? ' active' : '' }}" href="{{ route('payments') }}"><span class="sidebar-mini-hide">Načini plaćanja</span></a>
                                 </li>
-                                <li>
-                                    <a href="#"><span class="sidebar-mini-hide">Načini dostave</span></a>
+                                <li class="{{ request()->is('admin/settings/store/shipments') ? 'open' : '' }}">
+                                    <a class="{{ request()->is('admin/settings/store/shipments') ? ' active' : '' }}" href="{{ route('shipments') }}"><span class="sidebar-mini-hide">Načini isporuke</span></a>
                                 </li>
                                 <li>
                                     <a href="#"><span class="sidebar-mini-hide">Porez</span></a>

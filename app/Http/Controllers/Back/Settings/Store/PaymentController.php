@@ -22,7 +22,7 @@ class PaymentController extends Controller
 
         $query = (new Payment())->newQuery();
 
-        $payments = $query->orderBy('sort_order')->paginate(config('settings.pagination.items'));
+        $payments       = $query->orderBy('sort_order')->paginate(config('settings.pagination.items'));
         $order_statuses = OrderStatus::orderBy('sort_order')->get();
 
         return view('back.settings.store.payment.index', compact('payments', 'order_statuses'));
@@ -40,7 +40,7 @@ class PaymentController extends Controller
     {
         if (isset($request['data'])) {
             if (empty($request['data']['name'])) {
-                return response()->json(['message' => 'Upišite ime statusa.']);
+                return response()->json(['message' => 'Upišite naslov statusa narudžbe.']);
             }
 
             if (intval($request['data']['pid'])) {
@@ -49,14 +49,12 @@ class PaymentController extends Controller
                 $pay = new Payment();
             }
 
-            $pay->name = $request['data']['name'];
-            $pay->description = $request['data']['description'];
-            $pay->data = $request['data']['data'];
-            $pay->status = $request['data']['status'] ? 1 : 0;
-            $pay->sort_order = $request['data']['sort_order'];
+            $pay->name        = $request['data']['name'];
+            $pay->description = isset($request['data']['description']) ? $request['data']['description'] : '';
+            $pay->data        = $request['data']['data'];
+            $pay->status      = $request['data']['status'] ? 1 : 0;
+            $pay->sort_order  = $request['data']['sort_order'];
             $pay->save();
-
-            Log::warning($request);
 
             return response()->json(['success' => 'Način plaćanja je uspješno snimljen.']);
         }
@@ -88,23 +86,23 @@ class PaymentController extends Controller
      */
     private function checkForNewFiles(): void
     {
-        $files = new \DirectoryIterator('./../resources/views/back/settings/store/payment/modals');
+        $files    = new \DirectoryIterator('./../resources/views/back/settings/store/payment/modals');
         $payments = Payment::all();
 
         foreach ($files as $file) {
             if (strpos($file, 'blade.php') !== false) {
                 $filename = str_replace('.blade.php', '', $file);
-                $exist = $payments->where('code', $filename)->first();
+                $exist    = $payments->where('code', $filename)->first();
 
                 if ( ! $exist) {
-                    $p = new Payment();
-                    $p->name = $filename;
-                    $p->code = $filename;
+                    $p              = new Payment();
+                    $p->name        = $filename;
+                    $p->code        = $filename;
                     $p->description = '';
-                    $p->data = '';
-                    $p->image = '';
-                    $p->sort_order = $payments->count();
-                    $p->status = 0;
+                    $p->data        = '';
+                    $p->image       = '';
+                    $p->sort_order  = $payments->count();
+                    $p->status      = 0;
                     $p->save();
                 }
 

@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers\Back\Settings\Store;
 
-use App\Models\Back\Photo;
-use App\Models\Back\Settings\Page;
+use App\Models\Back\Settings\Store\Shipment\Shipment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Bouncer;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class ShipmentController extends Controller
@@ -20,28 +17,13 @@ class ShipmentController extends Controller
      */
     public function index()
     {
-        $query = (new Page())->newQuery();
+        $this->checkForNewFiles();
 
-        if (Bouncer::is(auth()->user())->an('editor')) {
-            $query->where('client_id', auth()->user()->clientId());
-        }
+        $query = (new Shipment())->newQuery();
 
-        $pages = $query->orderBy('created_at', 'desc')->get();
+        $shipments = $query->orderBy('sort_order')->paginate(config('settings.pagination.items'));
 
-        return view('back.settings.pages.index', compact('pages'));
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //$page_groups = Page::groups();
-
-        return view('back.settings.pages.edit'/*, compact('page_groups')*/);
+        return view('back.settings.store.shipment.index', compact('shipments'));
     }
 
 
@@ -54,78 +36,30 @@ class ShipmentController extends Controller
      */
     public function store(Request $request)
     {
-        $page = Page::store($request);
-
-        if (Bouncer::is(auth()->user())->an('admin')) {
-            Cache::forget('ifp');
-        }
-
-        if ($page) {
-            if ($request->hasFile('image')) {
-                $path = Photo::imageUpload($request->file('image'), $page, 'page', 'image');
-                Page::updateImagePath($page->id, $path);
+        if (isset($request['data'])) {
+            if (empty($request['data']['name'])) {
+                return response()->json(['message' => 'Upišite naslov načina isporuke.']);
             }
 
-            return redirect()->route('pages')->with(['success' => 'Page was succesfully saved!']);
-        }
+            Log::warning($request);
 
-        return redirect()->back()->with(['error' => 'Whoops..! There was an error creating the page.']);
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $query = (new Page())->newQuery();
-
-        if (Bouncer::is(auth()->user())->an('editor')) {
-            $query->where('client_id', auth()->user()->clientId());
-        }
-
-        $page = $query->where('id', $id)->first();
-
-        if ( ! $page) {
-            abort(401);
-        }
-
-        //$page_groups = Page::groups();
-
-        return view('back.settings.pages.edit', compact('page'/*, 'page_groups'*/));
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $page = Page::renew($request, $id);
-
-        if (Bouncer::is(auth()->user())->an('admin')) {
-            Cache::forget('ifp');
-        }
-
-        if ($page) {
-            if ($request->hasFile('image')) {
-                $path = Photo::imageUpload($request->file('image'), $page, 'page', 'image');
-                Page::updateImagePath($page->id, $path);
+            if (intval($request['data']['sid'])) {
+                $pay = Shipment::find($request['data']['sid']);
+            } else {
+                $pay = new Shipment();
             }
 
-            return redirect()->route('pages')->with(['success' => 'Page was succesfully updated!']);
+            $pay->name        = $request['data']['name'];
+            $pay->description = isset($request['data']['description']) ? $request['data']['description'] : '';
+            $pay->data        = $request['data']['data'];
+            $pay->status      = $request['data']['status'] ? 1 : 0;
+            $pay->sort_order  = $request['data']['sort_order'];
+            $pay->save();
+
+            return response()->json(['success' => 'Način isporuke je uspješno snimljen.']);
         }
 
-        return redirect()->back()->with(['error' => 'Whoops..! There was an error updating the page.']);
+        return response()->json(['message' => 'Server error!']);
     }
 
 
@@ -139,13 +73,40 @@ class ShipmentController extends Controller
     public function destroy(Request $request)
     {
         if (isset($request['data']['id'])) {
-            if (Bouncer::is(auth()->user())->an('admin')) {
-                Cache::forget('ifp');
-            }
-
             return response()->json(
-                Page::where('id', $request['data']['id'])->delete()
+                Shipment::where('id', $request['data']['id'])->delete()
             );
+        }
+    }
+
+
+    /**
+     * Check for new files in ..payment/modals directory.
+     * Install payment if new files exist.
+     */
+    private function checkForNewFiles(): void
+    {
+        $files    = new \DirectoryIterator('./../resources/views/back/settings/store/shipment/modals');
+        $payments = Shipment::all();
+
+        foreach ($files as $file) {
+            if (strpos($file, 'blade.php') !== false) {
+                $filename = str_replace('.blade.php', '', $file);
+                $exist    = $payments->where('code', $filename)->first();
+
+                if ( ! $exist) {
+                    $p              = new Shipment();
+                    $p->name        = $filename;
+                    $p->code        = $filename;
+                    $p->description = '';
+                    $p->data        = '';
+                    $p->image       = '';
+                    $p->sort_order  = $payments->count();
+                    $p->status      = 0;
+                    $p->save();
+                }
+
+            }
         }
     }
 }

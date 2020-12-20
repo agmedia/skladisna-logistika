@@ -139,6 +139,8 @@ Route::middleware('auth', 'noCustomers')->group(function () {
                 Route::get('order-status', 'Back\Settings\Store\OrderStatusController@index')->name('order-status');
                 // PAYMENTS
                 Route::get('payments', 'Back\Settings\Store\PaymentController@index')->name('payments');
+                // SHIPMENTS
+                Route::get('shipments', 'Back\Settings\Store\ShipmentController@index')->name('shipments');
             });
             // Profile
             Route::get('profile', 'Back\Settings\ProfileController@index')->name('profile');
@@ -225,6 +227,11 @@ Route::middleware('auth', 'noCustomers')->group(function () {
                     Route::prefix('payment')->group(function () {
                         Route::post('store', 'Back\Settings\Store\PaymentController@store')->name('payment.store');
                         Route::post('destroy', 'Back\Settings\Store\PaymentController@destroy')->name('payment.destroy');
+                    });
+                    // PAYMENTS
+                    Route::prefix('shipment')->group(function () {
+                        Route::post('store', 'Back\Settings\Store\ShipmentController@store')->name('shipment.store');
+                        Route::post('destroy', 'Back\Settings\Store\ShipmentController@destroy')->name('shipment.destroy');
                     });
                 });
                 // Maintenance Mode

@@ -7,9 +7,9 @@
 @section('content')
 
     <div class="content">
-        <h2 class="content-heading">Načini Plaćanja
+        <h2 class="content-heading">Načini Isporuke
             <small>
-                <span class="pl-2">({{ $payments->total() }})</span>
+                <span class="pl-2">({{ $shipments->total() }})</span>
             </small>
         </h2>
 
@@ -27,17 +27,17 @@
                         <th class="d-none d-sm-table-cell text-right" style="width: 10%;">Akcije</th>
                     </tr>
                     </thead>
-                    @foreach($payments as $key => $payment)
+                    @foreach($shipments as $key => $shipment)
                         <tbody>
                         <tr>
                             <td class="text-center">{{ $key + 1 }}.</td>
                             <td class="text-center">
-                                <i class="fa fa-fw fa-{{ $payment->status ? 'star text-success' : 'warning text-danger' }}"></i>
+                                <i class="fa fa-fw fa-{{ $shipment->status ? 'star text-success' : 'warning text-danger' }}"></i>
                             </td>
-                            <td>{{ $payment->name }}</td>
-                            <td class="text-center">{{ $payment->sort_order }}</td>
+                            <td>{{ $shipment->name }}</td>
+                            <td class="text-center">{{ $shipment->sort_order }}</td>
                             <td class="d-none d-sm-table-cell text-right">
-                                <button type="button" class="btn btn-sm btn-circle btn-alt-info" data-toggle="tooltip" title="Uredi" onclick="event.preventDefault(); edit({{ json_encode($payment) }}, '{{ $payment->code }}');">
+                                <button type="button" class="btn btn-sm btn-circle btn-alt-info" data-toggle="tooltip" title="Uredi" onclick="event.preventDefault(); edit({{ json_encode($shipment) }}, '{{ $shipment->code }}');">
                                     <i class="fa fa-pencil"></i>
                                 </button>
                             </td>
@@ -46,7 +46,7 @@
                     @endforeach
                 </table>
 
-                {{ $payments->links('back.layouts.partials.paginate') }}
+                {{ $shipments->links('back.layouts.partials.paginate') }}
 
             </div>
         </div>
@@ -56,8 +56,8 @@
 @endsection
 
 @push('modals')
-    @foreach($payments as $payment)
-        @include('back.settings.store.payment.modals.' . $payment->code)
+    @foreach($shipments as $shipment)
+        @include('back.settings.store.shipment.modals.' . $shipment->code)
     @endforeach
 @endpush
 
@@ -70,10 +70,10 @@
          * @param type
          */
         function edit(item, type) {
-            $('#payment-modal-' + type).modal('show');
+            $('#shipment-modal-' + type).modal('show');
             window["edit_" + type](item);
         }
     </script>
 
-    @stack('payment-modal-js')
+    @stack('shipment-modal-js')
 @endpush

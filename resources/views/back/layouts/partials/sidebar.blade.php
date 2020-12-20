@@ -150,6 +150,9 @@
                         <li class="{{ request()->is('admin/settings/store/*') ? 'open' : '' }}">
                             <a class="nav-submenu" data-toggle="nav-submenu" href="#"><span class="sidebar-mini-hide">Postavke trgovine</span></a>
                             <ul>
+                                <li class="{{ request()->is('admin/settings/store/geo-zones') ? 'open' : '' }}">
+                                    <a class="{{ request()->is('admin/settings/store/geo-zones') ? ' active' : '' }}" href="{{ route('geo-zones') }}"><span class="sidebar-mini-hide">Geo zone</span></a>
+                                </li>
                                 <li class="{{ request()->is('admin/settings/store/order-status') ? 'open' : '' }}">
                                     <a class="{{ request()->is('admin/settings/store/order-status') ? ' active' : '' }}" href="{{ route('order-status') }}"><span class="sidebar-mini-hide">Statusi narudžbe</span></a>
                                 </li>
@@ -159,8 +162,8 @@
                                 <li class="{{ request()->is('admin/settings/store/shipments') ? 'open' : '' }}">
                                     <a class="{{ request()->is('admin/settings/store/shipments') ? ' active' : '' }}" href="{{ route('shipments') }}"><span class="sidebar-mini-hide">Načini isporuke</span></a>
                                 </li>
-                                <li>
-                                    <a href="#"><span class="sidebar-mini-hide">Porez</span></a>
+                                <li class="{{ request()->is('admin/settings/store/taxes') ? 'open' : '' }}">
+                                    <a class="{{ request()->is('admin/settings/store/taxes') ? ' active' : '' }}" href="{{ route('taxes') }}"><span class="sidebar-mini-hide">Porezi</span></a>
                                 </li>
                             </ul>
                         </li>

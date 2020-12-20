@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Back\Settings\Store;
 
 use App\Models\Back\Photo;
 use App\Models\Back\Settings\Page;
+use App\Models\Back\Settings\Store\GeoZone;
+use App\Models\Back\Settings\Store\Tax;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Bouncer;
@@ -20,28 +22,12 @@ class TaxController extends Controller
      */
     public function index()
     {
-        $query = (new Page())->newQuery();
+        $query = (new Tax())->newQuery();
 
-        if (Bouncer::is(auth()->user())->an('editor')) {
-            $query->where('client_id', auth()->user()->clientId());
-        }
+        $taxes = $query->orderBy('sort_order')->paginate(config('settings.pagination.items'));
+        $zones = GeoZone::where('status', 1)->get();
 
-        $pages = $query->orderBy('created_at', 'desc')->get();
-
-        return view('back.settings.pages.index', compact('pages'));
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //$page_groups = Page::groups();
-
-        return view('back.settings.pages.edit'/*, compact('page_groups')*/);
+        return view('back.settings.store.tax', compact('taxes', 'zones'));
     }
 
 
@@ -54,78 +40,29 @@ class TaxController extends Controller
      */
     public function store(Request $request)
     {
-        $page = Page::store($request);
-
-        if (Bouncer::is(auth()->user())->an('admin')) {
-            Cache::forget('ifp');
-        }
-
-        if ($page) {
-            if ($request->hasFile('image')) {
-                $path = Photo::imageUpload($request->file('image'), $page, 'page', 'image');
-                Page::updateImagePath($page->id, $path);
+        if (isset($request['data'])) {
+            if (empty($request['data']['name']) || empty($request['data']['rate'])) {
+                return response()->json(['message' => 'Upišite naziv i stopu poreza.']);
             }
 
-            return redirect()->route('pages')->with(['success' => 'Page was succesfully saved!']);
-        }
-
-        return redirect()->back()->with(['error' => 'Whoops..! There was an error creating the page.']);
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $query = (new Page())->newQuery();
-
-        if (Bouncer::is(auth()->user())->an('editor')) {
-            $query->where('client_id', auth()->user()->clientId());
-        }
-
-        $page = $query->where('id', $id)->first();
-
-        if ( ! $page) {
-            abort(401);
-        }
-
-        //$page_groups = Page::groups();
-
-        return view('back.settings.pages.edit', compact('page'/*, 'page_groups'*/));
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $page = Page::renew($request, $id);
-
-        if (Bouncer::is(auth()->user())->an('admin')) {
-            Cache::forget('ifp');
-        }
-
-        if ($page) {
-            if ($request->hasFile('image')) {
-                $path = Photo::imageUpload($request->file('image'), $page, 'page', 'image');
-                Page::updateImagePath($page->id, $path);
+            if (intval($request['data']['tid'])) {
+                $tax = Tax::find($request['data']['tid']);
+            } else {
+                $tax = new Tax();
             }
 
-            return redirect()->route('pages')->with(['success' => 'Page was succesfully updated!']);
+            $tax->name        = $request['data']['name'];
+            $tax->rate        = $request['data']['rate'];
+            $tax->description = isset($request['data']['description']) ? $request['data']['description'] : '';
+            $tax->data        = $request['data']['data'];
+            $tax->status      = $request['data']['status'] ? 1 : 0;
+            $tax->sort_order  = $request['data']['sort_order'];
+            $tax->save();
+
+            return response()->json(['success' => 'Porez je uspješno snimljen.']);
         }
 
-        return redirect()->back()->with(['error' => 'Whoops..! There was an error updating the page.']);
+        return response()->json(['message' => 'Server error!']);
     }
 
 
@@ -139,12 +76,8 @@ class TaxController extends Controller
     public function destroy(Request $request)
     {
         if (isset($request['data']['id'])) {
-            if (Bouncer::is(auth()->user())->an('admin')) {
-                Cache::forget('ifp');
-            }
-
             return response()->json(
-                Page::where('id', $request['data']['id'])->delete()
+                Tax::where('id', $request['data']['id'])->delete()
             );
         }
     }

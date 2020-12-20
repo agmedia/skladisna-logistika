@@ -66,6 +66,12 @@ return [
         ],
 
         //
+        'assets' => [
+            'driver' => 'local',
+            'root' => public_path('assets/'),
+            'url' => 'assets/'
+        ],
+        //
         'media' => [
             'driver' => 'local',
             'root' => public_path('media/'),

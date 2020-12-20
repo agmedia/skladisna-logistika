@@ -135,12 +135,16 @@ Route::middleware('auth', 'noCustomers')->group(function () {
         Route::prefix('settings')->group(function () {
             // STORE SETTINGS
             Route::prefix('store')->group(function () {
+                // GEO ZONES
+                Route::get('geo-zones', 'Back\Settings\Store\GeoZoneController@index')->name('geo-zones');
                 // ORDER STATUSES
                 Route::get('order-status', 'Back\Settings\Store\OrderStatusController@index')->name('order-status');
                 // PAYMENTS
                 Route::get('payments', 'Back\Settings\Store\PaymentController@index')->name('payments');
                 // SHIPMENTS
                 Route::get('shipments', 'Back\Settings\Store\ShipmentController@index')->name('shipments');
+                // TAXES
+                Route::get('taxes', 'Back\Settings\Store\TaxController@index')->name('taxes');
             });
             // Profile
             Route::get('profile', 'Back\Settings\ProfileController@index')->name('profile');
@@ -218,6 +222,12 @@ Route::middleware('auth', 'noCustomers')->group(function () {
             Route::prefix('settings')->group(function () {
                 // STORE SETTINGS
                 Route::prefix('store')->group(function () {
+                    // GEO ZONE
+                    Route::prefix('geo-zone')->group(function () {
+                        Route::post('get-state-zones', 'Back\Settings\Store\GeoZoneController@getStateZones')->name('geo-zone.get-state-zones');
+                        Route::post('store', 'Back\Settings\Store\GeoZoneController@store')->name('geo-zone.store');
+                        Route::post('destroy', 'Back\Settings\Store\GeoZoneController@destroy')->name('geo-zone.destroy');
+                    });
                     // ORDER STATUS
                     Route::prefix('order-status')->group(function () {
                         Route::post('store', 'Back\Settings\Store\OrderStatusController@store')->name('order-status.store');
@@ -228,10 +238,15 @@ Route::middleware('auth', 'noCustomers')->group(function () {
                         Route::post('store', 'Back\Settings\Store\PaymentController@store')->name('payment.store');
                         Route::post('destroy', 'Back\Settings\Store\PaymentController@destroy')->name('payment.destroy');
                     });
-                    // PAYMENTS
+                    // SHIPMENTS
                     Route::prefix('shipment')->group(function () {
                         Route::post('store', 'Back\Settings\Store\ShipmentController@store')->name('shipment.store');
                         Route::post('destroy', 'Back\Settings\Store\ShipmentController@destroy')->name('shipment.destroy');
+                    });
+                    // TAXES
+                    Route::prefix('taxes')->group(function () {
+                        Route::post('store', 'Back\Settings\Store\TaxController@store')->name('taxes.store');
+                        Route::post('destroy', 'Back\Settings\Store\TaxController@destroy')->name('taxes.destroy');
                     });
                 });
                 // Maintenance Mode

@@ -142,10 +142,30 @@
                     <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-settings"></i><span class="sidebar-mini-hide">Postavke</span></a>
                     <ul>
                         <li>
-                            <a class="{{ (request()->is('admin/settings/profile') or request()->is('admin/settings/profile/*')) ? ' active' : '' }}" href="{{ route('profile') }}">Moj Profil</a>
+                            <a class="{{ (request()->is('admin/settings/profile') or request()->is('admin/settings/profile/*')) ? ' active' : '' }}" href="{{ route('profile') }}">Moj profil</a>
                         </li>
                         <li>
-                            <a class="{{ (request()->is('admin/settings/pages') or request()->is('admin/settings/page/*')) ? ' active' : '' }}" href="{{ route('pages') }}">Info Stranice</a>
+                            <a class="{{ (request()->is('admin/settings/pages') or request()->is('admin/settings/page/*')) ? ' active' : '' }}" href="{{ route('pages') }}">Info stranice</a>
+                        </li>
+                        <li class="{{ request()->is('admin/settings/store/*') ? 'open' : '' }}">
+                            <a class="nav-submenu" data-toggle="nav-submenu" href="#"><span class="sidebar-mini-hide">Postavke trgovine</span></a>
+                            <ul>
+                                <li class="{{ request()->is('admin/settings/store/order-status') ? 'open' : '' }}">
+                                    <a class="{{ request()->is('admin/settings/store/order-status') ? ' active' : '' }}" href="{{ route('order-status') }}"><span class="sidebar-mini-hide">Statusi narudžbe</span></a>
+                                </li>
+                                <li class="{{ request()->is('admin/settings/store/payments') ? 'open' : '' }}">
+                                    <a class="{{ request()->is('admin/settings/store/payments') ? ' active' : '' }}" href="{{ route('payments') }}"><span class="sidebar-mini-hide">Načini plaćanja</span></a>
+                                </li>
+                                <li>
+                                    <a href="#"><span class="sidebar-mini-hide">Načini dostave</span></a>
+                                </li>
+                                <li>
+                                    <a href="#"><span class="sidebar-mini-hide">Porez</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="" href="#">Postavke aplikacije</a>
                         </li>
                     </ul>
                 </li>

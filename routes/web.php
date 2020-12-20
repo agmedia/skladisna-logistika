@@ -133,6 +133,13 @@ Route::middleware('auth', 'noCustomers')->group(function () {
         //
         // SETTINGS Group
         Route::prefix('settings')->group(function () {
+            // STORE SETTINGS
+            Route::prefix('store')->group(function () {
+                // ORDER STATUSES
+                Route::get('order-status', 'Back\Settings\Store\OrderStatusController@index')->name('order-status');
+                // PAYMENTS
+                Route::get('payments', 'Back\Settings\Store\PaymentController@index')->name('payments');
+            });
             // Profile
             Route::get('profile', 'Back\Settings\ProfileController@index')->name('profile');
             Route::patch('profile/{profile}', 'Back\Settings\ProfileController@update')->name('profile.update');
@@ -205,8 +212,22 @@ Route::middleware('auth', 'noCustomers')->group(function () {
                 Route::get('on', 'Back\Api1\SettingController@maintenanceModeON')->name('maintenance.on');
                 Route::get('off', 'Back\Api1\SettingController@maintenanceModeOFF')->name('maintenance.off');
             });
-            // Maintenance Mode
+            // SETTINGS
             Route::prefix('settings')->group(function () {
+                // STORE SETTINGS
+                Route::prefix('store')->group(function () {
+                    // ORDER STATUS
+                    Route::prefix('order-status')->group(function () {
+                        Route::post('store', 'Back\Settings\Store\OrderStatusController@store')->name('order-status.store');
+                        Route::post('destroy', 'Back\Settings\Store\OrderStatusController@destroy')->name('order-status.destroy');
+                    });
+                    // PAYMENTS
+                    Route::prefix('payment')->group(function () {
+                        Route::post('store', 'Back\Settings\Store\PaymentController@store')->name('payment.store');
+                        Route::post('destroy', 'Back\Settings\Store\PaymentController@destroy')->name('payment.destroy');
+                    });
+                });
+                // Maintenance Mode
                 Route::get('on', 'Back\Api1\SettingController@sidebarInverseToggle')->name('sidebar.inverse.toggle');
             });
             // Images Upload

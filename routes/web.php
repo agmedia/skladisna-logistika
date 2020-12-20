@@ -145,6 +145,8 @@ Route::middleware('auth', 'noCustomers')->group(function () {
                 Route::get('shipments', 'Back\Settings\Store\ShipmentController@index')->name('shipments');
                 // TAXES
                 Route::get('taxes', 'Back\Settings\Store\TaxController@index')->name('taxes');
+                // TOTALS
+                Route::get('totals', 'Back\Settings\Store\TotalController@index')->name('totals');
             });
             // Profile
             Route::get('profile', 'Back\Settings\ProfileController@index')->name('profile');
@@ -247,6 +249,11 @@ Route::middleware('auth', 'noCustomers')->group(function () {
                     Route::prefix('taxes')->group(function () {
                         Route::post('store', 'Back\Settings\Store\TaxController@store')->name('taxes.store');
                         Route::post('destroy', 'Back\Settings\Store\TaxController@destroy')->name('taxes.destroy');
+                    });
+                    // TOTALS
+                    Route::prefix('totals')->group(function () {
+                        Route::post('store', 'Back\Settings\Store\TotalController@store')->name('totals.store');
+                        Route::post('destroy', 'Back\Settings\Store\TotalController@destroy')->name('totals.destroy');
                     });
                 });
                 // Maintenance Mode

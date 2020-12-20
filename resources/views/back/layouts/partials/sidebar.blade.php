@@ -165,6 +165,9 @@
                                 <li class="{{ request()->is('admin/settings/store/taxes') ? 'open' : '' }}">
                                     <a class="{{ request()->is('admin/settings/store/taxes') ? ' active' : '' }}" href="{{ route('taxes') }}"><span class="sidebar-mini-hide">Porezi</span></a>
                                 </li>
+                                <li class="{{ request()->is('admin/settings/store/totals') ? 'open' : '' }}">
+                                    <a class="{{ request()->is('admin/settings/store/totals') ? ' active' : '' }}" href="{{ route('totals') }}"><span class="sidebar-mini-hide">Suma na narudžbi</span></a>
+                                </li>
                             </ul>
                         </li>
                         <li>

@@ -28,7 +28,8 @@
                         <th class="text-center" style="width: 5%;">#</th>
                         <th class="text-center" style="width: 81px;">Status</th>
                         <th>Ime</th>
-                        <th class="text-center" style="width: 18%;">Poredak</th>
+                        <th class="text-center" style="width: 15%;">Stopa</th>
+                        <th class="text-center" style="width: 15%;">Poredak</th>
                         <th class="d-none d-sm-table-cell text-right" style="width: 10%;">Akcije</th>
                     </tr>
                     </thead>
@@ -40,6 +41,7 @@
                                 <i class="fa fa-fw fa-{{ $tax->status ? 'star text-success' : 'warning text-danger' }}"></i>
                             </td>
                             <td>{{ $tax->name }}</td>
+                            <td class="text-center">{{ number_format($tax->rate, 2) }}</td>
                             <td class="text-center">{{ $tax->sort_order }}</td>
                             <td class="d-none d-sm-table-cell text-right">
                                 <button type="button" class="btn btn-sm btn-circle btn-alt-info" data-toggle="tooltip" title="Uredi" onclick="event.preventDefault(); edit({{ json_encode($tax) }});">
@@ -119,7 +121,7 @@
 
                                     <div class="text-center">
                                         <button type="button" class="btn btn-sm btn-hero btn-noborder btn-primary mb-10 mx-5" onclick="event.preventDefault(); create();">
-                                            Snimi Geo Zonu <i class="fa fa-arrow-right ml-5"></i>
+                                            Snimi Porez <i class="fa fa-arrow-right ml-5"></i>
                                         </button>
                                     </div>
                                 </div>

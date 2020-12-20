@@ -51,8 +51,10 @@ class TaxController extends Controller
                 $tax = new Tax();
             }
 
+            Log::info($request);
+
             $tax->name        = $request['data']['name'];
-            $tax->rate        = $request['data']['rate'];
+            $tax->rate        = number_format(intval($request['data']['rate']), 2);
             $tax->description = isset($request['data']['description']) ? $request['data']['description'] : '';
             $tax->data        = $request['data']['data'];
             $tax->status      = $request['data']['status'] ? 1 : 0;

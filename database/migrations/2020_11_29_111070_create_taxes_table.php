@@ -40,7 +40,7 @@ class CreateTaxesTable extends Migration
   CREATE TABLE `skladisna`.`taxes` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(191) NOT NULL,
-  `rate` FLOAT(3,2) NULL,
+  `rate` DECIMAL(15,4) NOT NULL DEFAULT '0.0000',
   `description` LONGTEXT NULL,
   `data` LONGTEXT NULL,
   `sort_order` INT UNSIGNED NULL DEFAULT 0,

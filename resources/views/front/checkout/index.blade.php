@@ -170,8 +170,8 @@
                                             <div class="col-md-12"><label>Način plaćanja:</label></div>
                                             <div class="col-md-12">
                                                 <select id="payment-type" name="payment" class="form-control">
-                                                    @foreach ($payments as $payment)
-                                                        <option value="{{ $payment->code }}">{{ $payment->title }}</option>
+                                                    @foreach ($payments as $code => $payment)
+                                                        <option value="{{ $code }}">{{ $payment }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -182,8 +182,9 @@
                                             <div class="col-md-12"><label>Način dostave:</label></div>
                                             <div class="col-md-12">
                                                 <select id="shipping-type" name="shipping" class="form-control">
-                                                    <option value="shipping">Dostava</option>
-                                                    {{--<option value="pickup">Osobno preuzimanje</option>--}}
+                                                    @foreach ($shipments as $code => $shipment)
+                                                        <option value="{{ $code }}">{{ $shipment }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -218,6 +219,12 @@
 @push('js')
     <script>
         $(() => {
+
+            $('#payment-type').on('change', e => {
+                console.log(e.currentTarget.value)
+            });
+
+
             const checkbox = document.getElementById('same-as-pay-cb')
             checkbox.addEventListener('change', (e) => {
                 if (e.target.checked) {

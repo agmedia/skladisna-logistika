@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Back\Settings\Store\Payment\Payment;
+use App\Models\Back\Settings\Store\Shipment\Shipment;
 use App\Models\Front\Category\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -27,8 +29,9 @@ class CartController extends Controller
     public function checkout()
     {
         $user = auth()->user() ? auth()->user() : false;
-        $payments = DB::table('app_payment_options')->where('status', 1)->orderBy('sort_order')->get();
+        $payments = Payment::where('status', 1)->orderBy('sort_order')->pluck('name', 'code');
+        $shipments = Shipment::where('status', 1)->orderBy('sort_order')->pluck('name', 'code');
 
-        return view('front.checkout.index', compact('user', 'payments'));
+        return view('front.checkout.index', compact('user', 'payments', 'shipments'));
     }
 }

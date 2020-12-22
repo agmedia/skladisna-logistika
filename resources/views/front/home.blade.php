@@ -18,62 +18,63 @@
     <section id="content">
         <div class="content-wrap notoppadding">
 
-
             <div class="container clearfix">
-
                 <div id="oc-clients" class="owl-carousel owl-carousel-full image-carousel carousel-widget" data-margin="30" data-loop="true" data-nav="false" data-autoplay="5000" data-pagi="false" data-items-xs="3" data-items-sm="3" data-items-md="4" data-items-lg="5" data-items-xl="6" >
-
-                    <div class="oc-item"><a href="http://logofury.com/">
+                    <div class="oc-item">
+                        <a href="http://logofury.com/">
                             <div class="card">
                                 <div class="card-body">
-                                    <img src="{{ asset('images/logokalmar.jpg') }}" alt="Clients"></a>
+                                    <img src="{{ asset('images/logokalmar.jpg') }}" alt="Clients">
                                 </div>
                             </div>
-
+                        </a>
                     </div>
-                    <div class="oc-item"><a href="http://logofury.com/">
+                    <div class="oc-item">
+                        <a href="http://logofury.com/">
                             <div class="card">
                                 <div class="card-body">
-                            <img src="{{ asset('images/logobulmor.jpg') }}" alt="Clients"></a>
+                                    <img src="{{ asset('images/logobulmor.jpg') }}" alt="Clients">
                                 </div>
-                         </div>
+                            </div>
+                        </a>
                     </div>
-                    <div class="oc-item"><a href="http://logofury.com/">
+                    <div class="oc-item">
+                        <a href="http://logofury.com/">
                             <div class="card">
                                 <div class="card-body">
-                                         <img src="{{ asset('images/logofiorentini.jpg') }}" alt="Clients"></a>
+                                    <img src="{{ asset('images/logofiorentini.jpg') }}" alt="Clients">
                                 </div>
-                             </div>
-
+                            </div>
+                        </a>
                     </div>
-                    <div class="oc-item"><a href="http://logofury.com/">
+                    <div class="oc-item">
+                        <a href="http://logofury.com/">
                             <div class="card">
                                 <div class="card-body">
-                                    <img src="{{ asset('images/logokalmar.jpg') }}" alt="Clients"></a>
+                                    <img src="{{ asset('images/logokalmar.jpg') }}" alt="Clients">
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                    </div>
-
-                    </div>
-                    <div class="oc-item"><a href="http://logofury.com/">
+                    <div class="oc-item">
+                        <a href="http://logofury.com/">
                             <div class="card">
                                 <div class="card-body">
-                                    <img src="{{ asset('images/logobulmor.jpg') }}" alt="Clients"></a>
+                                    <img src="{{ asset('images/logobulmor.jpg') }}" alt="Clients">
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                    </div>
-                    </div>
-                    <div class="oc-item"><a href="http://logofury.com/">
+                    <div class="oc-item">
+                        <a href="http://logofury.com/">
                             <div class="card">
                                 <div class="card-body">
-                                    <img src="{{ asset('images/logofiorentini.jpg') }}" alt="Clients"></a>
+                                    <img src="{{ asset('images/logofiorentini.jpg') }}" alt="Clients">
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                    </div>
-
-                    </div>
-
-
-
                 </div>
-
             </div>
 
 
@@ -83,7 +84,6 @@
                         <a href="{{ route('toyota-vilicari') }}">
                             <div class=" text-center ">
                                 <div class="flip-card-front dark" style="background-image: url({{ asset('images/banners/vilicari-index.jpg') }}">
-
                                     <div class="flip-card-inner">
                                         <div class="card nobg noborder text-center">
                                             <div class="card-body">
@@ -210,7 +210,7 @@
                         <div class="fbox-desc">
                             <h3 class="color">Najam viličara<span class="subtitle">Najam viličara svih tipova. </span></h3>
                             <p>Kod najma viličara možete računati na kvalitetu, pouzdanost i izvrsne performanse stroja unajmljivali ga na samo jedan dan ili nekoliko godina.
-                                Najam pruža korisniku fleksibilnost koju njegov posao zahtjeva kojom može izbjeći inicijalno ulaganje kupovinom viličara i promjenu specifikacije viličara sukladno potrebi u radu.
+                               Najam pruža korisniku fleksibilnost koju njegov posao zahtjeva kojom može izbjeći inicijalno ulaganje kupovinom viličara i promjenu specifikacije viličara sukladno potrebi u radu.
                             </p>
                         </div>
                     </div>

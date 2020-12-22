@@ -481,6 +481,15 @@ text-transform: none;}
 
 .nothidden { display: block !important; }
 
+
+#oc-clients img {
+    filter: grayscale(1);
+}
+
+#oc-clients img:hover {
+    filter: grayscale(0);
+}
+
 .inline-block {
 	float: none !important;
 	display: inline-block !important;

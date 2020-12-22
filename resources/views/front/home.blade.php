@@ -16,32 +16,67 @@
 
 @section('content')
     <section id="content">
-        <div class="content-wrap">
+        <div class="content-wrap notoppadding">
+
+
             <div class="container clearfix">
-                <div class="row ">
-                    <div class="col-4 mb-4 text-center">
-                        <div class="card">
-                            <div class="card-body">
-                        <img src="{{ asset('images/logokalmar.jpg') }}" >
+
+                <div id="oc-clients" class="owl-carousel owl-carousel-full image-carousel carousel-widget" data-margin="30" data-loop="true" data-nav="false" data-autoplay="5000" data-pagi="false" data-items-xs="3" data-items-sm="3" data-items-md="4" data-items-lg="5" data-items-xl="6" >
+
+                    <div class="oc-item"><a href="http://logofury.com/">
+                            <div class="card">
+                                <div class="card-body">
+                                    <img src="{{ asset('images/logokalmar.jpg') }}" alt="Clients"></a>
+                                </div>
                             </div>
-                        </div>
+
                     </div>
-                    <div class="col-4 mb-4 text-center">
-                        <div class="card">
-                            <div class="card-body">
-                                <img src="{{ asset('images/logobulmor.jpg') }}" >
-                            </div>
-                        </div>
+                    <div class="oc-item"><a href="http://logofury.com/">
+                            <div class="card">
+                                <div class="card-body">
+                            <img src="{{ asset('images/logobulmor.jpg') }}" alt="Clients"></a>
+                                </div>
+                         </div>
                     </div>
-                    <div class="col-4 mb-4 text-center">
-                        <div class="card">
-                            <div class="card-body">
-                                <img src="{{ asset('images/logofiorentinir.jpg') }}" >
-                            </div>
-                        </div>
+                    <div class="oc-item"><a href="http://logofury.com/">
+                            <div class="card">
+                                <div class="card-body">
+                                         <img src="{{ asset('images/logofiorentini.jpg') }}" alt="Clients"></a>
+                                </div>
+                             </div>
+
                     </div>
+                    <div class="oc-item"><a href="http://logofury.com/">
+                            <div class="card">
+                                <div class="card-body">
+                                    <img src="{{ asset('images/logokalmar.jpg') }}" alt="Clients"></a>
+                    </div>
+                    </div>
+
+                    </div>
+                    <div class="oc-item"><a href="http://logofury.com/">
+                            <div class="card">
+                                <div class="card-body">
+                                    <img src="{{ asset('images/logobulmor.jpg') }}" alt="Clients"></a>
+                    </div>
+                    </div>
+                    </div>
+                    <div class="oc-item"><a href="http://logofury.com/">
+                            <div class="card">
+                                <div class="card-body">
+                                    <img src="{{ asset('images/logofiorentini.jpg') }}" alt="Clients"></a>
+                    </div>
+                    </div>
+
+                    </div>
+
+
+
                 </div>
+
             </div>
+
+
             <div class="container clearfix">
                 <div class="row ">
                     <div class="col-lg-6 mb-4">

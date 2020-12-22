@@ -19,6 +19,31 @@
         <div class="content-wrap">
             <div class="container clearfix">
                 <div class="row ">
+                    <div class="col-4 mb-4 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                        <img src="{{ asset('images/logokalmar.jpg') }}" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 mb-4 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <img src="{{ asset('images/logobulmor.jpg') }}" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 mb-4 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <img src="{{ asset('images/logofiorentinir.jpg') }}" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container clearfix">
+                <div class="row ">
                     <div class="col-lg-6 mb-4">
                         <a href="{{ route('toyota-vilicari') }}">
                             <div class=" text-center ">

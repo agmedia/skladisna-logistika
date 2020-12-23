@@ -26,7 +26,7 @@ class Manufacturer extends Model
     {
         return 'slug';
     }
-    
+
 
     /**
      * @param $query

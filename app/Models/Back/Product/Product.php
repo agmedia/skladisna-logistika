@@ -179,7 +179,7 @@ class Product extends Model
             'ean'              => isset($this->request->ean) ? $this->request->ean : '',
             'quantity'         => isset($this->request->quantity) ? 1 : 0,
             'pdf'              => isset($this->request->pdf) ? $this->request->pdf : 0,
-            'description'      => $this->request->description,
+            'description'      => $this->cleanHTML($this->request->description),
             'seo_title'        => $this->request->seo_title,
             'meta_description' => $this->request->meta_description,
             'meta_keywords'    => $this->request->meta_keywords,
@@ -221,7 +221,7 @@ class Product extends Model
             'ean'              => isset($this->request->ean) ? $this->request->ean : '',
             'quantity'         => $this->request->quantity,
             'pdf'              => isset($this->request->pdf) ? $this->request->pdf : 0,
-            'description'      => $this->request->description,
+            'description'      => $this->cleanHTML($this->request->description),
             'seo_title'        => $this->request->seo_title,
             'meta_description' => $this->request->meta_description,
             'meta_keywords'    => $this->request->meta_keywords,
@@ -360,6 +360,18 @@ class Product extends Model
         ProductAction::where('product_id', $id)->delete();
 
         return self::where('id', $id)->delete();
+    }
+
+
+    /**
+     * @param null $description
+     *
+     * @return string
+     */
+    private function cleanHTML($description = null): string
+    {
+        $clean = preg_replace('/ style=("|\')(.*?)("|\')/', '', $description ? $description : '');
+        return preg_replace('/ face=("|\')(.*?)("|\')/', '', $clean);
     }
 
 

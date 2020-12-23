@@ -23,6 +23,7 @@
                         <th class="text-center" style="width: 30px;">#</th>
                         <th class="text-center" style="width: 81px;">Status</th>
                         <th>Ime</th>
+                        <th class="text-center" style="width: 108px;">Carousel</th>
                         <th class="text-center" style="width: 12%;">Poredak</th>
                         <th class="d-none d-sm-table-cell text-right" style="width: 100px;">Akcija</th>
                     </tr>
@@ -36,6 +37,9 @@
                             </td>
                             <td class="font-w600">
                                 <a href="{{ route('manufacturer.edit', ['id' => $manufacturer->id]) }}" class="js-tooltip-enabled" data-toggle="tooltip" data-title="Uredi Proizvođača">{{ $manufacturer->name }}</a>
+                            </td>
+                            <td class="text-center">
+                                <i class="fa fa-fw fa-{{ $manufacturer->carousel ? 'star text-success' : 'warning text-gray' }}"></i>
                             </td>
                             <td class="text-center">{{ $manufacturer->sort_order }}</td>
                             <td class="d-none d-sm-table-cell text-right">

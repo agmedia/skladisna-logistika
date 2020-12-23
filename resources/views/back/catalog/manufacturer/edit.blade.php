@@ -77,13 +77,10 @@
                                 </div>
                                 <div class="block-content" style="padding: 10px 0 20px 0;">
                                     <div class="row">
-                                        <dov class="col-md-6 offset-md-3">
+                                        <dov class="col-md-10 offset-md-1">
                                             <div class="slim"
-                                                 {{--data-service="async.php"
-                                                 data-fetcher="fetch.php"--}}
-                                                 data-ratio="1:1"
-                                                 data-size="1200,900"
-                                                 data-max-file-size="2">
+                                                 data-force-size="400,100"
+                                                 data-max-file-size="1">
                                                 <img src="{{ isset($manufacturer) && isset($manufacturer->image) ? asset($manufacturer->image) : '' }}" alt=""/>
                                                 <input type="file" name="image"/>
                                             </div>
@@ -99,27 +96,6 @@
                                 <label for="slug">Svojevoljni SEO URL <span class="text-gray">Nije preporučljivo!</span></label>
                                 <input type="text" class="form-control" name="slug" id="slug-input" value="{{ isset($manufacturer->slug) ? $manufacturer->slug : '' }}" placeholder="">
                             </div>
-
-                            <div class="block block-mode-hidden mb-30 mt-20 d-none d-md-block">
-                                <div class="block-header block-header-default" style="border: 1px solid #e9e9e9;">
-                                    <h3 class="block-title">Google pregled</h3>
-                                    <div class="block-options">
-                                        <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle"><i class="si si-arrow-up"></i></button>
-                                    </div>
-                                </div>
-                                <div class="block-content">
-                                    <div class="form-group">
-                                        <div class="block border">
-                                            <div class="block-content pt-10">
-                                                <p id="category-title-value" class="lead font-w400 mb-0" style="color: blue;"></p>
-                                                <p id="category-url-value" class="mb-0 font-w300" style="color: green;"></p>
-                                                <p id="category-content-value" class=""></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
 
                         <div class="col-lg-5">
@@ -128,13 +104,19 @@
 
                             <div class="block">
                                 <div class="block-content" style="background-color: #f8f9f9; border: 1px solid #e9e9e9; padding: 30px;">
-                                    <div class="form-group mb-30 mt-20">
+                                    <div class="form-group mb-20 mt-20">
                                         <label class="css-control css-control-success css-switch">
                                             <input type="checkbox" class="css-control-input" {{ (isset($manufacturer->status) and $manufacturer->status) ? 'checked' : '' }} name="status">
                                             <span class="css-control-indicator"></span> Online Status Proizvođača
                                         </label>
                                     </div>
-                                    <div class="form-group mb-20">
+                                    <div class="form-group mb-30">
+                                        <label class="css-control css-control-info css-switch">
+                                            <input type="checkbox" class="css-control-input" {{ (isset($manufacturer->carousel) and $manufacturer->carousel) ? 'checked' : '' }} name="carousel">
+                                            <span class="css-control-indicator"></span> Prikaži u traci
+                                        </label>
+                                    </div>
+                                    <div class="form-group mb-30">
                                         <label for="sort_order">Redosljed Sortiranja</label>
                                         <input type="text" class="js-maxlength form-control" name="sort_order" maxlength="3" placeholder="Samo brojevi..." data-always-show="true" value="{{ isset($manufacturer) ? $manufacturer->sort_order : '' }}">
                                     </div>
@@ -202,11 +184,8 @@
                     ['view', ['codeview', 'help']]
                 ],
                 styleTags: ['p', 'h4', 'blockquote'],
-            })
-
-            SetSEOPreview()
-        })
-
+            });
+        });
 
         function setImage(e) {
             let file = e.target.files[0]
@@ -220,22 +199,6 @@
             }
 
             reader.readAsDataURL(file)
-        }
-
-
-        function SetSEOPreview() {
-            let title = document.getElementById('category-name-input').value
-            document.getElementById('slug-input').value = slugify(title)
-
-            if (title) {
-                document.getElementById('category-title-value').innerHTML = title
-                document.getElementById('category-url-value').innerHTML = 'https://{{ request()->getHost() }}/' + slugify(title)
-            }
-
-            let category_meta_description = document.getElementById('category-meta-description').value
-            if (category_meta_description) {
-                document.getElementById('category-content-value').innerHTML = category_meta_description
-            }
         }
 
     </script>

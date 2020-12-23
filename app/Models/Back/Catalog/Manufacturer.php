@@ -5,6 +5,7 @@ namespace App\Models\Back\Catalog;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -28,6 +29,9 @@ class Manufacturer extends Model
     private $request;
 
 
+    /**
+     * @return mixed
+     */
     public static function list()
     {
         return self::orderBy('sort_order')->pluck('name', 'id');
@@ -64,6 +68,7 @@ class Manufacturer extends Model
             'slug'        => empty($this->request->slug) ? Str::slug($this->request->name) : Str::slug($this->request->slug),
             'sort_order'  => $this->request->sort_order,
             'status'      => (isset($this->request->status) and $this->request->status == 'on') ? 1 : 0,
+            'carousel'    => (isset($this->request->carousel) and $this->request->carousel == 'on') ? 1 : 0,
             'created_at'  => Carbon::now(),
             'updated_at'  => Carbon::now()
         ]);
@@ -85,6 +90,7 @@ class Manufacturer extends Model
             'slug'        => empty($this->request->slug) ? Str::slug($this->request->name) : Str::slug($this->request->slug),
             'sort_order'  => $this->request->sort_order,
             'status'      => (isset($this->request->status) and $this->request->status == 'on') ? 1 : 0,
+            'carousel'    => (isset($this->request->carousel) and $this->request->carousel == 'on') ? 1 : 0,
             'updated_at'  => Carbon::now()
         ]);
 

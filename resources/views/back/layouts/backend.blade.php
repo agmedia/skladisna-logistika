@@ -94,6 +94,9 @@
         </div>
         <!-- END Page Container -->
 
+        <!-- MODALS -->
+        @stack('modals')
+
         <!-- Codebase Core JS -->
         <script src="{{ asset('js/core.js') }}"></script>
 

@@ -133,6 +133,21 @@ Route::middleware('auth', 'noCustomers')->group(function () {
         //
         // SETTINGS Group
         Route::prefix('settings')->group(function () {
+            // STORE SETTINGS
+            Route::prefix('store')->group(function () {
+                // GEO ZONES
+                Route::get('geo-zones', 'Back\Settings\Store\GeoZoneController@index')->name('geo-zones');
+                // ORDER STATUSES
+                Route::get('order-status', 'Back\Settings\Store\OrderStatusController@index')->name('order-status');
+                // PAYMENTS
+                Route::get('payments', 'Back\Settings\Store\PaymentController@index')->name('payments');
+                // SHIPMENTS
+                Route::get('shipments', 'Back\Settings\Store\ShipmentController@index')->name('shipments');
+                // TAXES
+                Route::get('taxes', 'Back\Settings\Store\TaxController@index')->name('taxes');
+                // TOTALS
+                Route::get('totals', 'Back\Settings\Store\TotalController@index')->name('totals');
+            });
             // Profile
             Route::get('profile', 'Back\Settings\ProfileController@index')->name('profile');
             Route::patch('profile/{profile}', 'Back\Settings\ProfileController@update')->name('profile.update');
@@ -205,8 +220,43 @@ Route::middleware('auth', 'noCustomers')->group(function () {
                 Route::get('on', 'Back\Api1\SettingController@maintenanceModeON')->name('maintenance.on');
                 Route::get('off', 'Back\Api1\SettingController@maintenanceModeOFF')->name('maintenance.off');
             });
-            // Maintenance Mode
+            // SETTINGS
             Route::prefix('settings')->group(function () {
+                // STORE SETTINGS
+                Route::prefix('store')->group(function () {
+                    // GEO ZONE
+                    Route::prefix('geo-zone')->group(function () {
+                        Route::post('get-state-zones', 'Back\Settings\Store\GeoZoneController@getStateZones')->name('geo-zone.get-state-zones');
+                        Route::post('store', 'Back\Settings\Store\GeoZoneController@store')->name('geo-zone.store');
+                        Route::post('destroy', 'Back\Settings\Store\GeoZoneController@destroy')->name('geo-zone.destroy');
+                    });
+                    // ORDER STATUS
+                    Route::prefix('order-status')->group(function () {
+                        Route::post('store', 'Back\Settings\Store\OrderStatusController@store')->name('order-status.store');
+                        Route::post('destroy', 'Back\Settings\Store\OrderStatusController@destroy')->name('order-status.destroy');
+                    });
+                    // PAYMENTS
+                    Route::prefix('payment')->group(function () {
+                        Route::post('store', 'Back\Settings\Store\PaymentController@store')->name('payment.store');
+                        Route::post('destroy', 'Back\Settings\Store\PaymentController@destroy')->name('payment.destroy');
+                    });
+                    // SHIPMENTS
+                    Route::prefix('shipment')->group(function () {
+                        Route::post('store', 'Back\Settings\Store\ShipmentController@store')->name('shipment.store');
+                        Route::post('destroy', 'Back\Settings\Store\ShipmentController@destroy')->name('shipment.destroy');
+                    });
+                    // TAXES
+                    Route::prefix('taxes')->group(function () {
+                        Route::post('store', 'Back\Settings\Store\TaxController@store')->name('taxes.store');
+                        Route::post('destroy', 'Back\Settings\Store\TaxController@destroy')->name('taxes.destroy');
+                    });
+                    // TOTALS
+                    Route::prefix('totals')->group(function () {
+                        Route::post('store', 'Back\Settings\Store\TotalController@store')->name('totals.store');
+                        Route::post('destroy', 'Back\Settings\Store\TotalController@destroy')->name('totals.destroy');
+                    });
+                });
+                // Maintenance Mode
                 Route::get('on', 'Back\Api1\SettingController@sidebarInverseToggle')->name('sidebar.inverse.toggle');
             });
             // Images Upload
@@ -263,23 +313,31 @@ Route::prefix('api/v2')->group(function () {
 
 Route::get('pretraga', 'Api\v1\SearchController@all')->name('search.all');
 
+/*******************************************************************************
+*                                Copyright : AGmedia                           *
+*                              email: filip@agmedia.hr                         *
+*******************************************************************************/
 //
 // FRONT routes
 //
-//Route::get('/home', 'Front\HomeController@index')->name('home');
 Route::get('/', 'Front\HomeController@home')->name('index');
 Route::get('info/{page}', 'Front\HomeController@page')->name('info.page');
 Route::get('info/o-nama', 'Front\HomeController@page')->name('o-nama');
-
+Route::get('info/servis-vilicara', 'Front\HomeController@page')->name('servis');
 Route::get('access/vip/{landing}', 'Front\LandingController@index')->name('landing');
-//Route::get('landing/', 'Front\HomeController@landing');
-
 Route::get('tal/{page?}', 'Front\HomeController@tal')->name('tal');
-
+Route::get('partner/{manufacturer?}', 'Front\HomeController@partner')->name('partner');
+//
 Route::get('kontakt', 'Front\HomeController@contact')->name('kontakt');
 Route::post('kontakt-poruka', 'Front\HomeController@message')->name('kontakt.form');
-
-Route::get('info/servis-vilicara', 'Front\HomeController@page')->name('servis');
+//
+Route::get('blogs/{cat}/{subcat?}/{page?}', 'Front\BlogController@index')->name('blogovi');
+//
+Route::get('toyota-vilicari', 'Front\CategoryController@toyota')->name('toyota-vilicari');
+//
+Route::get('{group}/{cat?}/{subcat?}', 'Front\CategoryController@index')->name('kategorija');
+//
+Route::get('toyota-vilicari/{cat?}/{subcat?}/{prod?}', 'Front\ProductController@index')->name('proizvod');
 /**
  * Postavke računa korisnika.
  */
@@ -304,17 +362,6 @@ Route::get('kosarica/naplata', 'Front\CartController@checkout')->name('naplata')
 Route::post('kosarica/naplata', 'Front\CheckoutController@proccessOrder')->name('napravi.narudzbu');
 Route::get('kosarica/success', 'Front\CheckoutController@success')->name('narudzba.ok');
 Route::get('kosarica/error', 'Front\CheckoutController@error')->name('narudzba.error');
-
-//Route::get('blogs/{blog?}', 'Front\BlogController@index')->name('blogovi');
-Route::get('blogs/{cat}/{subcat?}/{page?}', 'Front\BlogController@index')->name('blogovi');
-//Route::get('blogs/{blog?}', 'Front\ClientController@blog')->name('blog');
-
-Route::get('toyota-vilicari', 'Front\CategoryController@toyota')->name('toyota-vilicari');
-
-Route::get('{group}/{cat?}/{subcat?}', 'Front\CategoryController@index')->name('kategorija');
-
-Route::get('toyota-vilicari/{cat?}/{subcat?}/{prod?}', 'Front\ProductController@index')->name('proizvod');
-
 /*
  * Front TEST routes.
  */

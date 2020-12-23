@@ -2,7 +2,7 @@
     <div class="container clearfix">
         <div class="row justify-content-between">
             <div class="col-lg-5 nobottommargin">
-                <img src="{{ asset('images/kalmarlogo.svg') }}" style="max-height: 20px;">
+
             </div>
             <div class="col-lg-7 d-none d-lg-flex justify-content-end">
                 <!-- Top Links

@@ -16,14 +16,36 @@
 
 @section('content')
     <section id="content">
-        <div class="content-wrap">
+        <div class="content-wrap notoppadding">
+            <!-- MANUFACTURERS -->
+            <div class="container clearfix">
+                <div id="oc-clients" class="owl-carousel owl-carousel-full image-carousel carousel-widget" data-margin="30" data-loop="true" data-nav="false" data-autoplay="5000" data-pagi="false"
+                     data-items-xs="{{ ($manufacturers->count() > 3) ? 3 : $manufacturers->count() }}"
+                     data-items-sm="{{ ($manufacturers->count() > 3) ? 3 : $manufacturers->count() }}"
+                     data-items-md="{{ ($manufacturers->count() > 4) ? 4 : $manufacturers->count() }}"
+                     data-items-lg="{{ ($manufacturers->count() > 5) ? 5 : $manufacturers->count() }}"
+                     data-items-xl="{{ ($manufacturers->count() > 6) ? 6 : $manufacturers->count() }}">
+                    @foreach($manufacturers as $manufacturer)
+                        <div class="oc-item">
+                            <a href="{{ route('partner', ['manufacturer' => $manufacturer]) }}">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <img src="{{ asset($manufacturer->image) }}" alt="{{ $manufacturer->name }}">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+
             <div class="container clearfix">
                 <div class="row ">
                     <div class="col-lg-6 mb-4">
                         <a href="{{ route('toyota-vilicari') }}">
                             <div class=" text-center ">
                                 <div class="flip-card-front dark" style="background-image: url({{ asset('images/banners/vilicari-index.jpg') }}">
-
                                     <div class="flip-card-inner">
                                         <div class="card nobg noborder text-center">
                                             <div class="card-body">
@@ -150,7 +172,7 @@
                         <div class="fbox-desc">
                             <h3 class="color">Najam viličara<span class="subtitle">Najam viličara svih tipova. </span></h3>
                             <p>Kod najma viličara možete računati na kvalitetu, pouzdanost i izvrsne performanse stroja unajmljivali ga na samo jedan dan ili nekoliko godina.
-                                Najam pruža korisniku fleksibilnost koju njegov posao zahtjeva kojom može izbjeći inicijalno ulaganje kupovinom viličara i promjenu specifikacije viličara sukladno potrebi u radu.
+                               Najam pruža korisniku fleksibilnost koju njegov posao zahtjeva kojom može izbjeći inicijalno ulaganje kupovinom viličara i promjenu specifikacije viličara sukladno potrebi u radu.
                             </p>
                         </div>
                     </div>

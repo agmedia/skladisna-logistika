@@ -64,6 +64,7 @@ class Manufacturer extends Model
             'slug'        => empty($this->request->slug) ? Str::slug($this->request->name) : Str::slug($this->request->slug),
             'sort_order'  => $this->request->sort_order,
             'status'      => (isset($this->request->status) and $this->request->status == 'on') ? 1 : 0,
+            'carousel'    => (isset($this->request->carousel) and $this->request->carousel == 'on') ? 1 : 0,
             'created_at'  => Carbon::now(),
             'updated_at'  => Carbon::now()
         ]);
@@ -85,6 +86,7 @@ class Manufacturer extends Model
             'slug'        => empty($this->request->slug) ? Str::slug($this->request->name) : Str::slug($this->request->slug),
             'sort_order'  => $this->request->sort_order,
             'status'      => (isset($this->request->status) and $this->request->status == 'on') ? 1 : 0,
+            'carousel'    => (isset($this->request->carousel) and $this->request->carousel == 'on') ? 1 : 0,
             'updated_at'  => Carbon::now()
         ]);
 

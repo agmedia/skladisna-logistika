@@ -53,7 +53,7 @@ class ManufacturerController extends Controller
                 $stored->resolveImage($request);
             }
 
-            return redirect()->back()->with(['success' => 'Proizvođač je uspješno snimljen!']);
+            return redirect()->route('manufacturers')->with(['success' => 'Proizvođač je uspješno snimljen!']);
         }
 
         return redirect()->back()->with(['error' => 'Whoops..! Desila se greška sa snimanjem proizvođača.']);

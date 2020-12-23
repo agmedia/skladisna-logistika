@@ -4,15 +4,11 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ContactFormMessage;
-use App\Models\CategoryMenu;
 use App\Models\Front\Blog;
 use App\Models\Front\Page;
 use App\Models\Front\Product;
 use App\Models\Front\Slider;
 use App\Models\Recaptcha;
-use App\Notifications\ContactFormNotification;
-use App\User;
-use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -24,45 +20,17 @@ class HomeController extends Controller
 {
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    /*public function __construct()
-    {
-        $this->middleware('auth');
-    }*/
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    /*public function index()
-    {
-        $sliders = Slider::home()->get();
-
-        return view('front.home', compact('sliders'));
-    }*/
-
-
-    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function home()
     {
-        $sliders = Cache::rememberForever('home_sl', function () {
-            return Slider::home()->get();
-        });
-
         $latest_products  = Product::last()->get();
-        $popular_products = Product::popular()->get();
         $top_products     = Product::topponuda(5)->get();
         $blogs            = Blog::published()->last(3)->get();
 
-        return view('front.home', compact('sliders', 'latest_products', 'top_products', 'popular_products', 'blogs'));
+        return view('front.home', compact('latest_products', 'top_products', 'blogs'));
     }
 
 
@@ -84,27 +52,6 @@ class HomeController extends Controller
     {
         return view('front.page.contact');
     }
-
-
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    /*public function landing()
-    {
-
-        $sliders = Cache::rememberForever('home_sl', function () {
-            return Slider::home()->get();
-        });
-
-        $latest_products  = Product::last()->get();
-        $popular_products = Product::popular()->get();
-        $top_products     = Product::topponuda(5)->get();
-        $blogs            = Blog::published()->last(3)->get();
-
-        return view('front.page.landing',
-            compact('sliders', 'latest_products', 'top_products', 'popular_products', 'blogs'));
-
-    }*/
 
 
     /**

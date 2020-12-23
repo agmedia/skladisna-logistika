@@ -313,23 +313,30 @@ Route::prefix('api/v2')->group(function () {
 
 Route::get('pretraga', 'Api\v1\SearchController@all')->name('search.all');
 
+/*******************************************************************************
+*                                Copyright : AGmedia                           *
+*                              email: filip@agmedia.hr                         *
+*******************************************************************************/
 //
 // FRONT routes
 //
-//Route::get('/home', 'Front\HomeController@index')->name('home');
 Route::get('/', 'Front\HomeController@home')->name('index');
 Route::get('info/{page}', 'Front\HomeController@page')->name('info.page');
 Route::get('info/o-nama', 'Front\HomeController@page')->name('o-nama');
-
+Route::get('info/servis-vilicara', 'Front\HomeController@page')->name('servis');
 Route::get('access/vip/{landing}', 'Front\LandingController@index')->name('landing');
-//Route::get('landing/', 'Front\HomeController@landing');
-
 Route::get('tal/{page?}', 'Front\HomeController@tal')->name('tal');
-
+//
 Route::get('kontakt', 'Front\HomeController@contact')->name('kontakt');
 Route::post('kontakt-poruka', 'Front\HomeController@message')->name('kontakt.form');
-
-Route::get('info/servis-vilicara', 'Front\HomeController@page')->name('servis');
+//
+Route::get('blogs/{cat}/{subcat?}/{page?}', 'Front\BlogController@index')->name('blogovi');
+//
+Route::get('toyota-vilicari', 'Front\CategoryController@toyota')->name('toyota-vilicari');
+//
+Route::get('{group}/{cat?}/{subcat?}', 'Front\CategoryController@index')->name('kategorija');
+//
+Route::get('toyota-vilicari/{cat?}/{subcat?}/{prod?}', 'Front\ProductController@index')->name('proizvod');
 /**
  * Postavke računa korisnika.
  */
@@ -354,17 +361,6 @@ Route::get('kosarica/naplata', 'Front\CartController@checkout')->name('naplata')
 Route::post('kosarica/naplata', 'Front\CheckoutController@proccessOrder')->name('napravi.narudzbu');
 Route::get('kosarica/success', 'Front\CheckoutController@success')->name('narudzba.ok');
 Route::get('kosarica/error', 'Front\CheckoutController@error')->name('narudzba.error');
-
-//Route::get('blogs/{blog?}', 'Front\BlogController@index')->name('blogovi');
-Route::get('blogs/{cat}/{subcat?}/{page?}', 'Front\BlogController@index')->name('blogovi');
-//Route::get('blogs/{blog?}', 'Front\ClientController@blog')->name('blog');
-
-Route::get('toyota-vilicari', 'Front\CategoryController@toyota')->name('toyota-vilicari');
-
-Route::get('{group}/{cat?}/{subcat?}', 'Front\CategoryController@index')->name('kategorija');
-
-Route::get('toyota-vilicari/{cat?}/{subcat?}/{prod?}', 'Front\ProductController@index')->name('proizvod');
-
 /*
  * Front TEST routes.
  */

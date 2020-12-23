@@ -326,6 +326,7 @@ Route::get('info/o-nama', 'Front\HomeController@page')->name('o-nama');
 Route::get('info/servis-vilicara', 'Front\HomeController@page')->name('servis');
 Route::get('access/vip/{landing}', 'Front\LandingController@index')->name('landing');
 Route::get('tal/{page?}', 'Front\HomeController@tal')->name('tal');
+Route::get('partner/{manufacturer?}', 'Front\HomeController@partner')->name('partner');
 //
 Route::get('kontakt', 'Front\HomeController@contact')->name('kontakt');
 Route::post('kontakt-poruka', 'Front\HomeController@message')->name('kontakt.form');

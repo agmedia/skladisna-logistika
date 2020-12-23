@@ -17,63 +17,25 @@
 @section('content')
     <section id="content">
         <div class="content-wrap notoppadding">
-
+            <!-- MANUFACTURERS -->
             <div class="container clearfix">
-                <div id="oc-clients" class="owl-carousel owl-carousel-full image-carousel carousel-widget" data-margin="30" data-loop="true" data-nav="false" data-autoplay="5000" data-pagi="false" data-items-xs="3" data-items-sm="3" data-items-md="4" data-items-lg="5" data-items-xl="6" >
-                    <div class="oc-item">
-                        <a href="http://logofury.com/">
-                            <div class="card">
-                                <div class="card-body">
-                                    <img src="{{ asset('images/logokalmar.jpg') }}" alt="Clients">
+                <div id="oc-clients" class="owl-carousel owl-carousel-full image-carousel carousel-widget" data-margin="30" data-loop="true" data-nav="false" data-autoplay="5000" data-pagi="false"
+                     data-items-xs="{{ ($manufacturers->count() > 3) ? 3 : $manufacturers->count() }}"
+                     data-items-sm="{{ ($manufacturers->count() > 3) ? 3 : $manufacturers->count() }}"
+                     data-items-md="{{ ($manufacturers->count() > 4) ? 4 : $manufacturers->count() }}"
+                     data-items-lg="{{ ($manufacturers->count() > 5) ? 5 : $manufacturers->count() }}"
+                     data-items-xl="{{ ($manufacturers->count() > 6) ? 6 : $manufacturers->count() }}">
+                    @foreach($manufacturers as $manufacturer)
+                        <div class="oc-item">
+                            <a href="{{ route('partner', ['manufacturer' => $manufacturer]) }}">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <img src="{{ asset($manufacturer->image) }}" alt="{{ $manufacturer->name }}">
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="oc-item">
-                        <a href="http://logofury.com/">
-                            <div class="card">
-                                <div class="card-body">
-                                    <img src="{{ asset('images/logobulmor.jpg') }}" alt="Clients">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="oc-item">
-                        <a href="http://logofury.com/">
-                            <div class="card">
-                                <div class="card-body">
-                                    <img src="{{ asset('images/logofiorentini.jpg') }}" alt="Clients">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="oc-item">
-                        <a href="http://logofury.com/">
-                            <div class="card">
-                                <div class="card-body">
-                                    <img src="{{ asset('images/logokalmar.jpg') }}" alt="Clients">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="oc-item">
-                        <a href="http://logofury.com/">
-                            <div class="card">
-                                <div class="card-body">
-                                    <img src="{{ asset('images/logobulmor.jpg') }}" alt="Clients">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="oc-item">
-                        <a href="http://logofury.com/">
-                            <div class="card">
-                                <div class="card-body">
-                                    <img src="{{ asset('images/logofiorentini.jpg') }}" alt="Clients">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
             </div>
 

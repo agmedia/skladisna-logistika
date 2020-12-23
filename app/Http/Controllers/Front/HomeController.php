@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Mail\ContactFormMessage;
+use App\Models\Front\Manufacturer;
 use App\Models\Front\Blog;
 use App\Models\Front\Page;
 use App\Models\Front\Product;
@@ -29,8 +30,9 @@ class HomeController extends Controller
         $latest_products  = Product::last()->get();
         $top_products     = Product::topponuda(5)->get();
         $blogs            = Blog::published()->last(3)->get();
+        $manufacturers    = Manufacturer::active()->carousel()->limit(9)->get();
 
-        return view('front.home', compact('latest_products', 'top_products', 'blogs'));
+        return view('front.home', compact('latest_products', 'top_products', 'blogs', 'manufacturers'));
     }
 
 
@@ -68,6 +70,12 @@ class HomeController extends Controller
         }
 
         return view('front.page.tal');
+
+    }
+
+
+    public function partner(Manufacturer $manufacturer)
+    {
 
     }
 

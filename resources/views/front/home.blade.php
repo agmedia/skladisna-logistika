@@ -17,7 +17,7 @@
 @section('content')
     <section id="content">
         <div class="content-wrap notoppadding">
-            <!-- MANUFACTURERS -->
+            <!-- MANUFACTURERS CAROUSEL -->
             <div class="container clearfix">
                 <div id="oc-clients" class="owl-carousel owl-carousel-full image-carousel carousel-widget" data-margin="30" data-loop="true" data-nav="false" data-autoplay="5000" data-pagi="false"
                      data-items-xs="{{ ($manufacturers->count() > 3) ? 3 : $manufacturers->count() }}"
@@ -38,116 +38,39 @@
                     @endforeach
                 </div>
             </div>
-
-
+            <!-- WIDGETS - HOMEPAGE -->
             <div class="container clearfix">
-                <div class="row ">
-                    <div class="col-lg-6 mb-4">
-                        <a href="{{ route('toyota-vilicari') }}">
-                            <div class=" text-center ">
-                                <div class="flip-card-front dark" style="background-image: url({{ asset('images/banners/vilicari-index.jpg') }}">
-                                    <div class="flip-card-inner">
-                                        <div class="card nobg noborder text-center">
-                                            <div class="card-body">
-                                                <h2 class="card-title">TOYOTA viličari</h2>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <a href="{{ route('tal') }}">
-                            <div class=" text-center ">
-                                <div class="flip-card-front dark" style="background-image: url({{ asset('images/banners/Toyota-I_Site-Starter.jpg') }}">
-                                    <div class="flip-card-inner">
-                                        <div class="card nobg noborder text-center">
-                                            <div class="card-body">
-                                                <h2 class="card-title">TAL (Toyota advanced Logistics)</h2>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="row ">
-                    <div class="col-lg-6 mb-4">
-                        <a href="info/servis-vilicara">
-                            <div class=" text-center ">
-                                <div class="flip-card-front dark" style="background-image: url({{ asset('images/banners/servis-index.jpg') }}">
-                                    <div class="flip-card-inner">
-                                        <div class="card nobg noborder text-center">
-                                            <div class="card-body">
-                                                <h2 class="card-title"> Servis viličara</h2>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                <!--      <div class="col-lg-4 mb-4 ">
-                        <a href="info/informacije-o-isporukama-vilicara">
-                        <div class=" text-center t">
-                            <div class="flip-card-front dark" style="background-image: url({{ asset('images/banners/akcija.jpg') }}">
-
-                                <div class="flip-card-inner">
-                                    <div class="card nobg noborder text-center">
-                                        <div class="card-body">
-                                            <h2 class="card-title">Informacije o isporukama viličara</h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </a>
-                    </div> -->
-
-                    <div class="col-lg-6 mb-4">
-                        @if (isset($latest->first()->subcat))
-                            <a href="{{ route('blogovi', ['cat' => $latest->first()->cat->slug, 'cat' => $latest->first()->subcat->slug, 'page' => $latest->first()->slug]) }}">
-                                @else
-                                    <a href="{{ route('blogovi', ['cat' => $latest->first()->cat->slug, 'subcat' => $latest->first()->slug]) }}">
-                                        @endif
-                                        <div class=" text-center ">
-                                            <div class="flip-card-front dark" style="background-image: url('{{ asset(isset($latest->first()->image) ? $latest->first()->image : 'images/banners/novost.jpg') }}')">
-                                                <div class="sale-flash">Novosti</div>
-                                                <div class="flip-card-inner">
-                                                    <div class="card nobg noborder text-center">
-                                                        <div class="card-body">
-                                                            <h2 class="card-title">{{ $latest->first()->title }}</h2>
-                                                        </div>
+                <div class="row">
+                    @if(isset($widgets))
+                        @foreach($widgets as $widget)
+                            <div class="col-lg-{{ $widget->width }} mb-4">
+                                <a href="{{ $widget->url }}">
+                                    <div class=" text-center ">
+                                        <div class="flip-card-front dark" style="background-image: url({{ asset($widget->image) }}">
+                                            @if( ! empty($widget->badge))
+                                                <div class="sale-flash">{{ $widget->badge }}</div>
+                                            @endif
+                                            <div class="flip-card-inner">
+                                                <div class="card nobg noborder text-center">
+                                                    <div class="card-body">
+                                                        @if(empty($widget->subtitle))
+                                                            <h2 class="card-title">{{ $widget->title }}</h2>
+                                                        @else
+                                                            <h2 class="card-title nobottommargin">{{ $widget->title }}</h2>
+                                                            <p style="color: #fff; font-size: 1rem;" class="d-none d-lg-block">{{ $widget->subtitle }}</p>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </a>
-                    </div>
-                </div>
-                <div class="row ">
-                    <div class="col-lg-12 mb-4">
-                        <a href="https://www.kalmarglobal.com">
-                            <div class=" text-center ">
-                                <div class="flip-card-front dark" style="background-image: url({{ asset('images/banners/kalmar-add.jpg') }};background-position: top left;">
-                                    <div class="flip-card-inner" >
-                                        <div class="card nobg noborder text-center">
-                                            <div class="card-body">
-                                                <h2 class="card-title nobottommargin"> Predvodnik u rukovanju kontejnerima i industrijskim materijalima</h2>
-                                                <p style="color:#fff;font-size:1rem" class="d-none d-lg-block">Kalmar nudi najširi raspon rješenja i usluga za rukovanje teretom u lukama, terminalima, distribucijskim centrima i teškoj industriji</p>
-                                            </div>
-                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
+
             <div class="container clearfix topmargin bottommargin-sm">
                 <div class="heading-block center ">
                     <h2 >Dodatna ponuda i usluge</h2>

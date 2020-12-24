@@ -131,6 +131,19 @@ Route::middleware('auth', 'noCustomers')->group(function () {
             Route::get('message/{message}/edit', 'Back\Users\MessageController@edit')->name('message.edit');
         });
         //
+        // USERS Group
+        Route::prefix('design')->middleware('emptyClientData')->group(function () {
+            //
+            // USERS WIDGETS
+            Route::prefix('widgets')->group(function () {
+                Route::get('/', 'Back\Design\WidgetController@index')->name('widgets');
+                Route::get('create', 'Back\Design\WidgetController@create')->name('widget.create');
+                Route::post('/', 'Back\Design\WidgetController@store')->name('widget.store');
+                Route::get('{widget}/edit', 'Back\Design\WidgetController@edit')->name('widget.edit');
+                Route::patch('{widget}', 'Back\Design\WidgetController@update')->name('widget.update');
+            });
+        });
+        //
         // SETTINGS Group
         Route::prefix('settings')->group(function () {
             // STORE SETTINGS
@@ -159,12 +172,6 @@ Route::middleware('auth', 'noCustomers')->group(function () {
             Route::post('page', 'Back\Settings\PageController@store')->name('page.store');
             Route::get('page/{id}/edit', 'Back\Settings\PageController@edit')->name('page.edit');
             Route::patch('page/{page}', 'Back\Settings\PageController@update')->name('page.update');
-            // Pages
-            Route::get('plans', 'Back\Settings\PlanController@index')->name('plans');
-            Route::get('plan/create', 'Back\Settings\PlanController@create')->name('plan.create');
-            Route::post('plan', 'Back\Settings\PlanController@store')->name('plan.store');
-            Route::get('plan/{plan}/edit', 'Back\Settings\PlanController@edit')->name('plan.edit');
-            Route::patch('plan/{plan}', 'Back\Settings\PlanController@update')->name('plan.update');
         });
         //
         // Back API routes.
@@ -175,9 +182,16 @@ Route::middleware('auth', 'noCustomers')->group(function () {
                 Route::post('destroy-block', 'Back\Api1\ProductController@destroyBlock')->name('product.destroy.block');
                 Route::post('destroy-image', 'Back\Api1\ProductController@destroyImage')->name('product.destroy.image');
             });
-            // Products
+            // LANDING
             Route::prefix('landing')->group(function () {
                 Route::get('get-section3', 'Back\Api1\LandingController@getSectionBlock')->name('landing.get.section3');
+                Route::post('destroy', 'Back\Marketing\LandingController@destroy')->name('landing.destroy');
+                Route::post('destroy/doc', 'Back\Marketing\LandingController@destroyDoc')->name('landing.destroy.doc');
+            });
+            // WIDGET
+            Route::prefix('widget')->group(function () {
+                Route::post('destroy', 'Back\Design\WidgetController@destroy')->name('widget.destroy');
+                Route::get('get-links', 'Back\Design\WidgetController@getLinks')->name('widget.api.get-links');
             });
             // Delete routes (javascript POST)
             Route::post('category/destroy', 'Back\CategoryController@destroy')->name('category.destroy');
@@ -186,13 +200,9 @@ Route::middleware('auth', 'noCustomers')->group(function () {
             Route::post('order/destroy', 'Back\Orders\OrderController@destroy')->name('order.destroy');
             Route::post('action/destroy', 'Back\Marketing\ActionController@destroy')->name('action.destroy');
             Route::post('blog/destroy', 'Back\Marketing\BlogController@destroy')->name('blog.destroy');
-            Route::post('landing/destroy', 'Back\Marketing\LandingController@destroy')->name('landing.destroy');
-            Route::post('landing/destroy/doc', 'Back\Marketing\LandingController@destroyDoc')->name('landing.destroy.doc');
             Route::post('slider/destroy', 'Back\Marketing\SliderController@destroy')->name('slider.destroy');
             Route::post('user/destroy', 'Back\Users\UserController@destroy')->name('user.destroy');
-            Route::post('client/destroy', 'Back\Users\ClientController@destroy')->name('client.destroy');
             Route::post('page/destroy', 'Back\Settings\PageController@destroy')->name('page.destroy');
-            Route::post('plan/destroy', 'Back\Settings\PlanController@destroy')->name('plan.destroy');
             // Autocomplete and Autosuggestion routes
             Route::get('/products/autocomplete', 'Back\Api1\ProductController@autocomplete')->name('products.autocomplete');
             Route::get('/users/autocomplete', 'Back\Api1\UserController@autocomplete')->name('users.autocomplete');
@@ -270,7 +280,6 @@ Route::middleware('auth', 'noCustomers')->group(function () {
             });
         });
     });
-
 
 });
 

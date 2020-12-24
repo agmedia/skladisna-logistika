@@ -146,10 +146,10 @@ return [
             'url' => 'media/images/gallery/user/'
         ],
         //
-        'client' => [
+        'widget' => [
             'driver' => 'local',
-            'root' => public_path('media/images/gallery/client/'),
-            'url' => 'media/images/gallery/client/'
+            'root' => public_path('media/images/gallery/widget/'),
+            'url' => 'media/images/gallery/widget/'
         ],
     ],
 

@@ -9,6 +9,7 @@ use App\Models\Front\Blog;
 use App\Models\Front\Page;
 use App\Models\Front\Product;
 use App\Models\Front\Slider;
+use App\Models\Front\Widget;
 use App\Models\Recaptcha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,8 +32,9 @@ class HomeController extends Controller
         $top_products     = Product::topponuda(5)->get();
         $blogs            = Blog::published()->last(3)->get();
         $manufacturers    = Manufacturer::active()->carousel()->limit(9)->get();
+        $widgets          = Widget::active()->homepage()->get();
 
-        return view('front.home', compact('latest_products', 'top_products', 'blogs', 'manufacturers'));
+        return view('front.home', compact('latest_products', 'top_products', 'blogs', 'manufacturers', 'widgets'));
     }
 
 

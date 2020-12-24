@@ -39,6 +39,17 @@ class Blog extends Model
 
 
     /**
+     * @param $query
+     *
+     * @return mixed
+     */
+    public function scopePublished($query)
+    {
+        return $query->where('is_published', 1)->where('publish_date', '<=', now())->orWhere('publish_date', '0000-00-00 00:00:00')->orderBy('publish_date', 'desc');
+    }
+
+
+    /**
      * Validate Blog Request.
      *
      * @param Request $request

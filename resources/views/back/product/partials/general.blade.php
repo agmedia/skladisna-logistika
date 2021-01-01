@@ -30,7 +30,7 @@
             <label for="meta_keywords">Meta Ključne riječi</label>
             <input type="text" class="js-tags-input form-control" data-height="34px" name="meta_keywords" value="{{ isset($product) ? $product->meta_keywords : '' }}">
         </div>
-        <div class="block block-mode-hidden mb-30 mt-20 d-none d-md-block">
+<!--        <div class="block block-mode-hidden mb-30 mt-20 d-none d-md-block">
             <div class="block-header block-header-default" style="border: 1px solid #e9e9e9;">
                 <h3 class="block-title">Google pregled</h3>
                 <div class="block-options">
@@ -48,13 +48,13 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
 
     </div>
 
     <div class="col-lg-5">
         <h5 class="text-black mb-0 mt-20">Status Proizvoda</h5>
-        <hr class="mb-30">
+        <hr class="mb-20">
 
         <div class="block mb-30">
             <div class="block-content" style="background-color: #f8f9f9; border: 1px solid #e9e9e9; padding: 30px;">
@@ -95,8 +95,8 @@
             </div>
         </div>
 
-        <h5 class="text-black mb-0 mt-20">Info Proizvoda</h5>
-        <hr class="mb-30">
+        <h5 class="text-black mb-0 mt-50">Info Proizvoda</h5>
+        <hr class="mb-20">
 
         <div class="block">
             <div class="block-content" style="background-color: #f8f9f9; border: 1px solid #e9e9e9; padding: 30px;">

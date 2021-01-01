@@ -137,13 +137,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group mb-30">
-                                        <label for="url-input">URL Link
-                                            <span>
-                                                <button type="button" class="btn btn-sm btn-default" style="padding: 0 .6rem;" data-toggle="popover" title="Link Widgeta" data-placement="top" data-content="Ima prioritet kod linkanja u odnosu na tip. Može se proizvoljno upisati bilo koji link.">
-                                                    <i class="fa fa-question text-success"></i>
-                                                </button>
-                                            </span>
-                                        </label>
+                                        <label for="url-input">URL Link @include('back.layouts.partials.popover', ['title' => 'Link Widgeta', 'content' => 'Ima prioritet kod linkanja u odnosu na tip. Može se proizvoljno upisati bilo koji link.'])</label>
                                         <input type="text" class="form-control" name="url" id="url-input" value="{{ isset($widget->url) ? $widget->url : '' }}" placeholder="">
                                     </div>
                                 </div>
@@ -168,13 +162,7 @@
                                     </div>
 
                                     <div class="form-group mb-10">
-                                        <label for="subtitle-input">Veličina widgeta u grupi
-                                            <span>
-                                                <button type="button" class="btn btn-sm btn-default" style="padding: 0 .6rem;" data-toggle="popover" title="Valičina widgeta" data-placement="top" data-content="Veličina se odnosi na širinu pojedinog widgeta unutar grupe.">
-                                                    <i class="fa fa-question text-success"></i>
-                                                </button>
-                                            </span>
-                                        </label>
+                                        <label for="subtitle-input">Veličina widgeta u grupi @include('back.layouts.partials.popover', ['title' => 'Valičina widgeta', 'content' => 'Veličina se odnosi na širinu pojedinog widgeta unutar grupe.'])</label>
                                         <select class="js-select2 form-control" id="width-select" name="width" style="width: 100%;">
                                             <option></option>
                                             @foreach($sizes as $size)
@@ -198,13 +186,7 @@
                                     </div>
 
                                     <div class="form-group mb-20">
-                                        <label for="sort_order">Badge Traka
-                                            <span>
-                                                <button type="button" class="btn btn-sm btn-default" style="padding: 0 .6rem;" data-toggle="popover" title="Badge traka" data-placement="top" data-content="Ako polje ostane prazno badge traka se neće prikazivati. Ako se upiše prikazivat će se badge traka sa upisanim tekstom.">
-                                                    <i class="fa fa-question text-success"></i>
-                                                </button>
-                                            </span>
-                                        </label>
+                                        <label for="sort_order">Badge Traka @include('back.layouts.partials.popover', ['title' => 'Badge traka', 'content' => 'Ako polje ostane prazno badge traka se neće prikazivati. Ako se upiše prikazivat će se badge traka sa upisanim tekstom.'])</label>
                                         <input type="text" class="form-control" name="badge" value="{{ isset($widget) ? $widget->badge : '' }}">
                                     </div>
 

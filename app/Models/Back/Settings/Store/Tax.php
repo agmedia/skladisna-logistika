@@ -35,4 +35,18 @@ class Tax extends Model
     {
         $this->attributes['data'] = serialize($value);
     }
+
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
+
+    public function scopeSort($query, $asc = true)
+    {
+        $order = $asc ? 'asc' : 'desc';
+
+        return $query->orderBy('sort_order', $order);
+    }
 }

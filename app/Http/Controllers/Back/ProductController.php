@@ -9,6 +9,7 @@ use App\Models\Back\Photo;
 use App\Models\Back\Product\Product;
 use App\Models\Back\Product\ProductBlock;
 use App\Models\Back\Product\ProductImage;
+use App\Models\Back\Settings\Store\Tax;
 use App\Models\Back\Users\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -48,8 +49,8 @@ class ProductController extends Controller
             $query->where('status', $operator);
         }
 
-        $products   = $query->with('actions')->paginate(20);
-        $categories = Category::getList();
+        $products      = $query->with('actions')->paginate(20);
+        $categories    = Category::getList();
         $manufacturers = Manufacturer::list();
 
         return view('back.product.index', compact('products', 'categories', 'manufacturers'));
@@ -66,8 +67,9 @@ class ProductController extends Controller
         $categories    = Category::getListWithoutTop();
         $manufacturers = Manufacturer::list();
         $pdfs          = Storage::disk('media')->files('pdf');
+        $taxes         = Tax::active()->sort()->get();
 
-        return view('back.product.edit', compact('categories', 'manufacturers', 'pdfs'));
+        return view('back.product.edit', compact('categories', 'manufacturers', 'taxes', 'pdfs'));
     }
 
 
@@ -116,6 +118,7 @@ class ProductController extends Controller
         $categories    = Category::getListWithoutTop();
         $manufacturers = Manufacturer::list();
         $pdfs          = Storage::disk('media')->files('pdf');
+        $taxes         = Tax::active()->sort()->get();
         $arr           = [];
 
         if ( ! empty($product->categories)) {
@@ -126,7 +129,7 @@ class ProductController extends Controller
 
         $product_categories = collect($arr)->flatten()->all();
 
-        return view('back.product.edit', compact('product', 'categories', 'manufacturers', 'product_categories', 'pdfs'));
+        return view('back.product.edit', compact('product', 'categories', 'manufacturers', 'taxes', 'product_categories', 'pdfs'));
     }
 
 

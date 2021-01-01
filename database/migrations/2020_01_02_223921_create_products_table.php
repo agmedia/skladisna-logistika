@@ -27,6 +27,7 @@ class CreateProductsTable extends Migration
             $table->string('related_products')->nullable();
             $table->string('slug');
             $table->integer('manufacturer_id')->unsigned()->default(0);
+            $table->integer('tax_id')->unsigned()->default(0);
             $table->string('image')->nullable();
             $table->decimal('price', 15, 4)->default(0);
             $table->integer('viewed')->unsigned()->default(0);

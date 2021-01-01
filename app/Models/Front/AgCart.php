@@ -53,7 +53,7 @@ class AgCart extends Model
         $response['tax'] = $this->getTax($response);
         $response['total'] = $this->cart->getTotal() + $response['tax'][0]['value'];
 
-        $response['totals'] = $this->getTotals($response);
+        $response['totals'] = $this->getTotals();
 
         return $response;
     }
@@ -303,22 +303,14 @@ class AgCart extends Model
     }
 
 
-    private function getTotals($response_cart)
+    private function getTotals()
     {
         $response = [];
 
-        $totals = new Totals();
-        $totals->setParams($response_cart);
+        $totals = new Totals($this->cart);
 
         if ($totals->hasActive()) {
-            foreach ($totals->fetch() as $total) {
-                $response[] = [
-                    'code' => '',
-                    'title' => '',
-                    'value' => '',
-                    'sort_order' => '',
-                ];
-            }
+            $response = $totals->fetch();
         }
 
         return $response;

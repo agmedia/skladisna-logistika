@@ -2,13 +2,15 @@
 
 namespace App\Models\Front\Cart\Total;
 
+use App\Models\Front\Cart\Totals;
+use Darryldecode\Cart\Cart;
 use Illuminate\Support\Facades\Log;
 
 /**
  * Class Subtotal
  * @package App\Models\Front\Cart\Total
  */
-class Subtotal implements TotalInterface
+class Subtotal extends Totals
 {
 
     /**
@@ -16,27 +18,28 @@ class Subtotal implements TotalInterface
      */
     private $total;
 
-    /**
-     * @var array
-     */
-    private $cart;
 
     /**
-     * @var string
-     */
-    private $coupon;
-
-
-    /**
-     * TotalInterface constructor.
+     * Subtotal constructor.
      *
-     * @param array       $cart
-     * @param string|null $coupon
+     * @param array $cart
+     * @param       $sum
+     * @param       $coupon
      */
-    public function __construct(array $cart, $coupon)
+    public function __construct(Cart $cart, float $sum, string $coupon)
     {
         $this->cart   = $cart;
         $this->coupon = $coupon;
+        $this->currentSum = $sum;
+    }
+
+
+    /**
+     * @return float
+     */
+    public function getCurrentSum(): float
+    {
+        return $this->currentSum;
     }
 
 
@@ -51,15 +54,12 @@ class Subtotal implements TotalInterface
 
         $this->total = $total;
 
-        $value = 0;
-
-        Log::info($this->cart);
-        Log::info($this->coupon);
+        $this->currentSum = $this->cart->getSubTotal();
 
         return [
             'code'       => $this->total->code,
             'title'      => $this->total->name,
-            'value'      => $value,
+            'value'      => $this->currentSum,
             'sort_order' => $this->total->sort_order,
         ];
     }

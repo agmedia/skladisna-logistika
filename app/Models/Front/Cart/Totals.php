@@ -4,30 +4,21 @@ namespace App\Models\Front\Cart;
 
 require_once('Total/providers.php');
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Back\Settings\Store\Total;
+use Darryldecode\Cart\Cart;
 use Illuminate\Support\Facades\Log;
 
 /**
  * Class Total
  * @package App\Models\Front\Cart
  */
-class Totals extends Model
+class Totals
 {
-
-    /**
-     * @var string
-     */
-    protected $table = 'totals';
-
-    /**
-     * @var array
-     */
-    protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
      * @var
      */
-    public $cart;
+    protected $cart;
 
     /**
      * @var
@@ -39,6 +30,11 @@ class Totals extends Model
      */
     protected $totals;
 
+    /**
+     * @var float
+     */
+    protected $currentSum = 0;
+
 
     /**
      * Total constructor.
@@ -46,30 +42,11 @@ class Totals extends Model
      * @param string $code
      * @param        $cart
      */
-    public function setParams($cart)
+    public function __construct(Cart $cart)
     {
-        $this->cart = $cart;
+        $this->cart   = $cart;
         $this->coupon = $this->setCoupon();
-    }
-
-
-    /**
-     * @param $value
-     *
-     * @return mixed
-     */
-    public function getDataAttribute($value)
-    {
-        return unserialize($value);
-    }
-
-
-    /**
-     * @param $value
-     */
-    public function setDataAttribute($value)
-    {
-        $this->attributes['data'] = serialize($value);
+        $this->totals = Total::where('status', 1)->orderBy('sort_order')->get();
     }
 
 
@@ -83,11 +60,19 @@ class Totals extends Model
         foreach ($this->totals as $total) {
             // Load class from providers array based on total code.
             $class = providers($total->code);
-            // Instantiate new class with cart and coupon.
-            $instance = new $class($this->cart, $this->coupon);
+            // Instantiate new class with cart, coupon and current sum.
+            $instance = new $class(
+                $this->cart,
+                $this->currentSum,
+                $this->coupon
+            );
 
             $response[$total->code] = $instance->resolveTotal($total);
+
+            $this->currentSum = $instance->getCurrentSum();
         }
+
+        Log::warning($response);
 
         return $response;
     }
@@ -98,8 +83,6 @@ class Totals extends Model
      */
     public function hasActive(): bool
     {
-        $this->totals = $this->where('status', 1)->orderBy('sort_order')->get();
-
         return $this->totals->count() ? true : false;
     }
 
@@ -109,6 +92,6 @@ class Totals extends Model
      */
     private function setCoupon()
     {
-        return session()->has('sl_cart_coupon') ? session('sl_cart_coupon') : null;
+        return session()->has('sl_cart_coupon') ? session('sl_cart_coupon') : '';
     }
 }

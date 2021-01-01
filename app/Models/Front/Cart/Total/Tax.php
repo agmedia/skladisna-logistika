@@ -3,39 +3,43 @@
 namespace App\Models\Front\Cart\Total;
 
 
+use App\Models\Front\Cart\Totals;
+use Darryldecode\Cart\Cart;
+
 /**
  * Class Total
  * @package App\Models\Front\Cart
  */
-class Tax implements TotalInterface
+class Tax extends Totals
 {
 
     /**
      * @var
      */
-    private $total;
-
-    /**
-     * @var array
-     */
-    private $cart;
-
-    /**
-     * @var string
-     */
-    private $coupon;
+    private $tax;
 
 
     /**
-     * TotalInterface constructor.
+     * Subtotal constructor.
      *
-     * @param array       $cart
-     * @param string|null $coupon
+     * @param array $cart
+     * @param       $sum
+     * @param       $coupon
      */
-    public function __construct(array $cart, $coupon)
+    public function __construct(Cart $cart, float $sum, string $coupon)
     {
         $this->cart   = $cart;
         $this->coupon = $coupon;
+        $this->currentSum = $sum;
+    }
+
+
+    /**
+     * @return float
+     */
+    public function getCurrentSum(): float
+    {
+        return $this->currentSum;
     }
 
 
@@ -46,17 +50,14 @@ class Tax implements TotalInterface
      */
     public function resolveTotal($total): array
     {
-        // Implement situation if Tax is already in product price.
-
-        $this->total = $total;
-
-        $value = 0;//$this->cart->getContent();
+        $this->tax = $this->currentSum * 0.25;
+        $this->currentSum = $this->currentSum + $this->tax;
 
         return [
-            'code' => $this->total->code,
-            'title' => $this->total->name,
-            'value' => $value,
-            'sort_order' => $this->total->sort_order,
+            'code'       => $total->code,
+            'title'      => $total->name,
+            'value'      => $this->tax,
+            'sort_order' => $total->sort_order,
         ];
     }
 

@@ -1,23 +1,18 @@
-<!-- Header
-        ============================================= -->
+<!-- Header -->
 <header id="header" class=" clearfix">
     <div id="header-wrap">
         <div class="container clearfix">
-                    <span id="hamburger" >
-                        <a href="#menu" class="mburger mburger--collapse">
-                            <b></b>
-                            <b></b>
-                            <b></b>
-                        </a>
-                     </span>
-            <!-- Logo
-            ============================================= -->
+            <span id="hamburger" >
+                <a href="#menu" class="mburger mburger--collapse">
+                    <b></b>
+                    <b></b>
+                    <b></b>
+                </a>
+            </span>
             <div id="logo">
-                <a href="{{ route('index') }}" class="standard-logo"><img src="{{ asset('images/logo.svg') }}" alt="Skladišna logistika"></a>
-                <a href="{{ route('index') }}" class="retina-logo"><img src="{{ asset('images/logo.svg') }}" alt="Skladišna logistika"></a>
-            </div><!-- #logo end -->
-            <!-- Primary Navigation
-            ============================================= -->
+                <a href="{{ route('index') }}" class="standard-logo"><img src="{{ asset('images/logo.svg') }}" alt="{{ config('app.name') }}"></a>
+                <a href="{{ route('index') }}" class="retina-logo"><img src="{{ asset('images/logo.svg') }}" alt="{{ config('app.name') }}"></a>
+            </div>
             <nav id="primary-menu" class="d-lg-flex d-xl-flex justify-content-xl-between justify-content-lg-between fnone style-2 with-arrows">
                 <ul class="align-self-start"></ul>
                 <ul class="align-self-center">
@@ -106,19 +101,16 @@
                             </ul>
                         </div>
                     </li><!-- .mega-menu end -->
-                    <!-- TAL (Toyota advanced Logistics) – 3. Postprodaja – 4. Kontakt -->
-                    <li ><a href="{{ route('tal') }}" ><div>TAL (Toyota advanced Logistics)</div></a></li>
-                    <!--   <li><a href="info/postprodaja" ><div>Postprodaja</div></a></li>-->
-                    <li ><a  href="{{ route('o-nama') }}" ><div>O nama</div></a></li>
-                    <li class="last"><a  href="{{ route('kontakt') }}" ><div>Kontakt</div></a></li>
+                    <li ><a href="{{ route('tal') }}"><div>TAL (Toyota advanced Logistics)</div></a></li>
+                    <li ><a href="{{ route('o-nama') }}"><div>O nama</div></a></li>
+                    <li class="last"><a href="{{ route('kontakt') }}"><div>Kontakt</div></a></li>
                 </ul>
                 <ul class="align-self-end"></ul>
 
                 <!-- cart -->
                 <cart-nav-icon carturl="{{ route('kosarica') }}" checkouturl="{{ route('naplata') }}"></cart-nav-icon>
 
-                <!-- Top Search
-                ============================================= -->
+                <!-- Top Search -->
                 <div id="top-search">
                     <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
                     <div class="container-fluid clearfix">
@@ -127,8 +119,8 @@
                             <button type="submit" class="srch"><i class="icon-search3"></i></button>
                         </form>
                     </div>
-                </div><!-- #top-search end -->
-            </nav><!-- #primary-menu end -->
+                </div>
+            </nav>
         </div>
     </div>
-</header><!-- #header end -->
+</header>

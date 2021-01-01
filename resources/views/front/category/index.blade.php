@@ -7,9 +7,9 @@
         <div class="container clearfix">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('index') }}">Naslovnica</a></li>
-                <li class="breadcrumb-item"> <a href="{{ route('kategorija', ['group' => \Illuminate\Support\Str::slug($cat->group)]) }}">{{ \Illuminate\Support\Str::title($cat->group) }}</a></li>
+                <li class="breadcrumb-item"> <a href="{{ route('gcp_route', ['group' => \Illuminate\Support\Str::slug($cat->group)]) }}">{{ \Illuminate\Support\Str::title($cat->group) }}</a></li>
                 @if (isset($cat))
-                    <li class="breadcrumb-item"><a href="{{ route('kategorija', ['group' => $group, 'cat' => $cat->slug]) }}">{{ \Illuminate\Support\Str::title($cat->name) }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('gcp_route', ['group' => $group, 'cat' => $cat->slug]) }}">{{ \Illuminate\Support\Str::title($cat->name) }}</a></li>
                 @endif
                 @if (isset($subcat))
                     <li class="breadcrumb-item">{{ $subcat->name }}</li>
@@ -30,7 +30,8 @@
                     @foreach($products as $product)
                         @include('front.product.partials.product-category', [
                                   'product' => $product,
-                                  'link' => route('proizvod', [
+                                  'link' => route('gcp_route', [
+                                      'group' => \Illuminate\Support\Str::slug($product->category()->group),
                                       'cat' => isset($product->category()->slug) ? $product->category()->slug : '',
                                       'subcat' => $product->subcategory() ? $product->subcategory()->slug : 'ikoi',
                                       'prod' => $product->slug

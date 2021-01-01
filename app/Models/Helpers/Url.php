@@ -24,12 +24,12 @@ class Url
             $category = Category::find($id);
 
             if ($category && $category->parent_id == 0) {
-                return route('kategorija', ['group' => Str::slug($category->group), 'cat' => $category->slug]);
+                return route('gcp_route', ['group' => Str::slug($category->group), 'cat' => $category->slug]);
             }
 
             $parent = Category::find($category->parent_id);
 
-            return route('kategorija', ['group' => Str::slug($category->group), 'cat' => $parent->slug, 'subcat' => $category->slug]);
+            return route('gcp_route', ['group' => Str::slug($category->group), 'cat' => $parent->slug, 'subcat' => $category->slug]);
         }
 
         //
@@ -43,7 +43,7 @@ class Url
         if ($type == 'product') {
             $product = Product::find($id);
 
-            return route('proizvod', ['cat' => $product->category()->slug, 'subcat' => $product->subcategory()->slug, 'prod' => $product->slug]);
+            return route('gcp_route', ['cat' => $product->category()->slug, 'subcat' => $product->subcategory()->slug, 'prod' => $product->slug]);
         }
 
         //

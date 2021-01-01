@@ -1,6 +1,5 @@
-<div class="product  clearfix" style="padding: 0 12px 12px 12px;
-width: 100%;">
-    <div class="product-inner" >
+<div class="product clearfix" style="padding: 0 12px 12px 12px; width: 100%;">
+    <div class="product-inner">
         <div class="product-image loading">
             <a href="{{ $link }}"><img loading="lazy" src="{{ asset($product->image) ?? 'media/images/sl-logo.png' }}"
                                        data-src-small="{{ asset($product->image) ?? 'media/images/sl-logo.png' }}"
@@ -44,9 +43,7 @@ width: 100%;">
                     </li>
                 @endif
             </ul>
-
             @include('front.product.partials.product-price', ['product' => $product])
-
             <a href="{{ $link }}" class="btn btn-green">Opširnije</a>
         </div>
     </div>

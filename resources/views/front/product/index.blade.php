@@ -5,7 +5,8 @@
     <meta property="og:title" content="{{ $prod->name }}"/>
     <meta property="og:image" content="{{ asset($prod->image) }}"/>
     <meta property="og:site_name" content="{{ config('app.name') }}"/>
-    <meta property="og:url" content="{{ route('proizvod', [
+    <meta property="og:url" content="{{ route('gcp_route', [
+                                        'group' => \Illuminate\Support\Str::slug($cat->group),
                                         'cat' => $cat->slug,
                                         'subcat' => $subcat->slug ? $subcat->slug : '',
                                         'prod' => $prod->slug
@@ -19,9 +20,9 @@
         <div class="container clearfix">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('index') }}">Naslovnica</a></li>
-                <li class="breadcrumb-item"> <a href="{{ route('kategorija', ['group' => \Illuminate\Support\Str::slug($cat->group)]) }}">{{ \Illuminate\Support\Str::title($cat->group) }}</a></li>
-                <li class="breadcrumb-item"> <a href="{{ route('kategorija', ['group' => \Illuminate\Support\Str::slug($cat->group), 'cat' => $cat->slug]) }}">{{ \Illuminate\Support\Str::title($cat->name) }}</a></li>
-                <li class="breadcrumb-item"> <a href="{{ route('kategorija', ['group' => \Illuminate\Support\Str::slug($cat->group), 'cat' => $cat->slug, 'subcat' => $subcat->slug]) }}">{{ \Illuminate\Support\Str::title($subcat->name) }}</a></li>
+                <li class="breadcrumb-item"> <a href="{{ route('gcp_route', ['group' => \Illuminate\Support\Str::slug($cat->group)]) }}">{{ \Illuminate\Support\Str::title($cat->group) }}</a></li>
+                <li class="breadcrumb-item"> <a href="{{ route('gcp_route', ['group' => \Illuminate\Support\Str::slug($cat->group), 'cat' => $cat->slug]) }}">{{ \Illuminate\Support\Str::title($cat->name) }}</a></li>
+                <li class="breadcrumb-item"> <a href="{{ route('gcp_route', ['group' => \Illuminate\Support\Str::slug($cat->group), 'cat' => $cat->slug, 'subcat' => $subcat->slug]) }}">{{ \Illuminate\Support\Str::title($subcat->name) }}</a></li>
                 <li class="breadcrumb-item">{{ $prod->name }}</li>
             </ol>
         </div>
@@ -342,7 +343,8 @@
                         @foreach($related as $prod)
                             @include('front.product.partials.product-category', [
                                           'product' => $prod,
-                                          'link' => route('proizvod', [
+                                          'link' => route('gcp_route', [
+                                              'group' => \Illuminate\Support\Str::slug($prod->category()->group),
                                               'cat' => isset($prod->category()->slug) ? $prod->category()->slug : '',
                                               'subcat' => $prod->subcategory() ? $prod->subcategory()->slug : '',
                                               'prod' => $prod->slug

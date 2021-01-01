@@ -1,6 +1,6 @@
-<div class="product clearfix" >
-    <div class="product-inner" >
-        <div class="product-image ">
+<div class="product clearfix">
+    <div class="product-inner">
+        <div class="product-image">
             <a href="{{ $link }}"><img loading="lazy" src="{{ asset($product->image) ?? 'media/images/sl-logo.png' }}"
                                        data-src-small="{{ asset($product->image) ?? 'media/images/sl-logo.png' }}"
                                        alt="{{ $product->sku }}"></a>

@@ -341,36 +341,38 @@ Route::get('kontakt', 'Front\HomeController@contact')->name('kontakt');
 Route::post('kontakt-poruka', 'Front\HomeController@message')->name('kontakt.form');
 //
 Route::get('blogs/{cat}/{subcat?}/{page?}', 'Front\BlogController@index')->name('blogovi');
-//
-Route::get('toyota-vilicari', 'Front\CategoryController@toyota')->name('toyota-vilicari');
-//
-Route::get('{group}/{cat?}/{subcat?}', 'Front\CategoryController@index')->name('kategorija');
-//
-Route::get('toyota-vilicari/{cat?}/{subcat?}/{prod?}', 'Front\ProductController@index')->name('proizvod');
 /**
  * Postavke računa korisnika.
  */
-Route::get('moj-racun', 'Front\CustomerController@index')->name('moj');
-Route::get('moj-racun/narudzbe', 'Front\CustomerController@orders')->name('moj.narudzbe');
-Route::get('moj-racun/narudzba/{order}', 'Front\CustomerController@viewOrder')->name('moj.narudzba');
-Route::get('moj-racun/narudzba/ponovi/{order}', 'Front\CustomerController@repeatOrder')->name('moj.narudzba.ponovi');
-Route::get('moj-racun/narudzba/ispis/{order}', 'Front\CustomerController@printOrder')->name('moj.narudzba.ispis');
-Route::get('moj-racun/servis', 'Front\CustomerController@service')->name('moj.servis');
-Route::get('moj-racun/poruke', 'Front\CustomerController@messages')->name('moj.poruke');
-Route::get('moj-racun/poruka/nova/{subject?}', 'Front\CustomerController@newMessage')->name('moj.poruka.nova');
-Route::get('moj-racun/poruka/{message}', 'Front\CustomerController@viewMessage')->name('moj.poruka');
-Route::post('moj-racun/poruka', 'Front\CustomerController@sendMessage')->name('moj.poruka.salji');
-Route::get('moj-racun/postavke', 'Front\CustomerController@settings')->name('moj.postavke');
-Route::post('moj-racun/postavke/promjeni', 'Front\CustomerController@updateAccount')->name('moj.postavke.promijeni');
+Route::prefix('moj-racun')->group(function () {
+    Route::get('/', 'Front\CustomerController@index')->name('moj');
+    Route::get('narudzbe', 'Front\CustomerController@orders')->name('moj.narudzbe');
+    Route::get('narudzba/{order}', 'Front\CustomerController@viewOrder')->name('moj.narudzba');
+    Route::get('narudzba/ponovi/{order}', 'Front\CustomerController@repeatOrder')->name('moj.narudzba.ponovi');
+    Route::get('narudzba/ispis/{order}', 'Front\CustomerController@printOrder')->name('moj.narudzba.ispis');
+    Route::get('servis', 'Front\CustomerController@service')->name('moj.servis');
+    Route::get('poruke', 'Front\CustomerController@messages')->name('moj.poruke');
+    Route::get('poruka/nova/{subject?}', 'Front\CustomerController@newMessage')->name('moj.poruka.nova');
+    Route::get('poruka/{message}', 'Front\CustomerController@viewMessage')->name('moj.poruka');
+    Route::post('poruka', 'Front\CustomerController@sendMessage')->name('moj.poruka.salji');
+    Route::get('postavke', 'Front\CustomerController@settings')->name('moj.postavke');
+    Route::post('postavke/promjeni', 'Front\CustomerController@updateAccount')->name('moj.postavke.promijeni');
+});
 /**
  * Cart and checkout controllers.
  * Together with cart API endpoints.
  */
-Route::get('kosarica', 'Front\CartController@index')->name('kosarica');
-Route::get('kosarica/naplata', 'Front\CartController@checkout')->name('naplata');
-Route::post('kosarica/naplata', 'Front\CheckoutController@proccessOrder')->name('napravi.narudzbu');
-Route::get('kosarica/success', 'Front\CheckoutController@success')->name('narudzba.ok');
-Route::get('kosarica/error', 'Front\CheckoutController@error')->name('narudzba.error');
+Route::prefix('kosarica')->group(function () {
+    Route::get('/', 'Front\CartController@index')->name('kosarica');
+    Route::get('naplata', 'Front\CartController@checkout')->name('naplata');
+    Route::post('naplata', 'Front\CheckoutController@proccessOrder')->name('napravi.narudzbu');
+    Route::get('success', 'Front\CheckoutController@success')->name('narudzba.ok');
+    Route::get('error', 'Front\CheckoutController@error')->name('narudzba.error');
+});
+/*
+ * Groups, Categories and Products routes resolver.
+ */
+Route::get('{group}/{cat?}/{subcat?}/{prod?}', 'Front\GCP_RouteController@resolve')->name('gcp_route');
 /*
  * Front TEST routes.
  */

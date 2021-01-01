@@ -23,7 +23,8 @@
                     @foreach($products as $product)
                         @include('front.product.partials.product-category', [
                                   'product' => $product,
-                                  'link' => route('proizvod', [
+                                  'link' => route('gcp_route', [
+                                      'group' => \Illuminate\Support\Str::slug($product->category()->group),
                                       'cat' => isset($product->category()->slug) ? $product->category()->slug : '',
                                       'subcat' => $product->subcategory() ? $product->subcategory()->slug : 'ikoi',
                                       'prod' => $product->slug

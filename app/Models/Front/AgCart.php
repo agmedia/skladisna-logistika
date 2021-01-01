@@ -2,10 +2,12 @@
 
 namespace App\Models\Front;
 
+use App\Models\Front\Cart\Totals;
 use App\Models\Front\Product\Action;
 use Darryldecode\Cart\CartCondition;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class AgCart extends Model
@@ -46,10 +48,12 @@ class AgCart extends Model
             'count'      => $this->cart->getTotalQuantity(),
             'subtotal'   => $this->cart->getSubTotal(),
             'conditions' => $this->cart->getConditions(),
-            'total'      => $this->cart->getTotal()
+            'total'      => $this->cart->getTotal(),
         ];
         $response['tax'] = $this->getTax($response);
         $response['total'] = $this->cart->getTotal() + $response['tax'][0]['value'];
+
+        $response['totals'] = $this->getTotals();
 
         return $response;
     }
@@ -296,6 +300,20 @@ class AgCart extends Model
                 'value' => $cart['subtotal'] * 0.25
             ]
         ];
+    }
+
+
+    private function getTotals()
+    {
+        $response = [];
+
+        $totals = new Totals($this->cart);
+
+        if ($totals->hasActive()) {
+            $response = $totals->fetch();
+        }
+
+        return $response;
     }
 
 }

@@ -7,7 +7,7 @@
 @section ( 'title', 'Rabljeni viličari')
 
 @section('content')
-    <section id="slider" class="slider-element slider-parallax" style="background: url({{ asset('images/banners/banner_i_site-01.jpg') }}) center center; background-size: cover;"  data-height-xl="500" data-height-lg="350" data-height-md="300" data-height-sm="220" data-height-xs="180">
+    <section id="slider" class="slider-element slider-parallax" style="background: url({{ asset('images/banners/rabljeno.jpg') }}) center center; background-size: cover;"  data-height-xl="500" data-height-lg="350" data-height-md="300" data-height-sm="220" data-height-xs="180">
         <div class="slider-parallax-inner">
             <div class="container clearfix">
                 <div class="vertical-middle center">
@@ -33,12 +33,12 @@
 
                 <div class="col_full bottommargin">
                     <div class="form-widget">
-                        <div class="col_two_third offset-2">
+                        <div class="col_full">
                             <p>Odgovor Vam stiže odmah!. Svi upiti tretiraju se povjerljivo u skladu s našim <a href="{{ route('info.page', ['page' => 'pravila-privatnosti-i-kolacici']) }}">Pravilima o privatnosti.</a></p>
                         </div>
                         <form class="nobottommargin" action="{{ route('rabljeno.forma') }}" method="POST">
                             @csrf
-                            <div class="col_two_third offset-2">
+                            <div class="col_full">
                                 <label for="email">Email <small>*</small></label>
                                 <input type="email" id="email" name="email" value="" class="form-control email required">
                                 @error('email')
@@ -46,7 +46,7 @@
                                 @enderror
                             </div>
                             <div class="clear"></div>
-                            <div class="col_two_third offset-2">
+                            <div class="col_full">
                                 <label for="mobile">Broj mobitela <small>*</small></label>
                                 <input type="text" id="mobile" name="mobile" value="" class="form-control required">
                                 @error('mobile')
@@ -54,7 +54,7 @@
                                 @enderror
                             </div>
                             <div class="clear"></div>
-                            <div class="col_two_third offset-2">
+                            <div class="col_full">
                                 <label for="oib">OIB firme ili obrta <small>*</small></label>
                                 <input type="text" id="oib" name="oib" value="" class="form-control required">
                                 @error('oib')
@@ -62,12 +62,12 @@
                                 @enderror
                             </div>
                             <div class="clear"></div>
-                            <div class="col_two_third offset-2">
+                            <div class="col_full">
                                 <hr>
                             </div>
                             <div class="clear"></div>
 
-                            <div class="col_two_third offset-2">
+                            <div class="col_full">
                                 <label for="location">Lokacija gdje će viličar raditi</label>
                                 <select class="form-control" name="location" id="location" aria-invalid="false">
                                     <option value="0">--- Odaberite jednu od opcija ---</option>
@@ -75,17 +75,17 @@
                                     <option value="other">Za slučaj druge lokacije unijeti točnu adresu, grad</option>
                                 </select>
                             </div>
-                            <div class="col_two_third offset-2 hidden" id="location-address-div">
+                            <div class="col_full hidden" id="location-address-div">
                                 <label for="location-address">Adresa lokacije</label>
                                 <input type="text" id="location-address" name="location_address" value="" class="form-control">
                             </div>
                             <div class="clear"></div>
-                            <div class="col_two_third offset-2">
+                            <div class="col_full">
                                 <hr>
                             </div>
                             <div class="clear"></div>
 
-                            <div class="col_two_third offset-2">
+                            <div class="col_full">
                                 <label for="type">Vrsta viličara</label>
                                 <select class="form-control" name="type" id="type" aria-invalid="false">
                                     <option value="0">--- Odaberite jednu od opcija ---</option>
@@ -97,13 +97,13 @@
                                     <option value="rg">REGALNI</option>
                                 </select>
                             </div>
-                            <div class="col_two_third offset-2">
+                            <div class="col_full">
                                 <label for="weight">Nosivost <small style="color: #bcbcbc;">*Odaberite vrstu viličara prije odabira nosivosti.</small></label>
                                 <select class="form-control" name="weight" id="weight-fork">
                                     <option value="0">--- Odaberite jednu od opcija ---</option>
                                 </select>
                             </div>
-                            <div class="col_two_third offset-2">
+                            <div class="col_full">
                                 <label for="type" id="height-label">Visina dozanja</label>
                                 <select class="form-control" name="height" id="height-fork" aria-invalid="false">
                                     <option value="">--- Odaberite jednu od opcija ---</option>
@@ -117,33 +117,33 @@
                             </div>
 
                             <div class="clear"></div>
-                            <div class="col_two_third offset-2">
+                            <div class="col_full">
                                 <hr>
                             </div>
                             <div class="clear"></div>
 
-                            <div class="col_two_third offset-2">
+                            <div class="col_full">
                                 <label for="rent-date-start">Početak najma</label>
                                 <input type="text" name="rent_start_date" id="rent-date-start" class="form-control input-datepicker text-left" value="" placeholder="Odaberite početak trajanja najma viličara">
                             </div>
-                            <div class="col_two_third offset-2 input-daterange">
+                            <div class="col_full input-daterange">
                                 <label for="rent-date-end">Kraj najma</label>
                                 <input type="text" name="rent_end_date" id="rent-date-end" class="form-control input-datepicker text-left" value="" placeholder="Odaberite kraj trajanja najma viličara">
                             </div>
 
                             <div class="clear"></div>
-                            <div class="col_two_third offset-2">
+                            <div class="col_full">
                                 <hr>
                             </div>
                             <div class="clear"></div>
 
-                            <div class="col_two_third offset-2">
+                            <div class="col_full">
                                 <label for="on-location">
                                     <input type="checkbox" name="on_location" id="on-location" class="mr-2" value="1">
                                     TREBAM DA SE VILIČAR DOSTAVI NA LOKACIJU
                                 </label>
                             </div>
-                            <div class="col_two_third offset-2">
+                            <div class="col_full">
                                 <label for="has-ramp">
                                     <input type="checkbox" name="has_ramp" id="has-ramp" class="mr-2" value="1">
                                     IMAM ISTOVARNU RAMPU
@@ -151,18 +151,18 @@
                             </div>
 
                             <div class="clear"></div>
-                            <div class="col_two_third offset-2">
+                            <div class="col_full">
                                 <hr>
                             </div>
                             <div class="clear"></div>
 
-                            <div class="col_two_third offset-2">
+                            <div class="col_full">
                                 <input type="checkbox" name="consent" value="da"> Pročitao sam i slažem se s <a href="{{ route('info.page', ['page' => 'pravila-privatnosti-i-kolacici']) }}"> Politikom o zaštiti privatnosti i kolačićima</a>
                                 @error('consent')
                                 <br><span class="text-danger font-size-sm">Prihvačanje politike privatnosti i kolačića je obvezno!</span>
                                 @enderror
                             </div>
-                            <div class="col_two_third offset-2">
+                            <div class="col_full">
                                 <button class="btn btn-red nomargin" type="submit">Pošalji poruku</button>
                             </div>
                             <div class="clear"></div>

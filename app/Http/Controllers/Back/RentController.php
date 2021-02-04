@@ -50,27 +50,9 @@ class RentController extends Controller
      */
     public function show(Request $request, $id)
     {
-        //dd($request);
-        $product         = new Product();
-        $product_updated = $product->validateRequest($request)->store($id);
+        $rent = Rent::where('id', $id)->first();
 
-        if ($product_updated) {
-            if ($request->has('blocks')) {
-                ProductBlock::store($request, $product_updated['id']);
-            }
-
-            $product_updated->storeImages($request);
-
-            if ($request->hasFile('file')) {
-                $filepath = Photo::imageUpload($request->file('file'), $product_updated, 'pdf', 'pdf');
-
-                Product::updateFilePath($product_updated, $filepath);
-            }
-
-            return redirect()->back()->with(['success' => 'Proizvod je uspješno snimljen.!']);
-        }
-
-        return redirect()->back()->with(['error' => 'Whoops..! Došlo je do greške sa snimanjem proizvoda.']);
+        return view('back.rents.show', compact('rent'));
     }
 
 

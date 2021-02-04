@@ -63,7 +63,7 @@ class WidgetController extends Controller
         $stored = $widget->validateRequest($request)->setUrl()->store();
 
         if ($stored) {
-            if ($request->has('image') && $request->input('image')) {
+            if (Widget::hasImage($request)) {
                 $stored->resolveImage($request);
             }
 

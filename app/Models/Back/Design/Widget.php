@@ -143,7 +143,13 @@ class Widget extends Model
      */
     public function resolveImage($request)
     {
-        $data = json_decode($request->image);
+        if ($request->image) {
+            $data = json_decode($request->image);
+        }
+        if ($request->image_long) {
+            $data = json_decode($request->image_long);
+        }
+
         $type = str_replace('image/', '', $data->output->type);
         $name = str_replace('.' . $type, '', $data->output->name);
 
@@ -166,6 +172,9 @@ class Widget extends Model
     }
 
 
+    /**
+     * @return array[]
+     */
     public function sizes()
     {
         return [
@@ -197,5 +206,23 @@ class Widget extends Model
     private function setRequest($request)
     {
         $this->request = $request;
+    }
+
+
+    /**
+     * @param $request
+     *
+     * @return bool
+     */
+    public static function hasImage($request)
+    {
+        if ($request->has('image') && $request->input('image')) {
+            return true;
+        }
+        if ($request->has('image_long') && $request->input('image_long')) {
+            return true;
+        }
+
+        return false;
     }
 }

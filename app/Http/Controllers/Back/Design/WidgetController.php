@@ -112,7 +112,7 @@ class WidgetController extends Controller
         $updated = $widget->validateRequest($request)->setUrl()->edit($id);
 
         if ($updated) {
-            if ($request->has('image') && $request->input('image')) {
+            if (Widget::hasImage($request)) {
                 $updated->resolveImage($request);
             }
 

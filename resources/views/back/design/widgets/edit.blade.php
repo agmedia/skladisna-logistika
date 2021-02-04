@@ -4,43 +4,7 @@
     <link rel="stylesheet" href="{{ asset('css/core.edit.css') }}">
     <link rel="stylesheet" href="{{ asset('css/plugins/slim/slim.css') }}">
     <style>
-        .fileContainer {
-            overflow: hidden;
-            position: relative;
-        }
 
-        .fileContainer [type=file] {
-            cursor: inherit;
-            display: block;
-            font-size: 999px;
-            filter: alpha(opacity=0);
-            min-height: 34px;
-            min-width: 100%;
-            opacity: 0;
-            position: absolute;
-            right: 0;
-            text-align: right;
-            top: 0;
-        }
-
-        .fileContainer {
-            background: #E3E3E3;
-            float: left;
-            padding: .5em 1.5rem;
-            height: 34px;
-        }
-
-        .fileContainer [type=file] {
-            cursor: pointer;
-        }
-
-
-        img.preview {
-            width: 200px;
-            background-color: white;
-            border: 1px solid #DDD;
-            padding: 5px;
-        }
 
         .ag-hide {
             display: none;
@@ -97,7 +61,7 @@
                                                  data-force-size="1024,320"
                                                  data-max-file-size="2">
                                                 <img src="{{ isset($widget) && isset($widget->image) ? asset($widget->image) : '' }}" alt=""/>
-                                                <input type="file" name="image"/>
+                                                <input type="file" name="image_long"/>
                                             </div>
                                         </div>
                                     </div>

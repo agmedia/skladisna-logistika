@@ -171,13 +171,13 @@
                         <li class="{{ request()->is('admin/settings/store/*') ? 'open' : '' }}">
                             <a class="nav-submenu" data-toggle="nav-submenu" href="#"><span class="sidebar-mini-hide">Postavke trgovine</span></a>
                             <ul>
-                                <li class="{{ request()->is('admin/settings/store/geo-zones') ? 'open' : '' }}">
+<!--                                <li class="{{ request()->is('admin/settings/store/geo-zones') ? 'open' : '' }}">
                                     <a class="{{ request()->is('admin/settings/store/geo-zones') ? ' active' : '' }}" href="{{ route('geo-zones') }}"><span class="sidebar-mini-hide">Geo zone</span></a>
-                                </li>
+                                </li>-->
                                 <li class="{{ request()->is('admin/settings/store/order-status') ? 'open' : '' }}">
                                     <a class="{{ request()->is('admin/settings/store/order-status') ? ' active' : '' }}" href="{{ route('order-status') }}"><span class="sidebar-mini-hide">Statusi narudžbe</span></a>
                                 </li>
-                                <li class="{{ request()->is('admin/settings/store/payments') ? 'open' : '' }}">
+<!--                                <li class="{{ request()->is('admin/settings/store/payments') ? 'open' : '' }}">
                                     <a class="{{ request()->is('admin/settings/store/payments') ? ' active' : '' }}" href="{{ route('payments') }}"><span class="sidebar-mini-hide">Načini plaćanja</span></a>
                                 </li>
                                 <li class="{{ request()->is('admin/settings/store/shipments') ? 'open' : '' }}">
@@ -188,12 +188,12 @@
                                 </li>
                                 <li class="{{ request()->is('admin/settings/store/totals') ? 'open' : '' }}">
                                     <a class="{{ request()->is('admin/settings/store/totals') ? ' active' : '' }}" href="{{ route('totals') }}"><span class="sidebar-mini-hide">Suma na narudžbi</span></a>
-                                </li>
+                                </li>-->
                             </ul>
                         </li>
-                        <li>
+<!--                        <li>
                             <a class="" href="#">Postavke aplikacije</a>
-                        </li>
+                        </li>-->
                     </ul>
                 </li>
                 @if (auth()->user()->email == 'filip@agmedia.hr' || auth()->user()->email == 'tomislav@agmedia.hr')

@@ -109,6 +109,13 @@
                     </a>
                 </li>
 
+                <!-- RENT -->
+                <li>
+                    <a class="{{ (request()->is('admin/rents') or request()->is('admin/rents/*')) ? ' active' : '' }}" href="{{ route('rents') }}">
+                        <i class="si si-clock"></i><span class="sidebar-mini-hide">Najam</span>
+                    </a>
+                </li>
+
                 <!-- MARKETING -->
                 <li class="{{ (request()->is('admin/marketing') or request()->is('admin/marketing/*')) ? 'open' : '' }}">
                     <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-diamond"></i><span class="sidebar-mini-hide">Marketing</span></a>

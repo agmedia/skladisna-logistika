@@ -77,6 +77,12 @@ Route::middleware('auth', 'noCustomers')->group(function () {
             Route::patch('transaction/{transaction}', 'Back\Orders\TransactionController@update')->name('transaction.update');
         });
         //
+        // RENTS Group
+        Route::prefix('rents')->group(function () {
+            Route::get('/', 'Back\RentController@index')->name('rents');
+            Route::get('show/{id}', 'Back\RentController@show')->name('rent.show');
+        });
+        //
         // MARKETING Group
         Route::prefix('marketing')->middleware('emptyClientData')->group(function () {
             // Actions
@@ -330,9 +336,6 @@ Route::get('pretraga', 'Api\v1\SearchController@all')->name('search.all');
 // FRONT routes
 //
 Route::get('/', 'Front\HomeController@home')->name('index');
-Route::get('info/{page}', 'Front\HomeController@page')->name('info.page');
-Route::get('info/o-nama', 'Front\HomeController@page')->name('o-nama');
-Route::get('info/servis-vilicara', 'Front\HomeController@page')->name('servis');
 Route::get('access/vip/{landing}', 'Front\LandingController@index')->name('landing');
 Route::get('tal/{page?}', 'Front\HomeController@tal')->name('tal');
 Route::get('partner/{manufacturer?}', 'Front\HomeController@partner')->name('partner');
@@ -341,6 +344,15 @@ Route::get('kontakt', 'Front\HomeController@contact')->name('kontakt');
 Route::post('kontakt-poruka', 'Front\HomeController@message')->name('kontakt.form');
 //
 Route::get('blogs/{cat}/{subcat?}/{page?}', 'Front\BlogController@index')->name('blogovi');
+//
+Route::get('rabljeno', 'Front\RentController@index')->name('rabljeno');
+Route::post('rabljeno-forma', 'Front\RentController@send')->name('rabljeno.forma');
+//
+Route::prefix('info')->group(function () {
+    Route::get('{page}', 'Front\HomeController@page')->name('info.page');
+    Route::get('o-nama', 'Front\HomeController@page')->name('o-nama');
+    Route::get('servis-vilicara', 'Front\HomeController@page')->name('servis');
+});
 /**
  * Postavke računa korisnika.
  */

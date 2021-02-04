@@ -111,7 +111,7 @@
                 <div class="section nomargin noborder bgcolor dark" style="padding: 40px 0;">
                     <div class="container clearfix">
                         <div class="heading-block center nobottomborder nobottommargin topmargin-sm" style="padding:0px 4%">
-                            <h2>"{{ $landing->statement }}"</h2>
+                            <h2>{!! $landing->statement !!}</h2>
                             @if ( ! empty($landing->download_url))
                                 <div class="container clearfix center bottommargin-sm topmargin-sm">
                                     <a href="{{ asset($landing->download_url) }}" download="{{ \Illuminate\Support\Str::slug($landing->client) }}-SkladisnaLogistikaPonuda" class="btn btn-lg btn-white">Pogledajte ponudu</a>

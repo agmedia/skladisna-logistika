@@ -112,8 +112,6 @@ class Widget extends Model
      */
     public function edit($id)
     {
-        Log::warning($this->request);
-
         $ok = $this->where('id', $id)->update([
             'group'      => Str::upper($this->request->group),
             'title'      => $this->request->title,

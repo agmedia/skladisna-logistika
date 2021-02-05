@@ -1,13 +1,14 @@
 @extends('front.layouts.core')
 
 @push('css')
-    <link rel="stylesheet" href="{{ asset('temp/css/components/datepicker.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('temp/css/components/datepicker.css') }}" type="text/css"/>
 @endpush
 
 @section ( 'title', 'Rabljeni viličari')
 
 @section('content')
-    <section id="slider" class="slider-element slider-parallax" style="background: url({{ asset('images/banners/rabljeno.jpg') }}) center center; background-size: cover;"  data-height-xl="500" data-height-lg="350" data-height-md="300" data-height-sm="220" data-height-xs="180">
+    <section id="slider" class="slider-element slider-parallax" style="background: url({{ asset('images/banners/rabljeno.jpg') }}) center center; background-size: cover;" data-height-xl="500" data-height-lg="350" data-height-md="300" data-height-sm="220"
+             data-height-xs="180">
         <div class="slider-parallax-inner">
             <div class="container clearfix">
                 <div class="vertical-middle center">
@@ -86,9 +87,54 @@
                             <div class="clear"></div>
 
                             <div class="col_full">
+                                <label style="margin-bottom: 30px;">Vrsta viličara</label>
+                                <div class="row car-list btn-group">
+                                    <label class="car-image pr-0 col-6 col-md-3 col-lg-2">
+                                        <div class="ml-0">
+                                            <input type="radio" name="type" id="car-rental-cars-creta" value="ce"> ČEONI ELEKTRIČNI<br><br>
+                                            <img src="{{ asset('media/images/gallery/category/elektricni-ceoni-vilicari.jpg') }}" alt="Image">
+                                        </div>
+                                    </label>
+
+                                    <label class="car-image px-0 col-6 col-md-3 col-lg-2">
+                                        <div>
+                                            <input type="radio" name="type" id="car-rental-cars-creta" value="cp"> ČEONI PLINSKI<br><br>
+                                            <img src="{{ asset('media/images/gallery/category/plinski-i-diesel-ceoni-vilicari.jpg') }}" alt="Image">
+                                        </div>
+                                    </label>
+
+                                    <label class="car-image px-0 col-6 col-md-3 col-lg-2">
+                                        <div class="ml-3 ml-md-2">
+                                            <input type="radio" name="type" id="car-rental-cars-creta" value="cd"> ČEONI DIESEL<br><br>
+                                            <img src="{{ asset('media/images/gallery/category/plinski-i-diesel-ceoni-vilicari.jpg') }}" alt="Image">
+                                        </div>
+                                    </label>
+
+                                    <label class="car-image px-0 col-6 col-md-3 col-lg-2">
+                                        <div>
+                                            <input type="radio" name="type" id="car-rental-cars-creta" value="rv"> RUČNI BATERIJSKI SA KRANOM (VISOKOPODIZNI)
+                                            <img src="{{ asset('media/images/gallery/category/elektricni-visokopodizni-vilicari.jpg') }}" alt="Image">
+                                        </div>
+                                    </label>
+                                    <label class="car-image px-0 col-6 col-md-3 col-lg-2">
+                                        <div>
+                                            <input type="radio" name="type" id="car-rental-cars-creta" value="rn"> RUČNI BATERIJSKI BEZ KRANA (NISKOPODIZNI)
+                                            <img src="{{ asset('media/images/gallery/category/elektricni-niskopodizni-paletni-vilicari.jpg') }}" alt="Image">
+                                        </div>
+                                    </label>
+                                    <label class="car-image px-0 col-6 col-md-3 col-lg-2">
+                                        <div>
+                                            <input type="radio" name="type" id="car-rental-cars-creta" value="rg"> REGALNI<br><br>
+                                            <img src="{{ asset('media/images/gallery/category/elektricni-regalni-vilicari.jpg') }}" alt="Image">
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+<!--                            <div class="col_full">
                                 <label for="type">Vrsta viličara</label>
                                 <select class="form-control" name="type" id="type" aria-invalid="false">
-                                    <option value="0">--- Odaberite jednu od opcija ---</option>
+                                    <option value="0">-&#45;&#45; Odaberite jednu od opcija -&#45;&#45;</option>
                                     <option value="ce">ČEONI ELEKTRIČNI</option>
                                     <option value="cp">ČEONI PLINSKI</option>
                                     <option value="cd">ČEONI DIESEL</option>
@@ -96,7 +142,7 @@
                                     <option value="rn">RUČNI BATERIJSKI BEZ KRANA (NISKOPODIZNI)</option>
                                     <option value="rg">REGALNI</option>
                                 </select>
-                            </div>
+                            </div>-->
                             <div class="col_full">
                                 <label for="weight">Nosivost <small style="color: #bcbcbc;">*Odaberite vrstu viličara prije odabira nosivosti.</small></label>
                                 <select class="form-control" name="weight" id="weight-fork">
@@ -179,89 +225,35 @@
     <script>
         $(() => {
             let ceoni = [
-                {
-                    value: 1,
-                    label: 'DO 1 T'
-                },
-                {
-                    value: 1.5,
-                    label: 'DO 1,5 T'
-                },
-                {
-                    value: 2,
-                    label: 'DO 2 T'
-                },
-                {
-                    value: 2.5,
-                    label: 'DO 2,5 T'
-                },
-                {
-                    value: 3,
-                    label: 'DO 3 T'
-                },
-                {
-                    value: 3.5,
-                    label: 'DO 3,5 T'
-                },
-                {
-                    value: 5,
-                    label: 'DO 5 T'
-                },
-                {
-                    value: 6,
-                    label: 'VIŠE OD 5 T'
-                }
+                {value: 1, label: 'DO 1 T'},
+                {value: 1.5, label: 'DO 1,5 T'},
+                {value: 2, label: 'DO 2 T'},
+                {value: 2.5, label: 'DO 2,5 T'},
+                {value: 3, label: 'DO 3 T'},
+                {value: 3.5, label: 'DO 3,5 T'},
+                {value: 5, label: 'DO 5 T'},
+                {value: 6, label: 'VIŠE OD 5 T'}
             ];
             let sakranom = [
-                {
-                    value: 1,
-                    label: 'DO 1 T'
-                },
-                {
-                    value: 1.2,
-                    label: 'DO 1,2 T'
-                },
-                {
-                    value: 1.4,
-                    label: 'DO 1,4 T'
-                },
-                {
-                    value: 1.45,
-                    label: 'DO 1,45 T'
-                },
-                {
-                    value: 1.6,
-                    label: 'DO 1,6 T'
-                }
+                {value: 1, label: 'DO 1 T'},
+                {value: 1.2, label: 'DO 1,2 T'},
+                {value: 1.4, label: 'DO 1,4 T'},
+                {value: 1.45, label: 'DO 1,45 T'},
+                {value: 1.6, label: 'DO 1,6 T'}
             ];
             let bezkrana = [
-                {
-                    value: 1.6,
-                    label: 'DO 1,6 T'
-                },
-                {
-                    value: 1.8,
-                    label: 'DO 1,8 T'
-                },
-                {
-                    value: 2.0,
-                    label: 'DO 2,0 T'
-                }
+                {value: 1.6, label: 'DO 1,6 T'},
+                {value: 1.8, label: 'DO 1,8 T'},
+                {value: 2.0, label: 'DO 2,0 T'}
             ];
             let regalni = [
-                {
-                    value: 1.4,
-                    label: 'DO 1,4 T'
-                },
-                {
-                    value: 1.6,
-                    label: 'DO 1,6 T'
-                }
+                {value: 1.4, label: 'DO 1,4 T'},
+                {value: 1.6, label: 'DO 1,6 T'}
             ];
 
             let date_options = {
-                autoclose: true,
-                startDate: "today",
+                autoclose:      true,
+                startDate:      "today",
                 todayHighlight: true
             };
 
@@ -276,31 +268,32 @@
                 }
             });
 
-            $('#type').on('change', (e) => {
+            $('input[name="type"]').change((e) => {
+                let type = e.currentTarget.value;
                 let str = '<option value="0">--- Odaberite jednu od opcija ---</option>';
 
-                if (e.currentTarget.value == 'ce' || e.currentTarget.value == 'cp' || e.currentTarget.value == 'cd') {
+                if (type == 'ce' || type == 'cp' || type == 'cd') {
                     for (let item of ceoni) {
                         str += "<option value='" + item.value + "'>" + item.label + "</option>"
                     }
                     heightResolve();
                 }
 
-                if (e.currentTarget.value == 'rv') {
+                if (type == 'rv') {
                     for (let item of sakranom) {
                         str += "<option value='" + item.value + "'>" + item.label + "</option>"
                     }
                     heightResolve();
                 }
 
-                if (e.currentTarget.value == 'rn') {
+                if (type == 'rn') {
                     for (let item of bezkrana) {
                         str += "<option value='" + item.value + "'>" + item.label + "</option>"
                     }
                     heightResolve('remove');
                 }
 
-                if (e.currentTarget.value == 'rg') {
+                if (type == 'rg') {
                     for (let item of regalni) {
                         str += "<option value='" + item.value + "'>" + item.label + "</option>"
                     }

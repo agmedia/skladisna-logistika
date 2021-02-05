@@ -19,19 +19,25 @@
                                 </div>
                                 <p class="text-center nobottommargin " style="margin-top:10px"><input type="checkbox" class="chk2" id="newsletter-cb"> Dajem <a href="https://www.skladisna-logistika.hr/info/izjava-o-davanju-suglasnosti-za-obradu-osobnih-podataka" target="_blank">privolu</a> za primanje Newsletter-a.</p>
                             </div>
-                            <div class="col-md-4 col-xs-12  widget_links">
+                            <div class="col-md-3 col-xs-12  widget_links">
                                 <h3>Odjel prodaje</h3>
                                 <address><strong>Goran Kerečin - voditelj prodaje</strong><br>Tel.: <a href="tel:0038513374143">+385 1 3374 143</a><br>Mob.:&nbsp; <a href="tel:00385992286606">+385 99 2286 606</a><br>E-mail: <a href="mailto:goran.kerecin@skladisna-logistika.hr">goran.kerecin@skladisna-logistika.hr</a></address>
                             </div>
-                            <div class="col-md-4 col-xs-12 widget_links">
+                            <div class="col-md-3 col-xs-12 widget_links">
                                 <h3>Prijava kvarova - Servis</h3>
                                 <address><strong>Goran Baković</strong> - voditelj terenskog servisa<br>Tel.: <a href="tel:0038516150409">+385 1 6150 409</a><br>Mob.: <a href="tel:00385994904641">+385 99 4904 641</a><br> E-mail: <a href="mailto:goran.bakovic@skladisna-logistika.hr">goran.bakovic@skladisna-logistika.hr</a></address>
                             </div>
-                            <div class="col-md-4 col-xs-12  widget_links">
+                            <div class="col-md-3 col-xs-12  widget_links">
+                                <h3>Voditelj odjela za najam i prodaju rabljenih viličara</h3>
+                                <address><strong>Ivan Ratković</strong> - voditelj terenskog servisa<br>Fax.: <a href="tel:0038516536027">+385 1 6536 027</a><br>Mob.: <a href="tel:00385992935474"> +385 (0) 99 2935 474</a><br> E-mail: <a href="mailto:ivan.ratkovic@skladisna-logistika.hr">ivan.ratkovic@skladisna-logistika.hr</a></address>
+
+                            </div>
+                            <div class="col-md-3 col-xs-12  widget_links">
                                 <h3>Skladišna logistika d.o.o.</h3>
                                 <address>Ventilatorska cesta 5a<br>10251 Hrvatski Leskovac - Zagreb<br>Tel.: <a href="tel:0038516536026">+385 1 6536 026</a> - Fax.: +385 1 6536027<br> E-mail: <a href="mailto:info@skladisna-logistika.hr">info@skladisna-logistika.hr</a></address>
 
                             </div>
+
                         </div>
                     </div>
                 </div>

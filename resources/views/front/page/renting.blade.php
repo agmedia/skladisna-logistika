@@ -89,41 +89,41 @@
                             <div class="col_full">
                                 <label style="margin-bottom: 30px;">Vrsta viličara</label>
                                 <div class="row car-list btn-group">
-                                    <label class="car-image pr-0 col-6 col-md-3 col-lg-2">
-                                        <div class="ml-0">
+                                    <label class="car-image px-0 col-6 col-md-3 col-lg-2">
+                                        <div class="img-form">
                                             <input type="radio" name="type" id="car-rental-cars-creta" value="ce"> ČEONI ELEKTRIČNI<br><br>
                                             <img src="{{ asset('media/images/gallery/category/elektricni-ceoni-vilicari.jpg') }}" alt="Image">
                                         </div>
                                     </label>
 
                                     <label class="car-image px-0 col-6 col-md-3 col-lg-2">
-                                        <div>
+                                        <div class="img-form">
                                             <input type="radio" name="type" id="car-rental-cars-creta" value="cp"> ČEONI PLINSKI<br><br>
                                             <img src="{{ asset('media/images/gallery/category/plinski-i-diesel-ceoni-vilicari.jpg') }}" alt="Image">
                                         </div>
                                     </label>
 
                                     <label class="car-image px-0 col-6 col-md-3 col-lg-2">
-                                        <div class="ml-3 ml-md-2">
+                                        <div class="img-form">
                                             <input type="radio" name="type" id="car-rental-cars-creta" value="cd"> ČEONI DIESEL<br><br>
                                             <img src="{{ asset('media/images/gallery/category/plinski-i-diesel-ceoni-vilicari.jpg') }}" alt="Image">
                                         </div>
                                     </label>
 
                                     <label class="car-image px-0 col-6 col-md-3 col-lg-2">
-                                        <div>
+                                        <div class="img-form">
                                             <input type="radio" name="type" id="car-rental-cars-creta" value="rv"> RUČNI BATERIJSKI SA KRANOM (VISOKOPODIZNI)
                                             <img src="{{ asset('media/images/gallery/category/elektricni-visokopodizni-vilicari.jpg') }}" alt="Image">
                                         </div>
                                     </label>
                                     <label class="car-image px-0 col-6 col-md-3 col-lg-2">
-                                        <div>
+                                        <div class="img-form">
                                             <input type="radio" name="type" id="car-rental-cars-creta" value="rn"> RUČNI BATERIJSKI BEZ KRANA (NISKOPODIZNI)
                                             <img src="{{ asset('media/images/gallery/category/elektricni-niskopodizni-paletni-vilicari.jpg') }}" alt="Image">
                                         </div>
                                     </label>
                                     <label class="car-image px-0 col-6 col-md-3 col-lg-2">
-                                        <div>
+                                        <div class="img-form">
                                             <input type="radio" name="type" id="car-rental-cars-creta" value="rg"> REGALNI<br><br>
                                             <img src="{{ asset('media/images/gallery/category/elektricni-regalni-vilicari.jpg') }}" alt="Image">
                                         </div>

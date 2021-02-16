@@ -38,7 +38,11 @@
                                 </a>
                             </td>
                             <td class="text-center">{{ $rent->email }}</td>
-                            <td class="font-w600 pl-3">{{ $rent->type }}</td>
+                            <td class="font-w600 pl-3">
+                                <a href="{{ route('rent.show', ['id' => $rent->id]) }}">
+                                    {{ $rent->type }}
+                                </a>
+                            </td>
                             <td class="text-center">{{ \Carbon\Carbon::make($rent->rent_start_date)->format('d.m.Y') }}</td>
                             <td class="d-none d-sm-table-cell text-right">
                                 <a href="{{ route('rent.show', ['id' => $rent->id]) }}" class="btn btn-sm btn-circle btn-alt-info js-tooltip-enabled" data-toggle="tooltip" data-title="Pogledaj">

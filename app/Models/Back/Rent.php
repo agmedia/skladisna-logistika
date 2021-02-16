@@ -23,9 +23,9 @@ class Rent extends Model
     /**
      * @param Request $request
      *
-     * @return bool
+     * @return bool|object
      */
-    public static function store(Request $request): bool
+    public static function store(Request $request)
     {
         if ($request->location == 'hc') {
             $location = 'Sjedište firme';
@@ -67,7 +67,7 @@ class Rent extends Model
         ]);
 
         if ($id) {
-            return true;
+            return self::find($id);
         }
 
         return false;

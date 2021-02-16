@@ -56,6 +56,9 @@
                     Napravi Landing Stranicu
                 @endif
                 <button type="submit" class="btn btn-primary btn-sm float-right"><i class="fa fa-save mr-5"></i> Snimi</button>
+                @if (isset($landing))
+                    <a href="{{ route('landing.copy', ['id' => $landing->id]) }}" class="btn btn-secondary btn-sm float-right mr-20"><i class="fa fa-copy mr-5"></i> Kopiraj Landing</a>
+                @endif
             </h2>
 
             <div class="block block-rounded block-shadow">

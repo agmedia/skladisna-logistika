@@ -111,6 +111,7 @@ Route::middleware('auth', 'noCustomers')->group(function () {
                 Route::post('/', 'Back\Marketing\LandingController@store')->name('landing.store');
                 Route::get('{landing}/edit', 'Back\Marketing\LandingController@edit')->name('landing.edit');
                 Route::patch('{landing}', 'Back\Marketing\LandingController@update')->name('landing.update');
+                Route::get('{id}/copy', 'Back\Marketing\LandingController@copy')->name('landing.copy');
             });
         });
         //

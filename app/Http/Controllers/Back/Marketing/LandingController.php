@@ -115,6 +115,37 @@ class LandingController extends Controller
 
 
     /**
+     * Show the form for copying the specified resource.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function copy($id)
+    {
+        $query = (new Landing())->newQuery();
+
+        $old_landing = $query->where('id', $id)->first();
+        $landing = $old_landing->replicate();
+        $landing->title = $old_landing->title . ' - COPY';
+        $landing->client = $old_landing->client . ' - COPY';
+        $landing->created_at = Carbon::now();
+        $landing->updated_at = Carbon::now();
+        $landing->save();
+
+        foreach ($old_landing->sections as $old_section) {
+            $section = $old_section->replicate();
+            $section->landing_id = $landing->id;
+            $section->created_at = Carbon::now();
+            $section->updated_at = Carbon::now();
+            $section->save();
+        }
+
+        return redirect()->route('landing.edit', ['id' => $landing->id]);
+    }
+
+
+    /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request

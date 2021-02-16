@@ -129,6 +129,7 @@ class LandingController extends Controller
         $landing = $old_landing->replicate();
         $landing->title = $old_landing->title . ' - COPY';
         $landing->client = $old_landing->client . ' - COPY';
+        $landing->viewed = 0;
         $landing->created_at = Carbon::now();
         $landing->updated_at = Carbon::now();
         $landing->save();

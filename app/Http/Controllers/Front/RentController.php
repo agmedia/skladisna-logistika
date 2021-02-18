@@ -28,8 +28,6 @@ class RentController extends Controller
      */
     public function send(Request $request)
     {
-        Log::info($request);
-
         $request->validate([
             'email'   => 'required',
             'mobile'  => 'required',
@@ -37,13 +35,11 @@ class RentController extends Controller
             'consent' => 'required',
         ]);
 
-        //return redirect()->back();
-
         $stored = Rent::store($request);
 
         if ($stored) {
             dispatch(function () use ($stored) {
-                Mail::to(config('mail.admin'))->send(new RentMessage($stored));
+                Mail::to('ivan.ratkovic@skladisna-logistika.hr')->send(new RentMessage($stored));
             });
 
             return redirect()->back()->with(['success' => 'Hvala vam na poslanom upitu! Brzo ćemo vas kontaktirati povratno.']);

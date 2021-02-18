@@ -35,6 +35,8 @@ class RentMessage extends Mailable
      */
     public function build()
     {
-        return $this->subject('Dobili ste novu narudžbu za najam na ' . config('app.name'))->view('emails.rent-message')->with(['rent' => $this->rent]);
+        $type = $this->rent['type'] ? $this->rent['type'] : '';
+
+        return $this->subject('Upit za najam: ' . $this->rent['oib'] . ', ' . $type)->view('emails.rent-message')->with(['rent' => $this->rent]);
     }
 }

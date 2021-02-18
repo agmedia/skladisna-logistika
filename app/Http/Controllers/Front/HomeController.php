@@ -78,7 +78,7 @@ class HomeController extends Controller
 
     public function partner(Manufacturer $manufacturer)
     {
-
+        return $this->home();
     }
 
 

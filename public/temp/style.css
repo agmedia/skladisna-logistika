@@ -509,8 +509,8 @@ text-transform: none;}
     border: none;
     padding:1px
 }
-.card-body{
-    border:1px solid rgba(0, 0, 0, 0.125);
+.oc-item .card-body {
+    border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 

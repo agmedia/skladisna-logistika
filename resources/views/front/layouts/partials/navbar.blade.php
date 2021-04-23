@@ -10,8 +10,8 @@
                 </a>
             </span>
             <div id="logo">
-                <a href="{{ route('index') }}" class="standard-logo"><img src="{{ asset('images/logo.svg') }}" alt="{{ config('app.name') }}"></a>
-                <a href="{{ route('index') }}" class="retina-logo"><img src="{{ asset('images/logo.svg') }}" alt="{{ config('app.name') }}"></a>
+                <a href="{{ route('index') }}" class="standard-logo"><img src="{{ asset('images/logo-skladisna.svg') }}" alt="{{ config('app.name') }}"></a>
+                <a href="{{ route('index') }}" class="retina-logo"><img src="{{ asset('images/logo-skladisna.svg') }}" alt="{{ config('app.name') }}"></a>
             </div>
             <nav id="primary-menu" class="d-lg-flex d-xl-flex justify-content-xl-between justify-content-lg-between fnone style-2 with-arrows">
                 <ul class="align-self-start"></ul>

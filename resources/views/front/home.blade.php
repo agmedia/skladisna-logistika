@@ -19,7 +19,7 @@
         <div class="content-wrap notoppadding">
             <!-- MANUFACTURERS CAROUSEL -->
             <div class="container clearfix">
-                <div id="oc-clients" class="owl-carousel owl-carousel-full image-carousel carousel-widget" data-margin="30" data-loop="true" data-nav="false" data-autoplay="5000" data-pagi="false"
+                <div id="oc-clients" class="owl-carousel owl-carousel-full image-carousel carousel-widget" data-margin="30"  data-nav="false"  data-pagi="false"
                      data-items-xs="{{ ($manufacturers->count() > 3) ? 3 : $manufacturers->count() }}"
                      data-items-sm="{{ ($manufacturers->count() > 3) ? 3 : $manufacturers->count() }}"
                      data-items-md="{{ ($manufacturers->count() > 4) ? 4 : $manufacturers->count() }}"

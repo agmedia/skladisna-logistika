@@ -30,9 +30,14 @@
                                 <br>e-mail: <a href="mailto:goran.kerecin@skladisna-logistika.hr">goran.kerecin@skladisna-logistika.hr</a></p>
                             <p><strong>Tomislav Benc - voditelj terenske prodaje</strong><br>Tel.: <a href="tel:+38516536028">+385 1 6536 028</a><br>Mob.:&nbsp; <a href="tel:+385954400400">+ 385 95 4400 400</a><br>e-mail: <a href="mailto:tomislav.benc@skladisna-logistika.hr">tomislav.benc@skladisna-logistika.hr</a></p>
                             <h3>Prijava kvarova</h3>
-                            <p><strong>Goran Baković - voditelj terenskog servisa</strong><br>Tel.: <a href="tel:+38516150409">+385 1 6150 409</a>
-                                <br>Mob.: <a href="tel:+385994904641">+385 99 4904 641</a><br>
-                                e-mail: <a href="mailto:goran.bakovic@skladisna-logistika.hr">goran.bakovic@skladisna-logistika.hr</a></p>
+                            <p><strong>Goran Ivančan - direktor postprodaje</strong><br>Tel.: <a href="tel:+38516150409">+385 1 6150 409</a>
+                                <br>Mob.: <a href="tel:+385992409962">+385 99 240 99 62</a><br>
+                                e-mail: <a href="mailto:goran.ivancan@skladisna-logistika.hr">goran.ivancan@skladisna-logistika.hr</a></p>
+
+                            <p><strong>Juro Katić – voditelj radione</strong><br>Tel.: <a href="tel:+38516150409">+385 1 6150 409</a>
+                                <br>Mob.: <a href="tel:+385997370388">+385 99 7370 388</a><br>
+                                e-mail: <a href="mailto:juro.katic@skladisna-logistika.hr">juro.katic@skladisna-logistika.hr</a></p>
+
                             <h3>Računovodstvo</h3>
                             <p><strong>Kristina Pucko</strong><br> Tel.: <a href="tel:+38516589151">+385 1 6589 151</a><br> e-mail: <a href="mailto:kristina.pucko@skladisna-logistika.hr">kristina.pucko@skladisna-logistika.hr</a></p>
                         </div>
@@ -45,7 +50,7 @@
                             <h3 >Postprodaja i rezervni dijelovi</h3>
                               <p><strong>Goran Ivančan - direktor postprodaje</strong><br> Tel.: <a href="tel:+38513374144">+385 1 3374 144</a><br> Mob.: <a href="tel:+385992409962">+385 99 2409 962</a><br> e-mail: <a href="mailto:goran.ivancan@skladisna-logistika.hr">goran.ivancan@skladisna-logistika.hr</a></p>
                             <p><strong>Marijan Jandrić&nbsp;-&nbsp;voditelj rezervnih dijelova</strong><br> Mob.: <a href="tel:+ 385954841520">+ 385 95 4841 520</a><br> e-mail: <a href="mailto:marijan.jandric@skladisna-logistika.hr">marijan.jandric@skladisna-logistika.hr</a></p>
-                          
+
                         </div>
                     </div>
                 </div>

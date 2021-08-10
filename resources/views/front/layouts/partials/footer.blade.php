@@ -25,7 +25,7 @@
                             </div>
                             <div class="col-md-3 col-xs-12 widget_links">
                                 <h3>Prijava kvarova - Servis</h3>
-                                <address><strong>Goran Baković</strong> - voditelj terenskog servisa<br>Tel.: <a href="tel:0038516150409">+385 1 6150 409</a><br>Mob.: <a href="tel:00385994904641">+385 99 4904 641</a><br> E-mail: <a href="mailto:goran.bakovic@skladisna-logistika.hr">goran.bakovic@skladisna-logistika.hr</a></address>
+                                <address><strong>Goran Ivančan</strong> - direktor postprodaje<br>Tel.: <a href="tel:+385 1 6150 409">+385 1 6150 409</a><br>Mob.: <a href="tel:+385992409962">+385 99 240 99 62</a><br> E-mail: <a href="mailto:goran.ivancan@skladisna-logistika.hr">goran.ivancan@skladisna-logistika.hr</a></address>
                             </div>
                             <div class="col-md-3 col-xs-12 widget_links">
                                 <h3>Voditelj odjela za najam i prodaju rabljenih viličara</h3>
